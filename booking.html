@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Boat - Sequoia Boat Rentals</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <header-component></header-component>
+
+    <main class="booking-page">
+        <div class="container">
+            <h1>Book Your Adventure</h1>
+            <p class="booking-intro">Reserve your eco-friendly inflatable boat today and get ready to explore the beautiful lakes around Kamloops.</p>
+            
+            <div class="booking-container">
+                <div class="booking-steps">
+                    <h2>How It Works</h2>
+                    <ol class="steps-list">
+                        <li>
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h3>Choose Your Lake</h3>
+                                <p>Select from our serviced lakes around Kamloops.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h3>Select Boat & Duration</h3>
+                                <p>Pick your boat type and rental duration.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <h3>Add Optional Extras</h3>
+                                <p>Enhance your experience with our add-ons.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-number">4</span>
+                            <div class="step-content">
+                                <h3>Confirm Boating License</h3>
+                                <p>Verify license or select driver option.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-number">5</span>
+                            <div class="step-content">
+                                <h3>Complete Your Booking</h3>
+                                <p>Finalize details and confirm your adventure.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                
+                <!-- Booking Form Component -->
+                <booking-form-component full-form="true"></booking-form-component>
+            </div>
+            
+            <div class="booking-faq">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <h3>What if I don't have a boating license?</h3>
+                        <p>No problem! We offer two solutions: we can assist you in obtaining a temporary boating license, or you can hire one of our drivers for $25/hour.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is delivery included?</h3>
+                        <p>We offer free delivery to Heffley Lake, Paul Lake, and Kamloops Lake. For other locations, there's a delivery fee of $50 per 100 km from Kamloops.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What's included in the rental?</h3>
+                        <p>All rentals include the inflatable boat, life jackets, and paddles. You can add extras like coolers, speakers, and dry bags for an additional fee.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What's your cancellation policy?</h3>
+                        <p>Cancellations made 48 hours or more before your scheduled rental receive a full refund. Cancellations within 48 hours will receive a 50% refund.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <footer-component></footer-component>
+
+    <!-- Main JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Web Components -->
+    <script src="components/header.js"></script>
+    <script src="components/booking-form.js"></script>
+    <script src="components/footer.js"></script>
+</body>
+</html>

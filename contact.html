@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Sequoia Boat Rentals</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <header-component></header-component>
+
+    <main class="contact-page">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p class="contact-intro">Have questions or need assistance? We're here to help make your lake adventure perfect.</p>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    <div class="info-items">
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>(250) 555-7890</p>
+                                <p class="info-note">Available 7 days a week, 8am - 8pm</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>info@sequoiaboatrentals.com</p>
+                                <p class="info-note">We'll respond within 24 hours</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Location</h3>
+                                <p>Kamloops, British Columbia</p>
+                                <p class="info-note">We deliver to lakes around Kamloops</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h3>Operating Hours</h3>
+                                <p>7 days a week</p>
+                                <p>May through September</p>
+                                <p class="info-note">Reservations required</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <h2>Send Us a Message</h2>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject">
+                                <option value="booking">Booking Inquiry</option>
+                                <option value="info">General Information</option>
+                                <option value="support">Customer Support</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="location-section">
+                <h2>Delivery Information</h2>
+                <div class="delivery-info">
+                    <div class="delivery-text">
+                        <h3>Free Delivery Lakes</h3>
+                        <ul>
+                            <li>Heffley Lake</li>
+                            <li>Paul Lake</li>
+                            <li>Kamloops Lake</li>
+                        </ul>
+                        
+                        <h3>Other Locations</h3>
+                        <p>We deliver to any lake in the region for $50 per 100km from Kamloops.</p>
+                    </div>
+                    
+                    <div class="map-container">
+                        <!-- Placeholder for an interactive map -->
+                        <img src="images/delivery-map.jpg" alt="Delivery area map" class="map-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <footer-component></footer-component>
+
+    <!-- Main JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Web Components -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+</body>
+</html>
