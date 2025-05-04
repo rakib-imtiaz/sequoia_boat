@@ -3,68 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Sequoia Boat Rentals</title>
+    <meta name="description" content="Explore our eco-friendly boat rental services, concierge options, delivery services and add-ons. Sequoia Boat Rentals offers everything you need for a perfect lake day in Kamloops.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Services - Sequoia Boat Rentals</title>
 </head>
 <body>
     <!-- Header Component -->
     <header-component></header-component>
 
     <main class="services-page">
+        <!-- Page Hero Section -->
+        <section class="page-hero">
+            <div class="page-hero-image">
+                <img src="images/boat-family.jpg" alt="Electric inflatable boat rentals" class="hero-bg" 
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x400.jpg?text=Sequoia+Boat+Rental+Services';">
+            </div>
+            <div class="page-hero-overlay"></div>
+            <div class="container">
+                <div class="page-hero-content">
+                    <h1>Our Services</h1>
+                    <p>Eco-friendly boat rentals and concierge services for the perfect lake experience</p>
+                </div>
+            </div>
+        </section>
+
         <div class="container">
-            <h1>Our Services</h1>
-            
-            <section class="service-section boat-rentals">
-                <h2>Boat Rentals</h2>
+            <section class="service-section boat-rentals" id="boat-rentals">
+                <h2 class="section-title">Boat Rentals</h2>
                 <div class="service-content">
-                    <div class="service-description">
-                        <p>We offer electric, eco-friendly inflatable boats that are perfect for exploring the pristine waters around Kamloops. Our boats are easy to operate and provide a peaceful, environmentally friendly way to enjoy the lakes.</p>
+                    <div class="service-media">
+                        <img src="images/boat-small.jpg" alt="Electric inflatable boat rental" 
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400.jpg?text=Electric+Inflatable+Boat';">
+                    </div>
+                    <div class="service-details">
+                        <div class="service-description">
+                            <p>We offer electric, eco-friendly inflatable boats that are perfect for exploring the pristine waters around Kamloops. Our boats are easy to operate and provide a peaceful, environmentally friendly way to enjoy the lakes.</p>
+                            <p>Choose from our single boats (1-2 people) or family-sized boats (3-4 people) for a memorable day on the water.</p>
+                        </div>
+                        
+                        <div class="service-pricing">
+                            <h3>Pricing</h3>
+                            <div class="pricing-table">
+                                <div class="pricing-row header">
+                                    <div class="pricing-cell">Duration</div>
+                                    <div class="pricing-cell">Weekday</div>
+                                    <div class="pricing-cell">Weekend</div>
+                                </div>
+                                <div class="pricing-row">
+                                    <div class="pricing-cell">Hourly (4hr min)</div>
+                                    <div class="pricing-cell">$50/hr</div>
+                                    <div class="pricing-cell">$60/hr</div>
+                                </div>
+                                <div class="pricing-row">
+                                    <div class="pricing-cell">Half-Day (4 hrs)</div>
+                                    <div class="pricing-cell">$200</div>
+                                    <div class="pricing-cell">$240</div>
+                                </div>
+                                <div class="pricing-row">
+                                    <div class="pricing-cell">Full-Day (6–8 hrs)</div>
+                                    <div class="pricing-cell">$300</div>
+                                    <div class="pricing-cell">$400</div>
+                                </div>
+                            </div>
+                            <p class="pricing-note"><i class="fas fa-info-circle"></i> All rentals include life jackets & paddles.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="service-section concierge" id="concierge">
+                <h2 class="section-title">Concierge Services</h2>
+                <div class="service-grid">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h3>Boating License Assistance</h3>
+                        <p>Don't have a boating license? No problem! We provide assistance in obtaining a temporary boating license so you can legally operate our boats. Our team will guide you through the process and ensure you have all necessary documentation.</p>
                     </div>
                     
-                    <div class="service-pricing">
-                        <h3>Pricing</h3>
-                        <ul class="pricing-list">
-                            <li><strong>Hourly Rate:</strong> $50/hour (minimum 4-hour booking)</li>
-                            <li><strong>Weekend Hourly Rate:</strong> $60/hour (minimum 4-hour booking)</li>
-                            <li><strong>Half-Day (4 hrs):</strong> $200</li>
-                            <li><strong>Weekend Half-Day:</strong> $240</li>
-                            <li><strong>Full-Day (6–8 hrs):</strong> $300</li>
-                            <li><strong>Weekend Full-Day:</strong> $400</li>
-                        </ul>
-                        <p>All rentals include life jackets & paddles.</p>
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Driver Option</h3>
+                        <p>If you prefer not to get a license, we offer a driver service for $25/hr who will operate the boat while you enjoy the scenery. Our professional drivers are experienced and knowledgeable about the local lakes.</p>
                     </div>
                 </div>
             </section>
             
-            <section class="service-section concierge">
-                <h2>Concierge Services</h2>
-                
-                <div class="service-item">
-                    <h3>Boating License Assistance</h3>
-                    <p>Don't have a boating license? No problem! We provide assistance in obtaining a temporary boating license so you can legally operate our boats.</p>
-                </div>
-                
-                <div class="service-item">
-                    <h3>Driver Option</h3>
-                    <p>If you prefer not to get a license, we offer a driver service for $25/hr who will operate the boat while you enjoy the scenery.</p>
+            <section class="service-section addons" id="addons">
+                <h2 class="section-title">Add-ons</h2>
+                <div class="addon-grid">
+                    <div class="addon-item">
+                        <div class="addon-icon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <div class="addon-details">
+                            <h3>Cooler Rental</h3>
+                            <p>Keep your drinks and snacks cold during your lake adventure.</p>
+                            <span class="addon-price">$30</span>
+                        </div>
+                    </div>
+                    <div class="addon-item">
+                        <div class="addon-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="addon-details">
+                            <h3>Bluetooth Speaker</h3>
+                            <p>JBL Flip-6 waterproof speaker for your favorite tunes on the water.</p>
+                            <span class="addon-price">$20</span>
+                        </div>
+                    </div>
+                    <div class="addon-item">
+                        <div class="addon-icon">
+                            <i class="fas fa-tint-slash"></i>
+                        </div>
+                        <div class="addon-details">
+                            <h3>Dry Bags</h3>
+                            <p>Keep your valuables safe and dry while out on the lake.</p>
+                            <span class="addon-price">$10</span>
+                        </div>
+                    </div>
                 </div>
             </section>
             
-            <section class="service-section addons">
-                <h2>Add-ons</h2>
-                <ul class="addon-list">
-                    <li><i class="fas fa-snowflake"></i> <strong>Cooler rental:</strong> $30</li>
-                    <li><i class="fas fa-music"></i> <strong>Bluetooth speaker - JBL Flip-6:</strong> $20</li>
-                    <li><i class="fas fa-tint-slash"></i> <strong>Dry bags:</strong> $10</li>
-                </ul>
-            </section>
-            
-            <section class="service-section delivery">
-                <h2>Delivery Services</h2>
-                <p>We offer free delivery to popular lakes including Heffley Lake, Paul Lake, and Kamloops Lake.</p>
-                <p>Delivery to remote locations: $50 per 100 km from Kamloops.</p>
+            <section class="service-section delivery" id="delivery">
+                <h2 class="section-title">Delivery Services</h2>
+                <div class="delivery-content">
+                    <div class="delivery-map">
+                        <img src="images/map-delivery.jpg" alt="Delivery zones map" 
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400.jpg?text=Delivery+Zones+Map';">
+                    </div>
+                    <div class="delivery-details">
+                        <div class="delivery-item free">
+                            <h3><i class="fas fa-check-circle"></i> Free Delivery Zones</h3>
+                            <ul>
+                                <li>Heffley Lake</li>
+                                <li>Paul Lake</li>
+                                <li>Kamloops Lake</li>
+                            </ul>
+                        </div>
+                        <div class="delivery-item paid">
+                            <h3><i class="fas fa-truck"></i> Extended Delivery</h3>
+                            <p>Delivery to remote locations: <strong>$50 per 100 km</strong> from Kamloops.</p>
+                            <p>We can deliver to virtually any lake in British Columbia! Contact us for custom delivery quotes for your specific location.</p>
+                        </div>
+                        <a href="booking.html" class="btn btn-primary">Book Your Rental</a>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -78,5 +172,8 @@
     <!-- Web Components -->
     <script src="components/header.js"></script>
     <script src="components/footer.js"></script>
+    
+    <!-- Debug Tools (only runs in development) -->
+    <script src="js/debug.js"></script>
 </body>
 </html>

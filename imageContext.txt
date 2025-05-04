@@ -30,6 +30,22 @@
    - Format: PNG with transparency
    - Dimensions: 400x400px (tileable)
 
+## Video Backgrounds
+
+1. **Lake Exploration Video**
+   - File: `videos/lake-video-background.mp4`
+   - Description: High-quality video of inflatable boats gliding across a scenic lake with mountains in the background
+   - Format: MP4 (H.264 codec)
+   - Resolution: 1920x1080px (Full HD)
+   - Duration: 20-30 seconds in a seamless loop
+   - File size: Optimized for web (5-10MB maximum)
+
+2. **Hero Video Poster Image**
+   - File: `hero-bg.jpg` (same as Hero Background)
+   - Description: Static image shown while video is loading
+   - Format: JPG
+   - Dimensions: 1920x1080px
+
 ## About Section Images
 
 1. **About Main Image**

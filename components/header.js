@@ -46,6 +46,12 @@ class HeaderComponent extends HTMLElement {
         </div>
       </header>
       <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+          <h3>Menu</h3>
+          <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
         <div class="container">
           <ul class="mobile-nav-links">
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
@@ -68,9 +74,17 @@ class HeaderComponent extends HTMLElement {
     setTimeout(() => {
       // Add event listener for mobile menu toggle with ID selector
       const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileMenuClose = document.getElementById('mobileMenuClose');
+      
       if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', () => {
           document.body.classList.toggle('mobile-menu-open');
+        });
+      }
+      
+      if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', () => {
+          document.body.classList.remove('mobile-menu-open');
         });
       }
 

@@ -4,12 +4,28 @@ class HeroComponent extends HTMLElement {
   }
 
   connectedCallback() {
+    // Check if video background is enabled - but default to false if not explicitly set
+    const useVideo = this.hasAttribute('video-background') && this.getAttribute('video-background') === 'true';
+    
+    // Use a placeholder image that is more reliable
+    const placeholderImageUrl = 'https://via.placeholder.com/1920x1080.jpg?text=Sequoia+Boat+Rentals';
+    
+    // Determine background content based on attribute
+    const backgroundContent = useVideo ? 
+      `<div class="video-background">
+        <video autoplay muted loop playsinline poster="${placeholderImageUrl}">
+          <source src="videos/lake-video-background.mp4" type="video/mp4">
+          <!-- Fallback image if video doesn't load -->
+          <img src="${placeholderImageUrl}" alt="Inflatable boats on Kamloops lake" class="hero-bg">
+        </video>
+      </div>` : 
+      `<div class="hero-image">
+        <img src="${placeholderImageUrl}" alt="Inflatable boats on Kamloops lake" class="hero-bg">
+      </div>`;
+    
     this.innerHTML = `
       <section class="hero-section">
-        <div class="hero-image">
-          <img src="images/hero-bg.jpg" alt="Inflatable boats on Kamloops lake" class="hero-bg" 
-               onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080.jpg?text=Sequoia+Boat+Rentals+-+Explore+Kamloops+Lakes';">
-        </div>
+        ${backgroundContent}
         <div class="hero-overlay"></div>
         <div class="container">
           <div class="hero-content">
