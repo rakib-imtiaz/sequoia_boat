@@ -10,17 +10,100 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="https://img.icons8.com/fluency/48/null/canoe-slalom.png">
     <title>Sequoia Boat Rentals & Concierge Services</title>
+    <style>
+        /* Additional styles to ensure video works */
+        .hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .hero-video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        
+        .video-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .video-control {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
+            outline: none;
+        }
+        
+        .video-control:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
 </head>
 <body>
     <!-- Header Component -->
     <header-component></header-component>
 
     <main>
-        <!-- Hero Section Component -->
-        <hero-component></hero-component>
+        <!-- Directly embedded Hero Section with Video -->
+        <section class="hero-section">
+            <div class="hero-video-container">
+                <video id="heroVideo" autoplay muted loop playsinline class="hero-video" poster="https://images.unsplash.com/photo-1472107263350-a98e8b508deb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&h=1080&q=80">
+                    <source src="videos/lake-video-background.mp4" type="video/mp4">
+                    <!-- Fallback image if video doesn't load -->
+                </video>
+                <div class="video-controls">
+                    <button class="video-control" id="muteToggle" aria-label="Toggle mute">
+                        <i class="fas fa-volume-mute"></i>
+                    </button>
+                    <button class="video-control" id="pauseToggle" aria-label="Toggle pause">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Explore Kamloops Lakes with Sequoia Boat Rentals & Concierge Services</h1>
+                    <p class="hero-subtitle">Electric, eco-friendly inflatable boats for unforgettable adventures</p>
+                    <div class="hero-cta">
+                        <a href="booking.html" class="btn btn-primary btn-large">Book Your Adventure Now</a>
+                        <a href="lakes.html" class="btn btn-secondary btn-large">Discover Lakes</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- About Us Component -->
         <about-component></about-component>
@@ -40,10 +123,69 @@
     
     <!-- Web Components -->
     <script src="components/header.js"></script>
-    <script src="components/hero.js"></script>
     <script src="components/about.js"></script>
     <script src="components/features.js"></script>
     <script src="components/booking-form.js"></script>
     <script src="components/footer.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animations
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // Video control functionality
+            const video = document.getElementById('heroVideo');
+            const muteToggle = document.getElementById('muteToggle');
+            const pauseToggle = document.getElementById('pauseToggle');
+            
+            if (video && muteToggle && pauseToggle) {
+                console.log('Video element found:', video);
+                
+                // Force video to load
+                video.load();
+                
+                // Log video loading events
+                video.addEventListener('loadstart', () => console.log('Video load started'));
+                video.addEventListener('loadeddata', () => console.log('Video data loaded'));
+                video.addEventListener('canplay', () => console.log('Video can play'));
+                video.addEventListener('canplaythrough', () => console.log('Video can play through without buffering'));
+                
+                // Ensure video is muted by default for better autoplay compatibility
+                video.muted = true;
+                
+                // Try to play the video
+                video.play().catch(err => console.error('Video autoplay failed:', err));
+                
+                // Add event listeners for controls
+                muteToggle.addEventListener('click', () => {
+                    video.muted = !video.muted;
+                    muteToggle.querySelector('i').className = video.muted ? 
+                        'fas fa-volume-mute' : 'fas fa-volume-up';
+                });
+                
+                pauseToggle.addEventListener('click', () => {
+                    if (video.paused) {
+                        video.play();
+                        pauseToggle.querySelector('i').className = 'fas fa-pause';
+                    } else {
+                        video.pause();
+                        pauseToggle.querySelector('i').className = 'fas fa-play';
+                    }
+                });
+                
+                // Handle video error
+                video.addEventListener('error', (e) => {
+                    console.error('Video error:', e);
+                    console.error('Video error details:', video.error);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

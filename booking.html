@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="https://img.icons8.com/fluency/48/null/canoe-slalom.png">
 </head>
 <body>
     <!-- Header Component -->
@@ -23,7 +25,7 @@
         <!-- Hero Banner -->
         <div class="page-hero">
             <div class="page-hero-image">
-                <img src="https://via.placeholder.com/1920x600.jpg?text=Book+Your+Adventure" alt="Book your boat adventure" class="hero-bg">
+                <img src="https://images.unsplash.com/photo-1472107263350-a98e8b508deb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&h=600&q=80" alt="Book your boat adventure" class="hero-bg">
             </div>
             <div class="page-hero-overlay"></div>
             <div class="container">
@@ -133,7 +135,7 @@
                 </div>
             </section>
             
-            <section class="booking-faq-section" data-aos="fade-up">
+            <section class="booking-faq-section" data-aos="fade-up" id="faq">
                 <div class="section-header text-center">
                     <h2 class="section-title">Frequently Asked Questions</h2>
                     <p class="section-subtitle">Everything you need to know about booking with us</p>
@@ -196,7 +198,7 @@
                 <div class="cta-content text-center">
                     <h2>Need Help With Your Booking?</h2>
                     <p>Our team is ready to assist you with any questions.</p>
-                    <a href="contact.html" class="btn btn-primary btn-large">Contact Us</a>
+                    <a href="contact.html" class="btn btn-primary btn-large animate-button-pulse">Contact Us</a>
                 </div>
             </section>
         </div>
@@ -251,7 +253,7 @@
                 });
             });
             
-            // Booking summary update
+            // Booking summary update with enhanced animations
             function updateBookingSummary() {
                 const lake = document.querySelector('#lake')?.value;
                 const boatType = document.querySelector('#boatType')?.value;
@@ -266,14 +268,14 @@
                 let estimatePrice = 0;
                 
                 if (lake) {
-                    summaryHTML += `<div class="summary-item">
+                    summaryHTML += `<div class="summary-item animate-fade-in">
                         <span class="summary-label">Lake:</span>
                         <span class="summary-value">${lake.charAt(0).toUpperCase() + lake.slice(1).replace('-', ' ')}</span>
                     </div>`;
                 }
                 
                 if (boatType) {
-                    summaryHTML += `<div class="summary-item">
+                    summaryHTML += `<div class="summary-item animate-fade-in">
                         <span class="summary-label">Boat:</span>
                         <span class="summary-value">${boatType === 'small' ? 'Small (1-2 Person)' : 'Family (3-4 Person)'}</span>
                     </div>`;
@@ -283,7 +285,7 @@
                 }
                 
                 if (duration) {
-                    summaryHTML += `<div class="summary-item">
+                    summaryHTML += `<div class="summary-item animate-fade-in">
                         <span class="summary-label">Duration:</span>
                         <span class="summary-value">${duration === 'half-day' ? 'Half Day (4 hours)' : 
                                                duration === 'full-day' ? 'Full Day (8 hours)' : 'Custom'}</span>
@@ -294,7 +296,7 @@
                         estimatePrice *= 1.75; // 75% more for full day
                     } else if (duration === 'custom') {
                         const hours = document.querySelector('#customHours')?.value || 4;
-                        summaryHTML += `<div class="summary-item">
+                        summaryHTML += `<div class="summary-item animate-fade-in">
                             <span class="summary-label">Hours:</span>
                             <span class="summary-value">${hours}</span>
                         </div>`;
@@ -312,7 +314,7 @@
                         day: 'numeric'
                     });
                     
-                    summaryHTML += `<div class="summary-item">
+                    summaryHTML += `<div class="summary-item animate-fade-in">
                         <span class="summary-label">Date:</span>
                         <span class="summary-value">${formattedDate}</span>
                     </div>`;
@@ -321,9 +323,9 @@
                     const dayOfWeek = new Date(date).getDay();
                     if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) { // Friday, Saturday, Sunday
                         estimatePrice *= 1.15; // 15% more for weekends
-                        summaryHTML += `<div class="summary-item">
+                        summaryHTML += `<div class="summary-item animate-fade-in">
                             <span class="summary-label">Note:</span>
-                            <span class="summary-value">Weekend rates applied</span>
+                            <span class="summary-value weekend-rate">Weekend rates applied <i class="fas fa-info-circle" title="15% premium applies to Friday, Saturday, and Sunday bookings"></i></span>
                         </div>`;
                     }
                 }
@@ -331,7 +333,7 @@
                 // Add-ons
                 const addons = document.querySelectorAll('input[name="addons"]:checked');
                 if (addons.length > 0) {
-                    summaryHTML += `<div class="summary-item">
+                    summaryHTML += `<div class="summary-item animate-fade-in">
                         <span class="summary-label">Add-ons:</span>
                         <span class="summary-value">`;
                     
@@ -339,24 +341,28 @@
                         const addonValue = addon.value;
                         let addonPrice = 0;
                         let addonName = '';
+                        let addonIcon = '';
                         
                         switch(addonValue) {
                             case 'cooler':
                                 addonPrice = 30;
                                 addonName = 'Cooler';
+                                addonIcon = '<i class="fas fa-cube"></i>';
                                 break;
                             case 'speaker':
                                 addonPrice = 20;
                                 addonName = 'Bluetooth Speaker';
+                                addonIcon = '<i class="fas fa-volume-up"></i>';
                                 break;
                             case 'drybag':
                                 addonPrice = 10;
                                 addonName = 'Dry Bag';
+                                addonIcon = '<i class="fas fa-shield-alt"></i>';
                                 break;
                         }
                         
                         estimatePrice += addonPrice;
-                        summaryHTML += `${addonName} (+$${addonPrice})<br>`;
+                        summaryHTML += `${addonIcon} ${addonName} <span class="addon-price">(+$${addonPrice})</span><br>`;
                     });
                     
                     summaryHTML += `</span></div>`;
@@ -385,14 +391,14 @@
                         
                         estimatePrice += deliveryFee;
                         
-                        summaryHTML += `<div class="summary-item">
+                        summaryHTML += `<div class="summary-item animate-fade-in">
                             <span class="summary-label">Delivery:</span>
-                            <span class="summary-value">$${deliveryFee}</span>
+                            <span class="summary-value">$${deliveryFee} <i class="fas fa-truck"></i></span>
                         </div>`;
                     } else {
-                        summaryHTML += `<div class="summary-item">
+                        summaryHTML += `<div class="summary-item animate-fade-in">
                             <span class="summary-label">Delivery:</span>
-                            <span class="summary-value">Free</span>
+                            <span class="summary-value free-tag">Free <i class="fas fa-check-circle"></i></span>
                         </div>`;
                     }
                 }
@@ -421,6 +427,17 @@
             formInputs.forEach(input => {
                 input.addEventListener('change', updateBookingSummary);
             });
+
+            // Check URL parameters to pre-fill form
+            const urlParams = new URLSearchParams(window.location.search);
+            const lakeParam = urlParams.get('lake');
+            if (lakeParam) {
+                const lakeSelect = document.querySelector('#lake');
+                if (lakeSelect) {
+                    lakeSelect.value = lakeParam;
+                    lakeSelect.dispatchEvent(new Event('change'));
+                }
+            }
         });
     </script>
 </body>

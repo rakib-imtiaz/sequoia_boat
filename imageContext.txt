@@ -2,19 +2,6 @@
 
 ## Branding Images
 
-1. **Logo** 
-   - File: `logo.png`
-   - Description: Sequoia Boat Rentals logo showing a simplified boat icon with a tree element
-   - Format: PNG with transparency
-   - Dimensions: 200x80px
-
-## Header Images
-
-1. **Favicon**
-   - File: `favicon.ico`
-   - Description: Simplified version of the logo for browser tabs
-   - Format: ICO
-   - Dimensions: 32x32px
 
 ## Hero Section Images
 
@@ -229,24 +216,5 @@
    - Description: Individual fisherman using inflatable boat
    - Format: JPG
    - Dimensions: 300x300px (square crop)
-
-## Icons and UI Elements
-
-1. **Wave Separator**
-   - File: `wave-separator.svg`
-   - Description: Decorative wave pattern for section separators
-   - Format: SVG
-   - Dimensions: Vector
-
-2. **Feature Icons**
-   - Will use Font Awesome icons
-
-## Booking Form Images
-
-1. **Calendar Icon**
-   - File: `icon-calendar.svg`
-   - Description: Decorative calendar icon for booking form
-   - Format: SVG
-   - Dimensions: Vector
 
 Note: All photos should have good lighting, professional composition, and showcase the beauty of the lakes and the enjoyment of using the inflatable boats. Images should be optimized for web use to ensure fast loading times while maintaining quality. 

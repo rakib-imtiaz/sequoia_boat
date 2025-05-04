@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="https://img.icons8.com/fluency/48/null/canoe-slalom.png">
 </head>
 <body>
     <!-- Header Component -->
@@ -23,7 +25,7 @@
         <!-- Hero Banner -->
         <div class="page-hero">
             <div class="page-hero-image">
-                <img src="https://via.placeholder.com/1920x600.jpg?text=Contact+Sequoia+Boat+Rentals" alt="Contact Us" class="hero-bg">
+                <img src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&h=600&q=80" alt="Contact Us" class="hero-bg">
             </div>
             <div class="page-hero-overlay"></div>
             <div class="container">
@@ -154,7 +156,7 @@
                             </div>
                             
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary animate-button-pulse">
                                     <i class="fas fa-paper-plane"></i> Send Message
                                 </button>
                             </div>
@@ -173,7 +175,7 @@
                 
                 <div class="delivery-info">
                     <div class="delivery-zones" data-aos="fade-right" data-aos-delay="100">
-                        <div class="zone-card free-zone">
+                        <div class="zone-card free-zone animate-water-wave">
                             <div class="zone-header">
                                 <h3><i class="fas fa-truck"></i> Free Delivery Lakes</h3>
                             </div>
@@ -187,7 +189,7 @@
                             </div>
                         </div>
                         
-                        <div class="zone-card paid-zone">
+                        <div class="zone-card paid-zone animate-water-wave">
                             <div class="zone-header">
                                 <h3><i class="fas fa-map-marked-alt"></i> Other Locations</h3>
                             </div>
@@ -204,8 +206,8 @@
                     </div>
                     
                     <div class="map-container" data-aos="fade-left" data-aos-delay="100">
-                        <!-- Placeholder for an interactive map -->
-                        <img src="https://via.placeholder.com/800x600.jpg?text=Delivery+Area+Map" alt="Delivery area map" class="map-image">
+                        <!-- Interactive map with external API -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d160397.9852513606!2d-120.5140566014874!3d50.67134961348726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537e2cd33d0d42a9%3A0xd23e96aa9a6945e7!2sKamloops%2C%20BC!5e0!3m2!1sen!2sca!4v1687979500748!5m2!1sen!2sca" width="100%" height="450" style="border:0; border-radius:var(--border-radius-lg);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Kamloops delivery area"></iframe>
                         
                         <div class="map-controls">
                             <button class="map-control-btn" id="zoomIn">
@@ -228,32 +230,32 @@
                 </div>
                 
                 <div class="quicklinks-container">
-                    <a href="booking.html" class="quicklink-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="quicklink-icon">
+                    <a href="booking.html" class="quicklink-card animate-card-hover" data-aos="fade-up" data-aos-delay="100">
+                        <div class="quicklink-icon animate-boat-float">
                             <i class="fas fa-calendar-check"></i>
                         </div>
                         <h3>Book a Boat</h3>
                         <p>Reserve your boat online today</p>
                     </a>
                     
-                    <a href="lakes.html" class="quicklink-card" data-aos="fade-up" data-aos-delay="150">
-                        <div class="quicklink-icon">
+                    <a href="lakes.html" class="quicklink-card animate-card-hover" data-aos="fade-up" data-aos-delay="150">
+                        <div class="quicklink-icon animate-boat-float">
                             <i class="fas fa-water"></i>
                         </div>
                         <h3>Explore Lakes</h3>
                         <p>Discover beautiful Kamloops lakes</p>
                     </a>
                     
-                    <a href="services.html" class="quicklink-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="quicklink-icon">
+                    <a href="services.html" class="quicklink-card animate-card-hover" data-aos="fade-up" data-aos-delay="200">
+                        <div class="quicklink-icon animate-boat-float">
                             <i class="fas fa-concierge-bell"></i>
                         </div>
                         <h3>Our Services</h3>
                         <p>Learn about what we offer</p>
                     </a>
                     
-                    <a href="booking.html#faq" class="quicklink-card" data-aos="fade-up" data-aos-delay="250">
-                        <div class="quicklink-icon">
+                    <a href="booking.html#faq" class="quicklink-card animate-card-hover" data-aos="fade-up" data-aos-delay="250">
+                        <div class="quicklink-icon animate-boat-float">
                             <i class="fas fa-question-circle"></i>
                         </div>
                         <h3>FAQs</h3>
@@ -337,31 +339,40 @@
                 }
             });
             
-            // Map controls (simulated functionality)
-            const mapImage = document.querySelector('.map-image');
+            // Map controls functionality (for iframe)
             const zoomIn = document.getElementById('zoomIn');
             const zoomOut = document.getElementById('zoomOut');
             const resetMap = document.getElementById('resetMap');
+            const mapFrame = document.querySelector('.map-container iframe');
             
-            if (mapImage && zoomIn && zoomOut && resetMap) {
-                let scale = 1;
+            if (mapFrame && zoomIn && zoomOut && resetMap) {
+                let zoomLevel = 11;  // Default zoom level
+                let mapSrc = mapFrame.src;
+                
+                // Extract base URL
+                const baseUrl = mapSrc.split('!')[0];
                 
                 zoomIn.addEventListener('click', () => {
-                    scale += 0.1;
-                    if (scale > 1.5) scale = 1.5;
-                    mapImage.style.transform = `scale(${scale})`;
+                    if (zoomLevel < 15) zoomLevel++;
+                    updateMapZoom();
                 });
                 
                 zoomOut.addEventListener('click', () => {
-                    scale -= 0.1;
-                    if (scale < 0.5) scale = 0.5;
-                    mapImage.style.transform = `scale(${scale})`;
+                    if (zoomLevel > 8) zoomLevel--;
+                    updateMapZoom();
                 });
                 
                 resetMap.addEventListener('click', () => {
-                    scale = 1;
-                    mapImage.style.transform = 'scale(1)';
+                    zoomLevel = 11;
+                    updateMapZoom();
                 });
+                
+                function updateMapZoom() {
+                    // This is a simplified version - actual implementation would depend on the map API
+                    // For Google Maps embed, you'd need to regenerate the iframe with different parameters
+                    mapFrame.style.transform = `scale(${zoomLevel/11})`;
+                    mapFrame.style.transformOrigin = 'center center';
+                }
             }
         });
     </script>

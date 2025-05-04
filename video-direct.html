@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Direct Video Test</title>
+    <style>
+        video {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Direct Video Test</h1>
+    
+    <p>Testing different video paths:</p>
+    
+    <h2>Path 1: videos/lake-video-background.mp4</h2>
+    <video controls width="800">
+        <source src="videos/lake-video-background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <h2>Path 2: ./videos/lake-video-background.mp4</h2>
+    <video controls width="800">
+        <source src="./videos/lake-video-background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <h2>Path 3: /videos/lake-video-background.mp4</h2>
+    <video controls width="800">
+        <source src="/videos/lake-video-background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <script>
+        // Log video load events
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            
+            videos.forEach((video, index) => {
+                console.log(`Video ${index + 1} loaded`);
+                
+                video.addEventListener('loadstart', () => console.log(`Video ${index + 1} load started`));
+                video.addEventListener('loadeddata', () => console.log(`Video ${index + 1} data loaded`));
+                video.addEventListener('canplay', () => console.log(`Video ${index + 1} can play`));
+                video.addEventListener('error', (e) => console.error(`Video ${index + 1} error:`, video.error));
+            });
+        });
+    </script>
+</body>
+</html> 
