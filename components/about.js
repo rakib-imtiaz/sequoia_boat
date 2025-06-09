@@ -22,8 +22,7 @@ class AboutComponent extends HTMLElement {
               <a href="services.html" class="btn btn-secondary">Our Services</a>
             </div>
             <div class="about-image">
-              <!-- This is a placeholder. Upload your actual image and replace this src -->
-              <img src="images/about-image.jpg" alt="Happy customers on an inflatable boat" class="about-img">
+              <img src="images/happy_customer_on_a_inflatable_boat.png" alt="Happy customers on an inflatable boat" class="about-img">
             </div>
           </div>
         </div>

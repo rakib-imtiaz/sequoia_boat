@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <!-- Font Awesome for icons -->
@@ -17,6 +20,7 @@
     <!-- Favicon -->
     <link rel="icon" href="https://img.icons8.com/fluency/48/null/canoe-slalom.png">
 </head>
+
 <body>
     <!-- Header Component -->
     <header-component></header-component>
@@ -25,7 +29,8 @@
         <!-- Hero Banner -->
         <div class="page-hero">
             <div class="page-hero-image">
-                <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&h=600&q=80" alt="Kamloops Lakes" class="hero-bg">
+                <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&h=600&q=80"
+                    alt="Kamloops Lakes" class="hero-bg">
             </div>
             <div class="page-hero-overlay"></div>
             <div class="container">
@@ -42,7 +47,7 @@
                     <h2 class="section-title">Find Your Perfect Lake</h2>
                     <p class="section-subtitle">We deliver boats to these beautiful destinations around Kamloops</p>
                 </div>
-                
+
                 <div class="lakes-search-filter">
                     <div class="filter-group">
                         <label for="lake-filter">Filter Lakes:</label>
@@ -59,14 +64,15 @@
                     </div>
                 </div>
             </section>
-            
+
             <section class="lakes-map-section" data-aos="fade-up" data-aos-delay="100">
                 <div class="section-header">
                     <h2 class="section-title">Lakes We Service</h2>
                 </div>
                 <div class="map-container">
                     <!-- Interactive map with external source -->
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=Kamloops,BC&zoom=9&size=1200x600&maptype=terrain&key=YOUR_API_KEY_HERE" alt="Map of Kamloops area lakes" class="map-image">
+                    <img src="images/Map of Kamloops area lakes.png" alt="Map of Kamloops area lakes and delivery zones"
+                        class="map-image">
                     <div class="map-overlay">
                         <div class="map-legend">
                             <div class="legend-item">
@@ -81,68 +87,38 @@
                     </div>
                 </div>
             </section>
-            
+
             <section class="lakes-grid-section">
                 <div class="lakes-grid">
                     <!-- Lake cards will be added here using the lake-card component -->
-                    <lake-card 
-                        id="heffley-lake"
-                        name="Heffley Lake" 
-                        subtitle="Closest to Sun Peaks"
+                    <lake-card id="heffley-lake" name="Heffley Lake" subtitle="Closest to Sun Peaks"
                         description="Nestled just 20 minutes from the heart of Sun Peaks, Heffley Lake is a serene escape that feels like a local secret. With its calm, glassy waters and picture-perfect mountain backdrop, it's the ideal spot to kick back, paddle out, and soak up the sunshine. Locals love it for early morning fishing or lazy afternoon floats—some even say the loons will sing you a song if you're quiet enough! The lake offers easy public access and a boat launch, making it perfect for a hassle-free inflatable boat adventure. Whether you're cruising with friends, snapping wildlife photos, or just drifting with a good playlist, Heffley Lake is where peaceful vibes meet unforgettable summer memories."
-                        image="heffley-lake.jpg"
-                        data-aos="fade-up"
-                        data-aos-delay="0">
+                        image="Heffley_Lake_1.png" data-aos="fade-up" data-aos-delay="0">
                     </lake-card>
-                    
-                    <lake-card 
-                        id="paul-lake"
-                        name="Paul Lake" 
-                        subtitle=""
+
+                    <lake-card id="paul-lake" name="Paul Lake" subtitle=""
                         description="Just 25 minutes from Kamloops, Paul Lake is a clean, scenic haven that's become a go-to summer spot for locals and visitors alike. Tucked within a peaceful Provincial Park, it offers everything you need for a perfect paddle day—campgrounds, a spacious day-use area, and a convenient boat launch with plenty of parking. Families love to set up camp early, cast a line, and spend the afternoon floating across the calm waters. Some say if you look up at the towering cliffs, you might spot a curious bighorn sheep watching your boat glide by! Whether you're planning a family outing or a quiet solo cruise, Paul Lake brings that sweet mix of adventure and relaxation."
-                        image="paul-lake.jpg"
-                        data-aos="fade-up"
-                        data-aos-delay="100">
+                        image="paul_lake_1.png" data-aos="fade-up" data-aos-delay="100">
                     </lake-card>
-                    
-                    <lake-card 
-                        id="monte-lake"
-                        name="Monte Lake" 
-                        subtitle=""
+
+                    <lake-card id="monte-lake" name="Monte Lake" subtitle=""
                         description="Monte Lake is a hidden gem nestled between Kamloops and Vernon, offering the perfect spot for a peaceful day on the water. Whether you're a local or visiting, it's a place where the stress of everyday life just melts away. The warm waters in summer make it the perfect place to cool off, and you won't find the crowds of more popular spots—just you, the lake, and the stunning scenery! It's the kind of place where you can float along and let your worries drift away with the current. Locals often say it's the best-kept secret in the area, and we couldn't agree more. So, grab your paddle, hop in an inflatable boat, and experience the tranquility of Monte Lake for yourself!"
-                        image="monte-lake.jpg"
-                        data-aos="fade-up"
-                        data-aos-delay="200">
+                        image="Monte_Lake_1.png" data-aos="fade-up" data-aos-delay="200">
                     </lake-card>
-                    
-                    <lake-card 
-                        id="shuswap-lake"
-                        name="Shuswap Lake" 
-                        subtitle="Bit farther but worth it"
+
+                    <lake-card id="shuswap-lake" name="Shuswap Lake" subtitle="Bit farther but worth it"
                         description="Shuswap Lake is just a short 45–60-minute drive from Kamloops, but once you arrive, you'll quickly realize it's totally worth the drive! With its massive, winding waters and endless coves, this lake is perfect for full-day adventures or group rentals—whether you're cruising the shoreline, splashing around, or just soaking in the breathtaking views. As the locals say, 'If you can't find the perfect spot on Shuswap, you're not looking hard enough!' So, rally your friends or family, rent our inflatable boat, and dive into all the fun and freedom this incredible lake has to offer. Shuswap isn't just a lake; it's an adventure waiting to happen!"
-                        image="shuswap-lake.jpg"
-                        data-aos="fade-up"
-                        data-aos-delay="0">
+                        image="shuswap_Lake_1.png" data-aos="fade-up" data-aos-delay="0">
                     </lake-card>
-                    
-                    <lake-card 
-                        id="kamloops-lake"
-                        name="Kamloops Lake" 
-                        subtitle=""
+
+                    <lake-card id="kamloops-lake" name="Kamloops Lake" subtitle=""
                         description="Kamloops Lake is the closest large lake to the city, and it's the perfect spot for a relaxing day out on the water! This expansive, open lake offers stunning views of the surrounding mountains and rolling hills, making it an ideal place to unwind—especially on those calm, sunny days. The smooth waters are perfect for a peaceful paddle or a leisurely ride, but the lake is big enough to explore at your own pace. And if you're into fishing, you're in for a treat! Local anglers swear by the lake's abundant trout population, and there's a fun little tradition: every year, the locals gather for an impromptu 'Kamloops Lake Fishing Challenge.' The winner? Bragging rights, of course, and maybe a fresh catch for dinner. As the saying goes around here, 'When the weather's calm, there's no better place to be than Kamloops Lake!' Whether you're fishing, hiking nearby trails, or just taking in the views, this lake offers something for everyone. Grab a boat, cast your line, and let Kamloops Lake show you what makes it so special!"
-                        image="kamloops-lake.jpg"
-                        data-aos="fade-up"
-                        data-aos-delay="100">
+                        image="Kamloops_Lake_1.png" data-aos="fade-up" data-aos-delay="100">
                     </lake-card>
-                    
-                    <lake-card 
-                        id="lac-le-jeune"
-                        name="Lac Le Jeune" 
-                        subtitle=""
+
+                    <lake-card id="lac-le-jeune" name="Lac Le Jeune" subtitle=""
                         description="Just a short 30–35 minute drive from Kamloops, Lac Le Jeune is the perfect getaway for those looking for a peaceful, more intimate experience on the water. This smaller, serene lake is surrounded by a campground and park, making it an ideal spot for a relaxing half-day rental. Whether you're out for a quiet paddle or simply soaking up the tranquility, Lac Le Jeune is all about slowing down and enjoying the moment. Locals often joke that it's the 'best-kept secret for a peaceful escape,' and we couldn't agree more! It's the kind of place where you can paddle at your own pace, let the world slip away, and maybe even spot a deer or two along the shore. So pack a picnic, grab a boat, and spend a peaceful afternoon at Lac Le Jeune—it's the ultimate spot to recharge and unwind."
-                        image="lac-le-jeune.jpg"
-                        data-aos="fade-up"
-                        data-aos-delay="200">
+                        image="Lac_Le_Jeune.png" data-aos="fade-up" data-aos-delay="200">
                     </lake-card>
                 </div>
             </section>
@@ -162,62 +138,62 @@
 
     <!-- Main JavaScript -->
     <script src="js/main.js"></script>
-    
+
     <!-- Web Components -->
     <script src="components/header.js"></script>
     <script src="components/lake-card.js"></script>
     <script src="components/footer.js"></script>
-    
+
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Initialize AOS animations
             AOS.init({
                 duration: 800,
                 easing: 'ease-in-out',
                 once: true
             });
-            
+
             // Lake filtering functionality
             const lakeFilter = document.getElementById('lake-filter');
             const lakeSearch = document.getElementById('lake-search');
             const lakeCards = document.querySelectorAll('lake-card');
-            
-            if(lakeFilter) {
+
+            if (lakeFilter) {
                 lakeFilter.addEventListener('change', filterLakes);
             }
-            
-            if(lakeSearch) {
+
+            if (lakeSearch) {
                 lakeSearch.addEventListener('input', filterLakes);
             }
-            
+
             function filterLakes() {
                 const filterValue = lakeFilter ? lakeFilter.value : 'all';
                 const searchValue = lakeSearch ? lakeSearch.value.toLowerCase() : '';
-                
+
                 lakeCards.forEach(card => {
                     const lakeName = card.getAttribute('name').toLowerCase();
                     const lakeDescription = card.getAttribute('description').toLowerCase();
                     const lakeId = card.getAttribute('id').toLowerCase();
-                    
+
                     // Check if matches search
-                    const matchesSearch = searchValue === '' || 
-                                         lakeName.includes(searchValue) || 
-                                         lakeDescription.includes(searchValue);
-                    
+                    const matchesSearch = searchValue === '' ||
+                        lakeName.includes(searchValue) ||
+                        lakeDescription.includes(searchValue);
+
                     // Check if matches filter
                     let matchesFilter = true;
-                    if(filterValue === 'free-delivery') {
+                    if (filterValue === 'free-delivery') {
                         matchesFilter = ['heffley-lake', 'paul-lake', 'kamloops-lake'].includes(lakeId);
-                    } else if(filterValue === 'family-friendly') {
+                    } else if (filterValue === 'family-friendly') {
                         matchesFilter = ['paul-lake', 'lac-le-jeune'].includes(lakeId);
-                    } else if(filterValue === 'fishing') {
+                    } else if (filterValue === 'fishing') {
                         matchesFilter = ['kamloops-lake', 'monte-lake', 'shuswap-lake'].includes(lakeId);
                     }
-                    
+
                     // Show or hide based on both conditions
-                    if(matchesSearch && matchesFilter) {
+                    if (matchesSearch && matchesFilter) {
                         card.style.display = '';
                     } else {
                         card.style.display = 'none';
@@ -227,4 +203,5 @@
         });
     </script>
 </body>
+
 </html>
