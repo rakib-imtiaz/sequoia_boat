@@ -301,9 +301,6 @@
                         <span class="summary-label">Boat:</span>
                         <span class="summary-value">${boatType === 'small' ? 'Small (1-2 Person)' : 'Family (3-4 Person)'}</span>
                     </div>`;
-
-                    // Add base price based on boat type
-                    estimatePrice += boatType === 'small' ? 180 : 240;
                 }
 
                 if (duration) {
@@ -312,20 +309,6 @@
                         <span class="summary-value">${duration === 'half-day' ? 'Half Day (4 hours)' :
                             duration === 'full-day' ? 'Full Day (8 hours)' : 'Custom'}</span>
                     </div>`;
-
-                    // Adjust price for duration
-                    if (duration === 'full-day') {
-                        estimatePrice *= 1.75; // 75% more for full day
-                    } else if (duration === 'custom') {
-                        const hours = document.querySelector('#customHours')?.value || 4;
-                        summaryHTML += `<div class="summary-item animate-fade-in">
-                            <span class="summary-label">Hours:</span>
-                            <span class="summary-value">${hours}</span>
-                        </div>`;
-
-                        // Custom pricing based on hours
-                        estimatePrice = (boatType === 'small' ? 45 : 60) * hours;
-                    }
                 }
 
                 if (date) {
@@ -340,26 +323,48 @@
                         <span class="summary-label">Date:</span>
                         <span class="summary-value">${formattedDate}</span>
                     </div>`;
-
-                    // Weekend pricing (Friday-Sunday)
-                    const dayOfWeek = new Date(date).getDay();
-                    if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) { // Friday, Saturday, Sunday
-                        estimatePrice *= 1.15; // 15% more for weekends
-                        summaryHTML += `<div class="summary-item animate-fade-in">
-                            <span class="summary-label">Note:</span>
-                            <span class="summary-value weekend-rate">Weekend rates applied <i class="fas fa-info-circle" title="15% premium applies to Friday, Saturday, and Sunday bookings"></i></span>
-                        </div>`;
-                    }
                 }
 
-                // Add-ons
+                // Weekend pricing (Friday-Sunday)
+                const dayOfWeek = new Date(date).getDay();
+                const isWeekend = dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6; // Friday, Saturday, Sunday
+
+                // Calculate base price based on duration and day type
+                let hourlyRate = isWeekend ? 80 : 70;
+                let hours = 0;
+
+                if (duration === 'custom') {
+                    hours = parseInt(document.querySelector('#customHours')?.value || 2);
+                    if (hours >= 6) {
+                        hourlyRate = isWeekend ? 60 : 50;
+                    } else if (hours >= 4) {
+                        hourlyRate = isWeekend ? 70 : 60;
+                    }
+                } else if (duration === 'half-day') {
+                    hours = 4;
+                    hourlyRate = isWeekend ? 70 : 60;
+                } else if (duration === 'full-day') {
+                    hours = 6;
+                    hourlyRate = isWeekend ? 60 : 50;
+                    // Remove the old speaker promotion code and handle it in the add-ons section
+                }
+
+                // Add-ons section
                 const addons = document.querySelectorAll('input[name="addons"]:checked');
-                if (addons.length > 0) {
+                if (addons.length > 0 || duration === 'full-day') {
                     summaryHTML += `<div class="summary-item animate-fade-in">
                         <span class="summary-label">Add-ons:</span>
                         <span class="summary-value">`;
 
+                    // If full-day rental, add free JBL speaker
+                    if (duration === 'full-day') {
+                        summaryHTML += `<i class="fas fa-music"></i> JBL Flip 5 Speaker <span class="free-tag">Free</span><br>`;
+                    }
+
                     addons.forEach(addon => {
+                        // Skip speaker add-on if it's a full-day rental
+                        if (duration === 'full-day' && addon.value === 'speaker') return;
+
                         const addonValue = addon.value;
                         let addonPrice = 0;
                         let addonName = '';
