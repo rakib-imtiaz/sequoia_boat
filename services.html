@@ -98,6 +98,34 @@
                             <p class="pricing-highlight"><i class="fas fa-tag"></i> Book longer durations for better
                                 hourly rates!</p>
                         </div>
+
+                        <form id="quick-booking-form">
+                            <label for="lake-select">Choose a Lake</label>
+                            <select id="lake-select" name="lake">
+                                <option>Heffley Lake</option>
+                                <option>Paul Lake</option>
+                                <option>Kamloops Lake</option>
+                            </select>
+
+                            <label for="boat-select">Boat Type</label>
+                            <select id="boat-select" name="boat">
+                                <option>1-2 Person Boat</option>
+                                <option>3-4 Person Boat</option>
+                            </select>
+
+                            <label for="date-input">Rental Date</label>
+                            <input id="date-input" name="date" type="date" />
+
+                            <label for="hours-input">Number of Hours</label>
+                            <input id="hours-input" name="hours" type="number" min="2" max="8" />
+
+                            <div style="margin:1em 0;">
+                                <button id="check-btn" type="button">Check Availability</button>
+                                <button id="book-btn" type="button" disabled>Book Now</button>
+                            </div>
+
+                            <div id="availability-msg" style="font-weight:bold;"></div>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -205,8 +233,7 @@
 
     <!-- Main JavaScript -->
     <script src="js/main.js"></script>
-
-    <!-- Web Components -->
+    <script src="js/bookings.js"></script>
     <script src="components/header.js"></script>
     <script src="components/footer.js"></script>
 </body>

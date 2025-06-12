@@ -45,34 +45,6 @@
             transform: translate(-50%, -50%);
             object-fit: cover;
         }
-
-        .video-controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .video-control {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            border: none;
-            outline: none;
-        }
-
-        .video-control:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
     </style>
 </head>
 
@@ -81,31 +53,15 @@
     <header-component></header-component>
 
     <main>
-        <!-- Directly embedded Hero Section with Video -->
-        <section class="hero-section">
-            <div class="hero-video-container">
-                <video id="heroVideo" autoplay muted loop playsinline class="hero-video"
-                    poster="/images/bg.png">
+        <section class="hero">
+            <div class="video-container">
+                <video autoplay muted loop playsinline id="hero-video">
                     <source src="videos/lake-video-background.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
+                    <!-- Fallback image if video doesn't load -->
+                    <img src="images/hero-bg.jpg" alt="Lake view background">
                 </video>
-                <img src="images/happy_customer_on_a_inflatable_boat.png" alt="Fallback: Kamloops lake adventure"
-                    class="hero-bg"
-                    style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;"
-                    id="heroFallbackImg">
-                <div id="videoErrorMsg"
-                    style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.7);color:#fff;padding:1rem 2rem;border-radius:1rem;z-index:20;font-size:1.2rem;">
-                    Video could not be loaded. Enjoy our beautiful lakes in the image above!</div>
-                <div class="video-controls">
-                    <button class="video-control" id="muteToggle" aria-label="Toggle mute">
-                        <i class="fas fa-volume-mute"></i>
-                    </button>
-                    <button class="video-control" id="pauseToggle" aria-label="Toggle pause">
-                        <i class="fas fa-pause"></i>
-                    </button>
-                </div>
+                <div class="hero-overlay"></div>
             </div>
-            <div class="hero-overlay"></div>
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-title">Explore Kamloops Lakes with Sequoia Boat Rentals & Concierge Services</h1>
@@ -152,61 +108,20 @@
                 once: true
             });
 
-            // Video control functionality
-            const video = document.getElementById('heroVideo');
-            const muteToggle = document.getElementById('muteToggle');
-            const pauseToggle = document.getElementById('pauseToggle');
-            const fallbackImg = document.getElementById('heroFallbackImg');
-            const errorMsg = document.getElementById('videoErrorMsg');
-
-            if (video && muteToggle && pauseToggle) {
-                console.log('Video element found:', video);
-
+            // Basic video functionality
+            const video = document.getElementById('hero-video');
+            
+            if (video) {
                 // Force video to load
                 video.load();
-
-                // Log video loading events
-                video.addEventListener('loadstart', () => console.log('Video load started'));
-                video.addEventListener('loadeddata', () => console.log('Video data loaded'));
-                video.addEventListener('canplay', () => console.log('Video can play'));
-                video.addEventListener('canplaythrough', () => console.log('Video can play through without buffering'));
-
-                // Ensure video is muted by default for better autoplay compatibility
+                
+                // Ensure video is muted by default for autoplay
                 video.muted = true;
 
                 // Try to play the video
                 video.play().catch(err => {
                     console.error('Video autoplay failed:', err);
-                    if (fallbackImg) fallbackImg.style.display = 'block';
-                    if (errorMsg) errorMsg.style.display = 'block';
                 });
-
-                // Add event listeners for controls
-                muteToggle.addEventListener('click', () => {
-                    video.muted = !video.muted;
-                    muteToggle.querySelector('i').className = video.muted ?
-                        'fas fa-volume-mute' : 'fas fa-volume-up';
-                });
-
-                pauseToggle.addEventListener('click', () => {
-                    if (video.paused) {
-                        video.play();
-                        pauseToggle.querySelector('i').className = 'fas fa-pause';
-                    } else {
-                        video.pause();
-                        pauseToggle.querySelector('i').className = 'fas fa-play';
-                    }
-                });
-
-                // Handle video error
-                video.addEventListener('error', (e) => {
-                    console.error('Video error:', e);
-                    if (fallbackImg) fallbackImg.style.display = 'block';
-                    if (errorMsg) errorMsg.style.display = 'block';
-                });
-            } else {
-                if (fallbackImg) fallbackImg.style.display = 'block';
-                if (errorMsg) errorMsg.style.display = 'block';
             }
         });
     </script>
