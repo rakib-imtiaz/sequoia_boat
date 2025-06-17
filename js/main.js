@@ -1,252 +1,204 @@
 /**
- * Sequoia Boat Rentals - Main JavaScript
+ * Sequoia Boat Rentals & Concierge Services
+ * Main JavaScript File
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Mobile navigation toggle
-  setupMobileNav();
-  
-  // Handle URL parameters for booking
-  handleBookingParams();
-  
-  // Set minimum date for booking forms
-  setMinimumBookingDate();
-  
-  // Initialize image lazy loading
-  lazyLoadImages();
-  
-  // Initialize scroll animations
-  initScrollAnimations();
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+    // Load Font Awesome for icons
+    loadFontAwesome();
+
+    // Initialize animations for elements
+    initAnimations();
+
+    // Smooth scrolling for anchor links
+    initSmoothScrolling();
+
+    // Initialize parallax effect
+    initParallax();
 });
 
 /**
- * Setup mobile navigation functionality
- * Enhanced to work with Web Components
+ * Load Font Awesome for icons
  */
-function setupMobileNav() {
-  // Use global selectors and IDs for more reliable targeting
-  const setupMobileMenuListeners = () => {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    
-    if (mobileMenuToggle) {
-      // Remove any existing listeners to prevent duplicates
-      const newToggle = mobileMenuToggle.cloneNode(true);
-      if (mobileMenuToggle.parentNode) {
-        mobileMenuToggle.parentNode.replaceChild(newToggle, mobileMenuToggle);
-      }
-      
-      // Add click event listener
-      newToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.body.classList.toggle('mobile-menu-open');
-        console.log('Mobile menu toggled');
-      });
+function loadFontAwesome() {
+    const fontAwesomeLink = document.createElement('link');
+    fontAwesomeLink.rel = 'stylesheet';
+    fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+    fontAwesomeLink.integrity = 'sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==';
+    fontAwesomeLink.crossOrigin = 'anonymous';
+    fontAwesomeLink.referrerPolicy = 'no-referrer';
+    document.head.appendChild(fontAwesomeLink);
+}
+
+/**
+ * Initialize animations for elements that should animate when they come into view
+ */
+function initAnimations() {
+    // Get all elements that should animate when scrolled into view
+    const animatedElements = document.querySelectorAll('.fade-in, .slide-up');
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+    } else {
+        // Fallback for browsers that don't support Intersection Observer
+        animatedElements.forEach(el => {
+            el.classList.add('animated');
+        });
     }
-    
-    // Close mobile menu when clicking on menu items
-    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        document.body.classList.remove('mobile-menu-open');
-      });
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-      const mobileMenu = document.getElementById('mobileMenu');
-      const isClickInsideMenu = mobileMenu && mobileMenu.contains(e.target);
-      const isClickOnToggle = newToggle && (newToggle.contains(e.target) || newToggle === e.target);
-      
-      if (document.body.classList.contains('mobile-menu-open') && !isClickInsideMenu && !isClickOnToggle) {
-        document.body.classList.remove('mobile-menu-open');
-      }
-    });
-  };
-  
-  // Initial setup
-  setupMobileMenuListeners();
-  
-  // Re-setup when custom elements are likely to be defined and rendered
-  setTimeout(setupMobileMenuListeners, 100);
-  setTimeout(setupMobileMenuListeners, 500);
-  
-  // Also handle dynamic insertion of components
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-        for (let i = 0; i < mutation.addedNodes.length; i++) {
-          const node = mutation.addedNodes[i];
-          if (node.nodeType === Node.ELEMENT_NODE && 
-              (node.tagName.toLowerCase() === 'header-component' || 
-               node.querySelector('#mobileMenuToggle'))) {
-            setupMobileMenuListeners();
-            break;
-          }
-        }
-      }
-    });
-  });
-  
-  observer.observe(document.body, { childList: true, subtree: true });
 }
 
 /**
- * Handle URL parameters for pre-filling booking form
+ * Initialize smooth scrolling for anchor links
  */
-function handleBookingParams() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const lake = urlParams.get('lake');
-  
-  if (lake) {
-    const lakeSelect = document.querySelector('#lake');
-    if (lakeSelect) {
-      // Remove 'lake-' prefix if it exists
-      const lakeValue = lake.replace('lake-', '');
-      
-      // Find and select the matching option
-      for (const option of lakeSelect.options) {
-        if (option.value === lakeValue) {
-          option.selected = true;
-          break;
+function initSmoothScrolling() {
+    // Select all links with hashes
+    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            // Only prevent default if the anchor is on the current page
+            const targetId = this.getAttribute('href').split('#')[1];
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                e.preventDefault();
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80, // Account for fixed header if present
+                    behavior: 'smooth'
+                });
+
+                // Update URL without page reload
+                history.pushState(null, null, `#${targetId}`);
+            }
+        });
+    });
+}
+
+/**
+ * Initialize parallax effect for sections
+ */
+function initParallax() {
+    // Add parallax class to sections that should have parallax effect
+    const sections = document.querySelectorAll('section, .hero, .footer');
+    sections.forEach(section => {
+        section.classList.add('parallax-section');
+    });
+
+    // Add CSS for parallax effect
+    const style = document.createElement('style');
+    style.textContent = `
+        .parallax-section {
+            position: relative;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            transform: translateZ(0);
+            will-change: transform;
         }
-      }
+        
+        @media (max-width: 768px) {
+            .parallax-section {
+                background-attachment: scroll;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Add parallax effect on scroll
+    window.addEventListener('scroll', function () {
+        const scrolled = window.pageYOffset;
+
+        // Apply parallax effect to elements with .parallax-bg class
+        document.querySelectorAll('.parallax-bg').forEach(element => {
+            const speed = element.dataset.speed || 0.3;
+            const yPos = -(scrolled * speed);
+            element.style.transform = `translate3d(0px, ${yPos}px, 0px)`;
+        });
+
+        // Apply subtle parallax effect to sections
+        document.querySelectorAll('.parallax-section').forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const inView = (rect.top < window.innerHeight && rect.bottom > 0);
+
+            if (inView) {
+                const speed = 0.05;
+                const yPos = (rect.top * speed);
+                section.style.backgroundPosition = `center ${yPos}px`;
+            }
+        });
+    });
+
+    // Add parallax background elements
+    addParallaxBackgrounds();
+}
+
+/**
+ * Add parallax background elements to sections
+ */
+function addParallaxBackgrounds() {
+    // Add parallax background to about section
+    const aboutSection = document.getElementById('about-container');
+    if (aboutSection) {
+        const aboutBg = document.createElement('div');
+        aboutBg.className = 'parallax-bg';
+        aboutBg.dataset.speed = '0.2';
+        aboutSection.prepend(aboutBg);
     }
-  }
-}
 
-/**
- * Set minimum date for booking form date inputs to today
- */
-function setMinimumBookingDate() {
-  const dateInputs = document.querySelectorAll('input[type="date"]');
-  if (dateInputs.length > 0) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInputs.forEach(input => {
-      input.min = today;
-      
-      // If no date is set, default to today
-      if (!input.value) {
-        input.value = today;
-      }
-    });
-  }
-}
-
-/**
- * Initialize lazy loading for images
- */
-function lazyLoadImages() {
-  // Check if native lazy loading is supported
-  if ('loading' in HTMLImageElement.prototype) {
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    lazyImages.forEach(img => {
-      img.src = img.dataset.src;
-    });
-  } else {
-    // Fallback for browsers that don't support native lazy loading
-    const lazyImageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const lazyImage = entry.target;
-          lazyImage.src = lazyImage.dataset.src;
-          lazyImage.classList.remove('lazy');
-          lazyImageObserver.unobserve(lazyImage);
-        }
-      });
-    });
-    
-    const lazyImages = document.querySelectorAll('img.lazy');
-    lazyImages.forEach(lazyImage => {
-      lazyImageObserver.observe(lazyImage);
-    });
-  }
-}
-
-/**
- * Initialize scroll animations
- */
-function initScrollAnimations() {
-  const animatedElements = document.querySelectorAll('.animate-on-scroll');
-  
-  if (animatedElements.length > 0) {
-    const animationObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animated');
-          animationObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-    
-    animatedElements.forEach(element => {
-      animationObserver.observe(element);
-    });
-  }
-}
-
-/**
- * Calculate and display booking price estimate
- * (This would be used in a real implementation with actual pricing logic)
- */
-function calculateBookingPrice() {
-  // This is a placeholder for actual pricing calculation logic
-  // In a real implementation, this would calculate based on:
-  // - Selected lake (some might have different rates)
-  // - Boat type
-  // - Duration (half-day, full-day, or custom hours)
-  // - Weekend vs. weekday pricing
-  // - Add-ons selected
-  // - Delivery fees if applicable
-  
-  // Example calculation logic:
-  const boatType = document.getElementById('boatType')?.value;
-  const duration = document.getElementById('duration')?.value;
-  const date = document.getElementById('date')?.value;
-  const addons = document.querySelectorAll('input[name="addons"]:checked');
-  
-  if (!boatType || !duration || !date) return;
-  
-  let basePrice = 0;
-  let addonTotal = 0;
-  
-  // Check if weekend (Friday, Saturday, Sunday)
-  const selectedDate = new Date(date);
-  const isWeekend = [5, 6, 0].includes(selectedDate.getDay());
-  
-  // Calculate base price
-  if (duration === 'half-day') {
-    basePrice = isWeekend ? 240 : 200;
-  } else if (duration === 'full-day') {
-    basePrice = isWeekend ? 400 : 300;
-  } else if (duration === 'custom') {
-    const hours = parseInt(document.getElementById('customHours')?.value || 4);
-    const hourlyRate = isWeekend ? 60 : 50;
-    basePrice = hours * hourlyRate;
-  }
-  
-  // Add addon prices
-  addons.forEach(addon => {
-    switch(addon.value) {
-      case 'cooler':
-        addonTotal += 30;
-        break;
-      case 'speaker':
-        addonTotal += 20;
-        break;
-      case 'drybag':
-        addonTotal += 10;
-        break;
+    // Add parallax background to features section
+    const featuresSection = document.getElementById('features-container');
+    if (featuresSection) {
+        const featuresBg = document.createElement('div');
+        featuresBg.className = 'parallax-bg';
+        featuresBg.dataset.speed = '0.15';
+        featuresSection.prepend(featuresBg);
     }
-  });
-  
-  const totalPrice = basePrice + addonTotal;
-  
-  // Display the price (in a real implementation)
-  const priceDisplay = document.getElementById('price-estimate');
-  if (priceDisplay) {
-    priceDisplay.textContent = `$${totalPrice}`;
-    priceDisplay.parentElement.style.display = 'block';
-  }
-}
+
+    // Add parallax background to lakes section
+    const lakesSection = document.getElementById('lakes-container');
+    if (lakesSection) {
+        const lakesBg = document.createElement('div');
+        lakesBg.className = 'parallax-bg';
+        lakesBg.dataset.speed = '0.25';
+        lakesSection.prepend(lakesBg);
+    }
+
+    // Add CSS for parallax backgrounds
+    const style = document.createElement('style');
+    style.textContent = `
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        #about-container .parallax-bg {
+            background: radial-gradient(circle at 80% 50%, rgba(78, 205, 196, 0.1) 0%, rgba(78, 205, 196, 0) 70%);
+        }
+        
+        #features-container .parallax-bg {
+            background: radial-gradient(circle at 20% 80%, rgba(11, 83, 148, 0.08) 0%, rgba(11, 83, 148, 0) 60%);
+        }
+        
+        #lakes-container .parallax-bg {
+            background: radial-gradient(circle at 90% 10%, rgba(78, 205, 196, 0.08) 0%, rgba(78, 205, 196, 0) 70%);
+        }
+    `;
+    document.head.appendChild(style);
+} 

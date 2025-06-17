@@ -1,136 +1,290 @@
-class HeroComponent extends HTMLElement {
-  constructor() {
-    super();
-  }
+/**
+ * Sequoia Boat Rentals & Concierge Services
+ * Hero Component with Video Background
+ */
 
-  connectedCallback() {
-    // Check if video background is enabled - but default to false if not explicitly set
-    const useVideo = this.hasAttribute('video-background') && this.getAttribute('video-background') === 'true';
-    
-    // High-quality placeholder image from Unsplash that matches the lake theme
-    const placeholderImageUrl = 'https://images.unsplash.com/photo-1472107263350-a98e8b508deb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&h=1080&q=80';
-    
-    // Use full path to ensure the video loads properly
-    const videoPath = window.location.pathname.endsWith('/') ? 'videos/lake-video-background.mp4' : './videos/lake-video-background.mp4';
-    
-    // Console log for debugging
-    console.log('Video path:', videoPath);
-    console.log('Video enabled:', useVideo);
-    
-    // Determine background content based on attribute
-    const backgroundContent = useVideo ? 
-      `<div class="video-background">
-        <video autoplay muted loop playsinline poster="${placeholderImageUrl}" id="heroVideo">
-          <source src="${videoPath}" type="video/mp4">
-          <!-- Fallback image if video doesn't load -->
-          <img src="${placeholderImageUrl}" alt="Inflatable boats on Kamloops lake" class="hero-bg">
+(function () {
+    const heroHTML = `
+    <div class="hero video-background">
+        <video autoplay muted loop playsinline poster="images/people_riding_boats_lakes.png">
+            <source src="videos/lake-video-background.mp4" type="video/mp4">
+            <!-- Fallback for browsers that don't support video -->
         </video>
-        <div class="video-controls">
-          <button class="video-control" id="muteToggle" aria-label="Toggle mute">
-            <i class="fas fa-volume-mute"></i>
-          </button>
-          <button class="video-control" id="pauseToggle" aria-label="Toggle pause">
-            <i class="fas fa-pause"></i>
-          </button>
-        </div>
-      </div>` : 
-      `<div class="hero-image">
-        <img src="${placeholderImageUrl}" alt="Inflatable boats on Kamloops lake" class="hero-bg">
-      </div>`;
-    
-    this.innerHTML = `
-      <section class="hero-section">
-        ${backgroundContent}
-        <div class="hero-overlay"></div>
-        <div class="container">
-          <div class="hero-content">
-            <h1 class="hero-title">Explore Kamloops Lakes with Sequoia Boat Rentals & Concierge Services</h1>
-            <p class="hero-subtitle">Electric, eco-friendly inflatable boats for unforgettable adventures</p>
-            <div class="hero-cta">
-              <a href="booking.html" class="btn btn-primary btn-large">Book Your Adventure Now</a>
-              <a href="lakes.html" class="btn btn-secondary btn-large">Discover Lakes</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    `;
-    
-    // Add video control functionality
-    if (useVideo) {
-      // Wait for DOM to be ready
-      setTimeout(() => {
-        const video = this.querySelector('#heroVideo');
-        const muteToggle = this.querySelector('#muteToggle');
-        const pauseToggle = this.querySelector('#pauseToggle');
         
-        if (video && muteToggle && pauseToggle) {
-          console.log('Video element found:', video);
-          
-          // Force video to load and play
-          video.load();
-          
-          // Check if video can actually play
-          video.addEventListener('canplay', () => {
-            console.log('Video can play');
-            video.play()
-              .then(() => console.log('Video playback started successfully'))
-              .catch(err => console.error('Video playback failed:', err));
-          });
-          
-          // Ensure video is muted by default for better autoplay compatibility
-          video.muted = true;
-          
-          // Add event listeners for controls
-          muteToggle.addEventListener('click', () => {
-            video.muted = !video.muted;
-            muteToggle.querySelector('i').className = video.muted ? 
-              'fas fa-volume-mute' : 'fas fa-volume-up';
-          });
-          
-          pauseToggle.addEventListener('click', () => {
-            if (video.paused) {
-              video.play();
-              pauseToggle.querySelector('i').className = 'fas fa-pause';
-            } else {
-              video.pause();
-              pauseToggle.querySelector('i').className = 'fas fa-play';
-            }
-          });
-          
-          // Handle video loading issues
-          video.addEventListener('error', (e) => {
-            console.error('Video error event:', e);
-            console.error('Video error code:', video.error ? video.error.code : 'No error code');
-            console.error('Video error message:', video.error ? video.error.message : 'No error message');
-            
-            const videoBackground = this.querySelector('.video-background');
-            if (videoBackground) {
-              console.log('Falling back to image...');
-              videoBackground.style.display = 'none';
-              this.innerHTML = `
-                <div class="hero-image">
-                  <img src="${placeholderImageUrl}" alt="Inflatable boats on Kamloops lake" class="hero-bg">
+        <div class="video-overlay"></div>
+        
+        <div class="hero-content container">
+            <div class="hero-text fade-in">
+                <span class="hero-tagline">A Variety of Charters for Everyone</span>
+                <h1>Inspirational Routes</h1>
+                <p class="hero-subtitle">Eco-friendly electric inflatable boats for unforgettable lake adventures</p>
+                <div class="hero-cta">
+                    <a href="#booking-preview-container" class="btn btn-accent btn-lg slide-up delay-1">LEARN MORE</a>
                 </div>
-                <div class="hero-overlay"></div>
-                <div class="container">
-                  <div class="hero-content">
-                    <h1 class="hero-title">Explore Kamloops Lakes with Sequoia Boat Rentals & Concierge Services</h1>
-                    <p class="hero-subtitle">Electric, eco-friendly inflatable boats for unforgettable adventures</p>
-                    <div class="hero-cta">
-                      <a href="booking.html" class="btn btn-primary btn-large">Book Your Adventure Now</a>
-                      <a href="lakes.html" class="btn btn-secondary btn-large">Discover Lakes</a>
-                    </div>
-                  </div>
-                </div>
-              `;
-            }
-          });
-        } else {
-          console.error('Could not find video element or controls');
-        }
-      }, 0);
-    }
-  }
-}
+            </div>
+        </div>
+        
+        <div class="hero-slider-controls">
+            <button class="slider-arrow prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-arrow next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
 
-customElements.define('hero-component', HeroComponent);
+    <style>
+        /* Hero Styles */
+        .hero {
+            height: 100vh;
+            min-height: 600px;
+            position: relative;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 0;
+            padding-top: 120px; /* Account for fixed header with top bar */
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .hero-text {
+            text-align: center;
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero-tagline {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--white);
+            opacity: 0.9;
+        }
+        
+        .hero h1 {
+            margin-bottom: var(--space-md);
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+            color: var(--white);
+            text-transform: none;
+        }
+
+        .hero h1 .highlight {
+            color: #4ecdc4;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-lg);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: var(--white);
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--space-lg);
+        }
+        
+        .hero-cta .btn {
+            margin: 0 auto;
+            min-width: 180px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+            padding: 0.9rem 2rem;
+            border-radius: 3px;
+            letter-spacing: 1px;
+            background-color: #4ecdc4;
+            border: none;
+        }
+
+        .hero-cta .btn-accent {
+            background-color: #4ecdc4;
+            border-color: #4ecdc4;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .hero-cta .btn-accent:hover {
+            background-color: #36b1a8;
+            border-color: #36b1a8;
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+        }
+        
+        .hero-slider-controls {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        
+        .slider-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            font-size: 0.9rem;
+        }
+        
+        .slider-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .slider-arrow:focus {
+            outline: none;
+        }
+
+        .video-background {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+        
+        /* Media Queries */
+        @media (min-width: 576px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .hero-cta .btn {
+                font-size: 0.9rem;
+                padding: 0.9rem 2.5rem;
+            }
+            
+            .hero-slider-controls {
+                padding: 0 30px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .hero-content {
+                padding: 2rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .hero-cta .btn {
+                font-size: 1rem;
+            }
+            
+            .hero-slider-controls {
+                padding: 0 40px;
+            }
+            
+            .slider-arrow {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+            
+            .hero-tagline {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Fix for mobile Safari and other mobile browsers */
+        @media (max-width: 767px) and (orientation: portrait) {
+            .hero {
+                height: 100vh;
+                height: -webkit-fill-available;
+                height: fill-available;
+            }
+            
+            .video-background video {
+                height: 100%;
+                width: auto;
+                min-width: 100%;
+            }
+        }
+    </style>
+    
+    <script>
+        // Load Playfair Display font for the hero tagline
+        document.addEventListener('DOMContentLoaded', function() {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap';
+            document.head.appendChild(link);
+        });
+    </script>
+    `;
+
+    // Load the hero component
+    ComponentLoader.loadComponent('hero-container', heroHTML);
+})(); 

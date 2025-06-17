@@ -4,231 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Sequoia Boat Rentals offers electric, eco-friendly inflatable boats for rent on Kamloops area lakes. Explore Heffley, Paul, Monte, Shuswap, Kamloops, and Lac Le Jeune lakes with our convenient boat rental and concierge services.">
+    <title>Sequoia Boat Rentals & Concierge Services</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <title>Sequoia Boat Rentals & Concierge Services</title>
-    <style>
-        /* Additional styles to ensure video works */
-        .hero-video-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .hero-video {
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-
-        .video-controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .video-control {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            border: none;
-            outline: none;
-        }
-
-        .video-control:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-    </style>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <!-- Header Component -->
-    <header-component></header-component>
+    <header id="header-container"></header>
 
+    <!-- Main Content -->
     <main>
-        <section class="hero">
-            <div class="video-container">
-                <video autoplay muted loop playsinline id="hero-video">
-                    <source src="videos/lake-video-background.mp4" type="video/mp4">
-                    <!-- Fallback image if video doesn't load -->
-                    <img src="images/hero-bg.jpg" alt="Lake view background">
-                </video>
-                <div class="video-controls">
-                    <button id="speedToggle" class="video-control" title="Toggle playback speed">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </button>
-                    <button id="muteToggle" class="video-control" title="Toggle mute">
-                        <i class="fas fa-volume-mute"></i>
-                    </button>
-                    <button id="pauseToggle" class="video-control" title="Toggle play/pause">
-                        <i class="fas fa-pause"></i>
-                    </button>
-                </div>
-                <div class="hero-overlay"></div>
-            </div>
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Explore Kamloops Lakes with Sequoia Boat Rentals & Concierge Services</h1>
-                    <p class="hero-subtitle">Electric, eco-friendly inflatable boats for unforgettable adventures</p>
-                    <div class="hero-cta">
-                        <a href="booking.html" class="btn btn-primary btn-large">Book Your Adventure Now</a>
-                        <a href="lakes.html" class="btn btn-secondary btn-large">Discover Lakes</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Hero Section Component -->
+        <section id="hero-container"></section>
 
-        <!-- About Us Component -->
-        <about-component></about-component>
+        <!-- About Section Component -->
+        <section id="about-container"></section>
 
-        <!-- Features Component (Why Choose Us) -->
-        <features-component></features-component>
+        <!-- Why Choose Us Component -->
+        <section id="features-container"></section>
 
-        <!-- Quick Booking Section Component -->
-        <booking-form-component></booking-form-component>
+        <!-- Quick Booking Component -->
+        <section id="booking-preview-container"></section>
+
+        <!-- Services Component -->
+        <section id="services-container"></section>
+
+        <!-- Lakes Component -->
+        <section id="lakes-container"></section>
     </main>
 
     <!-- Footer Component -->
-    <footer-component></footer-component>
+    <footer id="footer-container"></footer>
 
-    <!-- Main JavaScript -->
+    <!-- Scripts -->
+    <script src="js/component-loader.js"></script>
     <script src="js/main.js"></script>
-
-    <!-- Web Components -->
     <script src="components/header.js"></script>
+    <script src="components/hero.js"></script>
     <script src="components/about.js"></script>
     <script src="components/features.js"></script>
-    <script src="components/booking-form.js"></script>
+    <script src="components/booking-preview.js"></script>
+    <script src="components/services.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="components/lakes.js"></script>
     <script src="components/footer.js"></script>
-
-    <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize AOS animations
-            AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: true
-            });
-
-            // Video control functionality
-            const video = document.getElementById('hero-video');
-            const muteToggle = document.getElementById('muteToggle');
-            const pauseToggle = document.getElementById('pauseToggle');
-            const speedToggle = document.getElementById('speedToggle');
-            const fallbackImg = document.getElementById('heroFallbackImg');
-            const errorMsg = document.getElementById('videoErrorMsg');
-
-            if (video && muteToggle && pauseToggle && speedToggle) {
-                console.log('Video element found:', video);
-
-                // Force video to load
-                video.load();
-
-                // Log video loading events
-                video.addEventListener('loadstart', () => console.log('Video load started'));
-                video.addEventListener('loadeddata', () => console.log('Video data loaded'));
-                video.addEventListener('canplay', () => console.log('Video can play'));
-                video.addEventListener('canplaythrough', () => console.log('Video can play through without buffering'));
-
-                // Ensure video is muted by default for better autoplay compatibility
-                video.muted = true;
-
-                // Try to play the video
-                video.play().catch(err => {
-                    console.error('Video autoplay failed:', err);
-                    if (fallbackImg) fallbackImg.style.display = 'block';
-                    if (errorMsg) errorMsg.style.display = 'block';
-                });
-
-                // Add event listeners for controls
-                muteToggle.addEventListener('click', () => {
-                    video.muted = !video.muted;
-                    muteToggle.querySelector('i').className = video.muted ?
-                        'fas fa-volume-mute' : 'fas fa-volume-up';
-                });
-
-                pauseToggle.addEventListener('click', () => {
-                    if (video.paused) {
-                        video.play();
-                        pauseToggle.querySelector('i').className = 'fas fa-pause';
-                    } else {
-                        video.pause();
-                        pauseToggle.querySelector('i').className = 'fas fa-play';
-                    }
-                });
-
-                // Force playback rate after video loads
-                video.addEventListener('loadedmetadata', () => {
-                    video.defaultPlaybackRate = 0.5;
-                    video.playbackRate = 0.5;
-                    console.log('Set initial playback rate:', video.playbackRate);
-                });
-
-                // Add timeupdate listener to maintain slow speed
-                video.addEventListener('timeupdate', () => {
-                    if (video.playbackRate !== 0.5) {
-                        video.playbackRate = 0.5;
-                    }
-                });
-
-                // Log when speed changes
-                video.addEventListener('ratechange', () => {
-                    console.log('Playback rate changed to:', video.playbackRate);
-                });
-
-                // Remove the toggle functionality since we want it permanently slow
-                speedToggle.title = "Playing at 0.5x speed";
-                speedToggle.style.opacity = "0.7";
-
-                // Handle video error
-                video.addEventListener('error', (e) => {
-                    console.error('Video error:', e);
-                    if (fallbackImg) fallbackImg.style.display = 'block';
-                    if (errorMsg) errorMsg.style.display = 'block';
-                });
-            } else {
-                if (fallbackImg) fallbackImg.style.display = 'block';
-                if (errorMsg) errorMsg.style.display = 'block';
-            }
-        });
-    </script>
 </body>
 
 </html>

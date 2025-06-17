@@ -38,10 +38,3 @@ This directory is for all website images. Please upload the following images bef
 - Recommended lake image size: 800px × 600px
 - Logo should be a transparent PNG
 
-## Placeholder Images
-
-If you need placeholder images during development, consider using:
-- https://placeholder.com/
-- https://picsum.photos/
-
-Example placeholder URL: https://picsum.photos/800/600 
