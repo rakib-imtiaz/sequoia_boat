@@ -61,9 +61,9 @@
                             <label for="duration" class="form-label">Rental Duration</label>
                             <select id="duration" class="form-control" required>
                                 <option value="" disabled selected>Select duration</option>
-                                <option value="2-hours">2 Hours ($70/hr weekday, $80/hr weekend)</option>
-                                <option value="4-hours">4 Hours ($60/hr weekday, $70/hr weekend)</option>
-                                <option value="6-hours">6 Hours ($50/hr weekday, $60/hr weekend)</option>
+                                <option value="2-hours">2 Hours ($70-79.89/hr weekday, $80-89/hr weekend)</option>
+                                <option value="4-hours">4 Hours ($60-69.89/hr weekday, $70-79.89/hr weekend)</option>
+                                <option value="6-hours">6 Hours ($50-59.89/hr weekday, $60-69.89/hr weekend)</option>
                             </select>
                         </div>
 
@@ -77,12 +77,12 @@
                                 <label for="booking-time" class="form-label">Time</label>
                                 <select id="booking-time" class="form-control" required>
                                     <option value="" disabled selected>Select time</option>
-                                    <option value="9am">9:00 AM</option>
-                                    <option value="10am">10:00 AM</option>
-                                    <option value="11am">11:00 AM</option>
-                                    <option value="12pm">12:00 PM</option>
-                                    <option value="1pm">1:00 PM</option>
-                                    <option value="2pm">2:00 PM</option>
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM (Noon)</option>
+                                    <option value="13:00">1:00 PM</option>
+                                    <option value="14:00">2:00 PM</option>
                                 </select>
                             </div>
                         </div>
@@ -107,6 +107,37 @@
                         
                         <button type="submit" class="btn btn-accent btn-lg btn-block">Check Availability</button>
                     </form>
+                    
+                    <div class="booking-summary">
+                        <h4>Booking Summary</h4>
+                        <p>Your selected options will appear here. Complete the form above to see estimated pricing and availability.</p>
+                        <div id="summary-details" class="summary-details" style="display: none;">
+                            <div class="summary-row">
+                                <span>Selected Lake:</span>
+                                <span id="summary-lake"></span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Boat Type:</span>
+                                <span id="summary-boat-type"></span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Duration:</span>
+                                <span id="summary-duration"></span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Date & Time:</span>
+                                <span id="summary-datetime"></span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Add-ons:</span>
+                                <span id="summary-addons"></span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Estimated Total:</span>
+                                <span id="summary-total"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -219,6 +250,44 @@
         .btn-block:hover {
             background-color: var(--secondary-dark);
             border-color: var(--secondary-dark);
+        }
+        
+        /* Booking Summary Styles */
+        .booking-summary {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .booking-summary h4 {
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+        
+        .summary-details {
+            margin-top: var(--space-md);
+            background-color: rgba(0, 0, 0, 0.02);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-row.total {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
         
         /* Media Queries */

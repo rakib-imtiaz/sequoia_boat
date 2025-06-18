@@ -16,6 +16,205 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize parallax effect
     initParallax();
+
+    // Booking Summary Functionality
+    const bookingForm = document.getElementById('quick-booking-form');
+    const summaryDetails = document.getElementById('summary-details');
+
+    if (bookingForm) {
+        const formInputs = bookingForm.querySelectorAll('select, input[type="date"], input[type="checkbox"]');
+
+        // Function to update summary
+        function updateBookingSummary() {
+            const lake = document.getElementById('lake');
+            const boatType = document.getElementById('boat-type');
+            const duration = document.getElementById('duration');
+            const bookingDate = document.getElementById('booking-date');
+            const bookingTime = document.getElementById('booking-time');
+            const cooler = document.getElementById('cooler');
+            const speaker = document.getElementById('speaker');
+            const drybags = document.getElementById('drybags');
+
+            // Check if all required fields are filled
+            if (lake.value && boatType.value && duration.value && bookingDate.value && bookingTime.value) {
+                // Show summary details
+                summaryDetails.style.display = 'block';
+
+                // Update summary fields
+                document.getElementById('summary-lake').textContent = lake.options[lake.selectedIndex].text;
+                document.getElementById('summary-boat-type').textContent = boatType.options[boatType.selectedIndex].text;
+                document.getElementById('summary-duration').textContent = duration.options[duration.selectedIndex].text;
+
+                const formattedDate = new Date(bookingDate.value).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('summary-datetime').textContent = `${formattedDate} at ${bookingTime.options[bookingTime.selectedIndex].text}`;
+
+                // Check add-ons
+                let addons = [];
+                let total = 0;
+
+                if (cooler.checked) {
+                    addons.push('Cooler (+$30)');
+                    total += 30;
+                }
+
+                if (speaker.checked) {
+                    addons.push('JBL Speaker (+$20)');
+                    total += 20;
+                }
+
+                if (drybags.checked) {
+                    addons.push('Dry Bags (+$10)');
+                    total += 10;
+                }
+
+                document.getElementById('summary-addons').textContent = addons.length ? addons.join(', ') : 'None';
+
+                // Calculate estimated total
+                const isWeekend = new Date(bookingDate.value).getDay() === 0 || new Date(bookingDate.value).getDay() === 6;
+                let basePrice = 0;
+
+                if (duration.value === '2-hours') {
+                    basePrice = isWeekend ? 160 : 140;
+                } else if (duration.value === '4-hours') {
+                    basePrice = isWeekend ? 280 : 240;
+                } else if (duration.value === '6-hours') {
+                    basePrice = isWeekend ? 360 : 300;
+                }
+
+                total += basePrice;
+                document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+            }
+        }
+
+        // Add event listeners
+        formInputs.forEach(input => {
+            input.addEventListener('change', updateBookingSummary);
+        });
+
+        // Listen to form submission for availability check
+        bookingForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            updateBookingSummary();
+
+            const submitButton = bookingForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Checking...';
+
+            // --- Form Data ---
+            const lake = document.getElementById('lake');
+            const boatType = document.getElementById('boat-type');
+            const duration = document.getElementById('duration');
+            const bookingDate = document.getElementById('booking-date');
+            const bookingTime = document.getElementById('booking-time');
+            const cooler = document.getElementById('cooler');
+            const speaker = document.getElementById('speaker');
+            const drybags = document.getElementById('drybags');
+            const estimatedTotal = document.getElementById('summary-total').textContent;
+
+            // --- Availability Check Logic ---
+            const MAX_CONCURRENT_BOATS = 2; // We can operate 2 boats at the same time
+
+            const getBookingSlot = (date, timeStr, durationStr) => {
+                // First, try to parse the 12-hour AM/PM format (from database)
+                let timeParts = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/);
+                if (timeParts) {
+                    let hours = parseInt(timeParts[1], 10);
+                    const minutes = parseInt(timeParts[2], 10);
+                    const ampm = timeParts[3];
+
+                    if (ampm === 'PM' && hours < 12) hours += 12;
+                    if (ampm === 'AM' && hours === 12) hours = 0; // Handle midnight case
+
+                    const startTime = new Date(`${date}T00:00:00`);
+                    startTime.setHours(hours, minutes, 0, 0);
+
+                    const durationHours = parseInt(durationStr.split('-')[0], 10);
+                    const endTime = new Date(startTime.getTime());
+                    endTime.setHours(startTime.getHours() + durationHours);
+                    return { startTime, endTime };
+                }
+
+                // If that fails, try to parse the 24-hour format (from form value)
+                timeParts = timeStr.match(/(\d+):(\d+)/);
+                if (timeParts) {
+                    const hours = parseInt(timeParts[1], 10);
+                    const minutes = parseInt(timeParts[2], 10);
+
+                    const startTime = new Date(`${date}T00:00:00`);
+                    startTime.setHours(hours, minutes, 0, 0);
+
+                    const durationHours = parseInt(durationStr.split('-')[0], 10);
+                    const endTime = new Date(startTime.getTime());
+                    endTime.setHours(startTime.getHours() + durationHours);
+                    return { startTime, endTime };
+                }
+
+                return null; // Return null if no format matches
+            };
+
+            const requestedSlot = getBookingSlot(bookingDate.value, bookingTime.value, duration.value);
+
+            if (!requestedSlot) {
+                alert("Invalid time format. Please select a valid time.");
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+                return;
+            }
+
+            try {
+                const snapshot = await db.collection('bookings').where('date', '==', bookingDate.value).get();
+                const bookingsForDay = snapshot.docs.map(doc => doc.data());
+
+                let overlappingBookings = 0;
+                for (const existingBooking of bookingsForDay) {
+                    const existingSlot = getBookingSlot(existingBooking.date, existingBooking.time, existingBooking.duration);
+                    if (!existingSlot) continue;
+
+                    // Check for overlap
+                    if (requestedSlot.startTime < existingSlot.endTime && requestedSlot.endTime > existingSlot.startTime) {
+                        overlappingBookings++;
+                    }
+                }
+
+                if (overlappingBookings >= MAX_CONCURRENT_BOATS) {
+                    alert("We're sorry, but we are fully booked for this time slot. Please select a different time or date.");
+                } else {
+                    const confirmBooking = confirm("A slot is available! Would you like to proceed with this booking?");
+                    if (confirmBooking) {
+                        submitButton.textContent = 'Booking...';
+                        const bookingData = {
+                            lake: lake.options[lake.selectedIndex].text,
+                            boatType: boatType.options[boatType.selectedIndex].text,
+                            duration: duration.options[duration.selectedIndex].text,
+                            date: bookingDate.value,
+                            time: bookingTime.options[bookingTime.selectedIndex].text, // Keep text for readability in db
+                            addons: { cooler: cooler.checked, speaker: speaker.checked, drybags: drybags.checked },
+                            estimatedTotal: estimatedTotal,
+                            status: 'pending',
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        };
+
+                        await db.collection('bookings').add(bookingData);
+                        alert('Your booking has been confirmed! We will contact you shortly with more details.');
+                        bookingForm.reset();
+                        summaryDetails.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error("Error checking availability: ", error);
+                alert("There was an error checking for availability. Please try again or contact us directly.");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+        });
+    }
 });
 
 /**

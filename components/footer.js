@@ -24,7 +24,11 @@
                         <div class="footer-contact">
                             <div class="contact-item">
                                 <i class="fas fa-phone"></i>
-                                <a href="tel:+12505557890">(250) 555-7890</a>
+                                <a href="tel:+12508796055">(250) 879-6055</a>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:info@sequoiaservices.ca">info@sequoiaservices.ca</a>
                             </div>
                             <div class="contact-item">
                                 <i class="fas fa-globe"></i>
@@ -32,7 +36,7 @@
                             </div>
                             <div class="contact-item">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>Kamloops, BC, Canada</span>
+                                <span>Arrowstone Drive, Kamloops, BC, V2C1P9</span>
                             </div>
                         </div>
                         <div class="social-links">

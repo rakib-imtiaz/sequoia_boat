@@ -52,19 +52,19 @@
                                         <div class="pricing-cell">Weekend Price</div>
                                     </div>
                                     <div class="pricing-row">
-                                        <div class="pricing-cell">2 Hours</div>
-                                        <div class="pricing-cell">$70/hr <small>($140 total)</small></div>
-                                        <div class="pricing-cell">$80/hr <small>($160 total)</small></div>
+                                        <div class="pricing-cell">2 Hours<br><small>(must have boating license)</small></div>
+                                        <div class="pricing-cell">$70-79.89/hr <small>($140-159.78 total)</small></div>
+                                        <div class="pricing-cell">$80-89/hr <small>($160-178 total)</small></div>
                                     </div>
                                     <div class="pricing-row">
-                                        <div class="pricing-cell">4 Hours</div>
-                                        <div class="pricing-cell">$60/hr <small>($240 total)</small></div>
-                                        <div class="pricing-cell">$70/hr <small>($280 total)</small></div>
+                                        <div class="pricing-cell">4 Hours<br><small>(driver provided if needed)</small></div>
+                                        <div class="pricing-cell">$60-69.89/hr <small>($240-279.56 total)</small></div>
+                                        <div class="pricing-cell">$70-79.89/hr <small>($280-319.56 total)</small></div>
                                     </div>
                                     <div class="pricing-row">
-                                        <div class="pricing-cell">6 Hours</div>
-                                        <div class="pricing-cell">$50/hr <small>($300 total)</small></div>
-                                        <div class="pricing-cell">$60/hr <small>($360 total)</small></div>
+                                        <div class="pricing-cell">6 Hours<br><small>(driver provided if needed)</small></div>
+                                        <div class="pricing-cell">$50-59.89/hr <small>($300-359.34 total)</small></div>
+                                        <div class="pricing-cell">$60-69.89/hr <small>($360-419.34 total)</small></div>
                                     </div>
                                 </div>
                                 
