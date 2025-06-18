@@ -836,3 +836,212 @@ section:nth-of-type(odd) {
         overflow: hidden;
     }
 }
+
+/* ================== MODAL STYLES ================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-container {
+    background-color: var(--white);
+    color: var(--dark);
+    width: 90%;
+    max-width: 480px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    animation: fadeInUpModal var(--transition-medium);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 90vh;
+}
+
+@keyframes fadeInUpModal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.modal-body {
+    padding: var(--space-lg);
+    font-size: 1rem;
+    overflow-y: auto;
+    max-height: calc(90vh - 200px);
+    /* leaves space for header/footer */
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background-color: var(--section-bg);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-footer .btn {
+    min-width: 110px;
+}
+
+/* ================= INVOICE STYLES ================= */
+.invoice-container {
+    font-family: var(--font-secondary);
+    color: var(--dark);
+    max-width: 100%;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.invoice-header h2 {
+    color: var(--primary);
+    margin-bottom: var(--space-xs);
+    font-size: 1.6rem;
+}
+
+.invoice-header h3 {
+    color: var(--primary-dark);
+    margin-bottom: var(--space-xs);
+}
+
+.invoice-header p {
+    margin-bottom: var(--space-xs);
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.invoice-info {
+    text-align: right;
+}
+
+.customer-details {
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: var(--radius-md);
+}
+
+.customer-details h4 {
+    margin-bottom: var(--space-sm);
+    color: var(--primary);
+}
+
+.customer-details p {
+    margin-bottom: var(--space-xs);
+    font-size: 0.95rem;
+}
+
+.invoice-items {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-lg);
+}
+
+.invoice-items th,
+.invoice-items td {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.invoice-items th {
+    background-color: var(--primary);
+    color: var(--white);
+    font-weight: 600;
+}
+
+.invoice-items tfoot th {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--dark);
+    font-size: 1.1rem;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.payment-info {
+    padding: var(--space-md);
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-pending {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.status-paid {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.status-failed {
+    background-color: #F8D7DA;
+    color: #721C24;
+}
+
+@media (max-width: 576px) {
+    .invoice-container {
+        font-size: 0.85rem;
+    }
+
+    .invoice-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .invoice-header h3 {
+        font-size: 1rem;
+    }
+
+    .invoice-items th,
+    .invoice-items td {
+        padding: var(--space-xs) var(--space-sm);
+    }
+}

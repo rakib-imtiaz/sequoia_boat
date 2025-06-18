@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize parallax effect
     initParallax();
 
+    // Initialize Stripe if available
+    if (typeof initializeStripe === 'function') {
+        initializeStripe();
+    }
+
     // Booking Summary Functionality
     const bookingForm = document.getElementById('quick-booking-form');
     const summaryDetails = document.getElementById('summary-details');
@@ -161,7 +166,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const requestedSlot = getBookingSlot(bookingDate.value, bookingTime.value, duration.value);
 
             if (!requestedSlot) {
-                alert("Invalid time format. Please select a valid time.");
+                await showModal({
+                    title: 'Invalid Time',
+                    message: 'Invalid time format. Please select a valid time.',
+                    confirmText: 'OK'
+                });
                 submitButton.disabled = false;
                 submitButton.textContent = originalButtonText;
                 return;
@@ -183,36 +192,139 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if (overlappingBookings >= MAX_CONCURRENT_BOATS) {
-                    alert("We're sorry, but we are fully booked for this time slot. Please select a different time or date.");
+                    await showModal({
+                        title: 'Fully Booked',
+                        message: "We're sorry, but we are fully booked for this time slot. Please select a different time or date.",
+                        confirmText: 'OK'
+                    });
                 } else {
-                    const confirmBooking = confirm("A slot is available! Would you like to proceed with this booking?");
-                    if (confirmBooking) {
-                        submitButton.textContent = 'Booking...';
+                    const userConfirmed = await showModal({
+                        title: 'Slot Available',
+                        message: 'Your selected slot is available! Would you like to proceed with the booking?',
+                        confirmText: 'Book Now',
+                        cancelText: 'Cancel'
+                    });
+                    if (userConfirmed) {
+                        submitButton.textContent = 'Processing...';
                         const bookingData = {
                             lake: lake.options[lake.selectedIndex].text,
                             boatType: boatType.options[boatType.selectedIndex].text,
                             duration: duration.options[duration.selectedIndex].text,
                             date: bookingDate.value,
-                            time: bookingTime.options[bookingTime.selectedIndex].text, // Keep text for readability in db
+                            time: bookingTime.options[bookingTime.selectedIndex].text,
                             addons: { cooler: cooler.checked, speaker: speaker.checked, drybags: drybags.checked },
                             estimatedTotal: estimatedTotal,
                             status: 'pending',
+                            isPaid: false,
                             createdAt: firebase.firestore.FieldValue.serverTimestamp()
                         };
 
-                        await db.collection('bookings').add(bookingData);
-                        alert('Your booking has been confirmed! We will contact you shortly with more details.');
-                        bookingForm.reset();
-                        summaryDetails.style.display = 'none';
+                        try {
+                            // Save booking to Firestore
+                            const docRef = await db.collection('bookings').add(bookingData);
+                            const bookingId = docRef.id;
+
+                            // Show invoice modal
+                            if (typeof showInvoiceModal === 'function') {
+                                const proceedToPayment = await showInvoiceModal(bookingData, bookingId);
+
+                                if (proceedToPayment) {
+                                    // Simple redirect to Stripe checkout
+                                    if (typeof createCheckoutLink === 'function') {
+                                        window.location.href = createCheckoutLink(bookingData, bookingData.estimatedTotal);
+                                    } else {
+                                        // Fallback direct link
+                                        window.location.href = 'https://checkout.stripe.com/pay/cs_test_b1eRxfQ5vvNkHQniMaZNrIIgbTo0Zk3QeNPE0u9nRRzScg3jiXoQSJxUKH';
+                                    }
+                                }
+                            } else {
+                                // Fallback if invoice modal is not available
+                                await showModal({
+                                    title: 'Booking Confirmed',
+                                    message: 'Thank you! Your booking has been confirmed.',
+                                    confirmText: 'Great!'
+                                });
+                            }
+
+                            bookingForm.reset();
+                            summaryDetails.style.display = 'none';
+                        } catch (error) {
+                            console.error("Error saving booking:", error);
+                            await showModal({
+                                title: 'Error',
+                                message: 'There was an error saving your booking. Please try again.',
+                                confirmText: 'OK'
+                            });
+                        } finally {
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalButtonText;
+                        }
                     }
                 }
             } catch (error) {
                 console.error("Error checking availability: ", error);
-                alert("There was an error checking for availability. Please try again or contact us directly.");
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
+                await showModal({
+                    title: 'Error',
+                    message: 'There was an error checking for availability. Please try again or contact us directly.',
+                    confirmText: 'OK'
+                });
             }
+        });
+    }
+
+    // Modal elements and utility function
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const modalFooter = document.getElementById('modal-footer');
+    const modalCloseBtn = document.getElementById('modal-close');
+
+    /**
+     * Display a professional modal dialog.
+     * Returns a Promise that resolves to true (confirm) or false (cancel/close).
+     */
+    function showModal({ title = '', message = '', confirmText = 'OK', cancelText = null, isError = false }) {
+        return new Promise(resolve => {
+            // Set content
+            modalTitle.textContent = title;
+            modalBody.innerHTML = `<p>${message}</p>`;
+
+            // Clear previous buttons
+            modalFooter.innerHTML = '';
+
+            // Confirm button
+            const confirmBtn = document.createElement('button');
+            confirmBtn.className = 'btn btn-primary';
+            confirmBtn.textContent = confirmText;
+            modalFooter.appendChild(confirmBtn);
+
+            // Optional cancel button
+            let cancelBtn = null;
+            if (cancelText) {
+                cancelBtn = document.createElement('button');
+                cancelBtn.className = 'btn btn-outline';
+                cancelBtn.textContent = cancelText;
+                modalFooter.appendChild(cancelBtn);
+            }
+
+            // Show modal
+            modalOverlay.style.display = 'flex';
+
+            // Helper to close modal and cleanup
+            function closeModal(result) {
+                modalOverlay.style.display = 'none';
+                confirmBtn.removeEventListener('click', onConfirm);
+                if (cancelBtn) cancelBtn.removeEventListener('click', onCancel);
+                modalCloseBtn.removeEventListener('click', onCancel);
+                resolve(result);
+            }
+
+            function onConfirm() { closeModal(true); }
+            function onCancel() { closeModal(false); }
+
+            confirmBtn.addEventListener('click', onConfirm);
+            if (cancelBtn) cancelBtn.addEventListener('click', onCancel);
+            modalCloseBtn.addEventListener('click', onCancel);
         });
     }
 });
