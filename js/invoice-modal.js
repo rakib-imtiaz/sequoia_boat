@@ -155,10 +155,10 @@ async function showInvoiceModal(bookingData, bookingId) {
             paymentButton.removeEventListener('click', onCheckout);
             modalCloseBtn.removeEventListener('click', onClose);
 
-            // In a real implementation this would happen after successful payment
-            // For now we'll simulate that the payment will be successful
-            updatePaymentStatus();
-
+            // Redirect via Cloud Function created session
+            if (typeof redirectToStripeCheckout === 'function') {
+                redirectToStripeCheckout(bookingId);
+            }
             resolve(true);
         }
 

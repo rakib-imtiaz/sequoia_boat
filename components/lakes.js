@@ -21,166 +21,52 @@
                 <div id="lakesMap" class="lakes-map"></div>
             </div>
             
-            <div class="lakes-grid">
+            <div class="lakes-bento-grid">
                 <!-- Heffley Lake -->
-                <div class="lake-card">
-                    <div class="lake-image">
-                        <img src="images/Heffley_Lake_1.png" alt="Heffley Lake" loading="lazy">
-                    </div>
-                    <div class="lake-content">
-                        <div class="lake-badge">Closest to Sun Peaks</div>
+                <div class="lake-bento-item" style="background-image: url('images/Heffley_Lake_1.png');">
+                    <div class="lake-bento-content">
                         <h3>Heffley Lake</h3>
-                        <p>Nestled just 20 minutes from the heart of Sun Peaks, Heffley Lake is a serene escape that feels like a local secret. With its calm, glassy waters and picture-perfect mountain backdrop.</p>
-                        <div class="lake-features">
-                            <div class="lake-feature">
-                                <i class="fas fa-route"></i>
-                                <span>20 min from Sun Peaks</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-water"></i>
-                                <span>Calm waters</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-ship"></i>
-                                <span>Easy boat launch</span>
-                            </div>
-                        </div>
-                        <a href="#booking-preview-container" class="btn btn-outline">Book This Lake</a>
+                        <p>Closest to Sun Peaks</p>
                     </div>
                 </div>
                 
                 <!-- Paul Lake -->
-                <div class="lake-card">
-                    <div class="lake-image">
-                        <img src="images/paul_lake_1.png" alt="Paul Lake" loading="lazy">
-                    </div>
-                    <div class="lake-content">
-                        <div class="lake-badge">Family Friendly</div>
+                <div class="lake-bento-item" style="background-image: url('images/paul_lake_1.png');">
+                    <div class="lake-bento-content">
                         <h3>Paul Lake</h3>
-                        <p>Just 25 minutes from Kamloops, Paul Lake is a clean, scenic haven that's become a go-to summer spot for locals and visitors alike. Tucked within a peaceful Provincial Park.</p>
-                        <div class="lake-features">
-                            <div class="lake-feature">
-                                <i class="fas fa-route"></i>
-                                <span>25 min from Kamloops</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-campground"></i>
-                                <span>Campgrounds nearby</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-parking"></i>
-                                <span>Ample parking</span>
-                            </div>
-                        </div>
-                        <a href="#booking-preview-container" class="btn btn-outline">Book This Lake</a>
+                        <p>Family Friendly</p>
                     </div>
                 </div>
                 
                 <!-- Monte Lake -->
-                <div class="lake-card">
-                    <div class="lake-image">
-                        <img src="images/Monte_Lake_1.png" alt="Monte Lake" loading="lazy">
-                    </div>
-                    <div class="lake-content">
-                        <div class="lake-badge">Hidden Gem</div>
+                <div class="lake-bento-item" style="background-image: url('images/Monte_Lake_1.png');">
+                    <div class="lake-bento-content">
                         <h3>Monte Lake</h3>
-                        <p>Monte Lake is a hidden gem nestled between Kamloops and Vernon, offering the perfect spot for a peaceful day on the water. The warm waters in summer make it ideal to cool off.</p>
-                        <div class="lake-features">
-                            <div class="lake-feature">
-                                <i class="fas fa-route"></i>
-                                <span>30 min from Kamloops</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-temperature-high"></i>
-                                <span>Warm water</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-user-friends"></i>
-                                <span>Less crowded</span>
-                            </div>
-                        </div>
-                        <a href="#booking-preview-container" class="btn btn-outline">Book This Lake</a>
+                        <p>Hidden Gem</p>
                     </div>
                 </div>
                 
                 <!-- Shuswap Lake -->
-                <div class="lake-card">
-                    <div class="lake-image">
-                        <img src="images/shuswap_Lake_1.png" alt="Shuswap Lake" loading="lazy">
-                    </div>
-                    <div class="lake-content">
-                        <div class="lake-badge">Worth the Drive</div>
+                <div class="lake-bento-item" style="background-image: url('images/shuswap_Lake_1.png');">
+                    <div class="lake-bento-content">
                         <h3>Shuswap Lake</h3>
-                        <p>Shuswap Lake is just a short 45–60-minute drive from Kamloops, but totally worth the drive! With its massive, winding waters and endless coves, perfect for full-day adventures.</p>
-                        <div class="lake-features">
-                            <div class="lake-feature">
-                                <i class="fas fa-route"></i>
-                                <span>45-60 min from Kamloops</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-mountain"></i>
-                                <span>Breathtaking views</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-water"></i>
-                                <span>Numerous coves</span>
-                            </div>
-                        </div>
-                        <a href="#booking-preview-container" class="btn btn-outline">Book This Lake</a>
+                        <p>Worth the Drive</p>
                     </div>
                 </div>
                 
                 <!-- Kamloops Lake -->
-                <div class="lake-card">
-                    <div class="lake-image">
-                        <img src="images/Kamloops_Lake_1.png" alt="Kamloops Lake" loading="lazy">
-                    </div>
-                    <div class="lake-content">
-                        <div class="lake-badge">Closest to City</div>
+                <div class="lake-bento-item" style="background-image: url('images/Kamloops_Lake_1.png');">
+                    <div class="lake-bento-content">
                         <h3>Kamloops Lake</h3>
-                        <p>Kamloops Lake is the closest large lake to the city, and perfect for a relaxing day on the water! This expansive, open lake offers stunning views of the surrounding mountains.</p>
-                        <div class="lake-features">
-                            <div class="lake-feature">
-                                <i class="fas fa-route"></i>
-                                <span>15 min from downtown</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-fish"></i>
-                                <span>Great fishing</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-expand-arrows-alt"></i>
-                                <span>Large, open waters</span>
-                            </div>
-                        </div>
-                        <a href="#booking-preview-container" class="btn btn-outline">Book This Lake</a>
+                        <p>Closest to City</p>
                     </div>
                 </div>
                 
                 <!-- Lac Le Jeune -->
-                <div class="lake-card">
-                    <div class="lake-image">
-                        <img src="images/Lac_Le_Jeune.png" alt="Lac Le Jeune" loading="lazy">
-                    </div>
-                    <div class="lake-content">
-                        <div class="lake-badge">Perfect for Half-Day</div>
+                <div class="lake-bento-item" style="background-image: url('images/Lac_Le_Jeune.png');">
+                    <div class="lake-bento-content">
                         <h3>Lac Le Jeune</h3>
-                        <p>Just a short 30–35 minute drive from Kamloops, Lac Le Jeune is perfect for those looking for a peaceful, more intimate experience on the water. Great for half-day rentals.</p>
-                        <div class="lake-features">
-                            <div class="lake-feature">
-                                <i class="fas fa-route"></i>
-                                <span>30-35 min from Kamloops</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-leaf"></i>
-                                <span>Serene atmosphere</span>
-                            </div>
-                            <div class="lake-feature">
-                                <i class="fas fa-utensils"></i>
-                                <span>Picnic areas</span>
-                            </div>
-                        </div>
-                        <a href="#booking-preview-container" class="btn btn-outline">Book This Lake</a>
+                        <p>Perfect for Half-Day</p>
                     </div>
                 </div>
             </div>
@@ -201,129 +87,113 @@
             font-size: 1.1rem;
         }
         
-        .lakes-grid {
+        .lakes-bento-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-lg);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-auto-rows: 250px;
+            grid-gap: 1.5rem;
+            margin-top: 4rem;
         }
         
-        .lake-card {
-            background-color: var(--white);
+        .lake-bento-item {
+            position: relative;
+            background-size: cover;
+            background-position: center;
             border-radius: var(--radius-lg);
             overflow: hidden;
             box-shadow: var(--shadow-md);
-            display: flex;
-            flex-direction: column;
-            transition: all var(--transition-medium);
-            border: 1px solid rgba(0,0,0,0.05);
-            height: 100%;
+            transition: box-shadow 0.4s ease;
+            cursor: pointer;
         }
         
-        .lake-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+        .lake-bento-item:hover {
+            box-shadow: var(--shadow-xl);
         }
         
-        .lake-image {
-            position: relative;
-            overflow: hidden;
-            height: 250px;
-        }
-        
-        .lake-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-medium);
-        }
-        
-        .lake-card:hover .lake-image img {
-            transform: scale(1.05);
-        }
-        
-        .lake-content {
-            padding: var(--space-lg);
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        
-        .lake-badge {
-            display: inline-block;
-            background-color: var(--secondary);
+        .lake-bento-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
             color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-full);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: var(--space-sm);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            
+            /* Improved Glassmorphism */
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            
+            /* Initial state: partially visible */
+            transform: translateY(calc(100% - 5rem)); /* Adjust to show title */
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .lake-content h3 {
-            margin-bottom: var(--space-sm);
-            color: var(--primary-dark);
-            font-weight: 700;
+        .lake-bento-item:hover .lake-bento-content {
+            transform: translateY(0);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .lake-bento-content h3 {
             font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 0.25rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            color: var(--white);
         }
         
-        .lake-content p {
-            color: var(--gray);
-            margin-bottom: var(--space-md);
-            flex-grow: 0;
+        .lake-bento-content p {
+            margin: 0;
             font-size: 0.95rem;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            color: var(--white);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            transition-delay: 0.1s;
         }
         
-        .lake-features {
-            margin-bottom: var(--space-md);
-            margin-top: auto;
-            padding-top: var(--space-sm);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
+        .lake-bento-item:hover .lake-bento-content p {
+            opacity: 0.9;
         }
         
-        .lake-feature {
-            display: flex;
-            align-items: center;
-            margin-bottom: var(--space-xs);
-        }
-        
-        .lake-feature i {
-            color: var(--secondary);
-            margin-right: var(--space-sm);
-            width: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        .lake-feature span {
-            font-size: 0.9rem;
-            color: var(--dark);
-        }
-        
-        .lake-card .btn {
-            align-self: flex-start;
-            margin-top: var(--space-md);
-        }
-        
-        /* Media Queries */
+        /* Responsive adjustments */
         @media (min-width: 768px) {
-            .lakes-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .lakes-bento-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 250px;
+                grid-template-areas:
+                    "heffley  shuswap"
+                    "paul     lac-le-jeune"
+                    "monte    lac-le-jeune"
+                    "kamloops kamloops";
             }
+
+            /* Reset any lingering column/row spans and display properties */
+            .lake-bento-item {
+                grid-column: auto;
+                grid-row: auto;
+                display: block !important;
+            }
+
+            .lake-bento-item:nth-child(1) { grid-area: heffley; }
+            .lake-bento-item:nth-child(2) { grid-area: paul; }
+            .lake-bento-item:nth-child(3) { grid-area: monte; }
+            .lake-bento-item:nth-child(4) { grid-area: shuswap; }
+            .lake-bento-item:nth-child(5) { grid-area: kamloops; }
+            .lake-bento-item:nth-child(6) { grid-area: lac-le-jeune; }
         }
         
         @media (min-width: 1200px) {
-            .lakes-grid {
+            .lakes-bento-grid {
                 grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: 250px;
+                grid-template-areas:
+                    "heffley  heffley  shuswap"
+                    "paul     lac-le-jeune lac-le-jeune"
+                    "monte    lac-le-jeune lac-le-jeune"
+                    "kamloops kamloops kamloops";
             }
         }
 

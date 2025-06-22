@@ -6,6 +6,7 @@
 (function () {
     const servicesHTML = `
     <div class="services section-padding">
+        <div class="services-background-image" style="background-image: url('images/people_riding_boats_lakes.png');"></div>
         <div class="container">
             <h2 class="section-heading text-center">Our Services</h2>
             <p class="section-subtitle text-center">From boat rentals to concierge services, we provide everything you need for your lake adventure</p>
@@ -30,9 +31,6 @@
                     <!-- Boat Rentals Tab -->
                     <div class="tab-pane active" id="boat-rentals">
                         <div class="service-content">
-                            <div class="service-image image-container">
-                                <img src="images/electric_inflatable_boat.png" alt="Electric, Eco-friendly Inflatable Boats" loading="lazy">
-                            </div>
                             <div class="service-details">
                                 <h3>Electric, Eco-friendly Inflatable Boats</h3>
                                 <p>Our premium electric boats provide a quiet, peaceful experience that lets you connect with nature without disturbing it. Perfect for families, fishing enthusiasts, or anyone looking to explore the beautiful lakes of Kamloops.</p>
@@ -85,15 +83,15 @@
                     <!-- Concierge Services Tab -->
                     <div class="tab-pane" id="concierge">
                         <div class="service-content">
-                            <div class="service-image image-container">
-                                <img src="images/people_riding_boats_lakes.png" alt="Concierge Services" loading="lazy">
-                            </div>
                             <div class="service-details">
                                 <h3>Premium Concierge Services</h3>
                                 <p>Enhance your lake experience with our range of concierge services. From transportation to dining arrangements, we're here to make your adventure as smooth and enjoyable as possible.</p>
                                 
                                 <div class="service-options">
                                     <div class="service-option">
+                                        <div class="service-option-icon">
+                                            <i class="fas fa-map-marked-alt"></i>
+                                        </div>
                                         <div class="service-option-header">
                                             <h4>Guided Tours</h4>
                                             <span class="service-price">From $120</span>
@@ -102,6 +100,9 @@
                                     </div>
                                     
                                     <div class="service-option">
+                                        <div class="service-option-icon">
+                                            <i class="fas fa-id-card"></i>
+                                        </div>
                                         <div class="service-option-header">
                                             <h4>Professional Driver</h4>
                                             <span class="service-price">From $150</span>
@@ -110,6 +111,9 @@
                                     </div>
                                     
                                     <div class="service-option">
+                                        <div class="service-option-icon">
+                                            <i class="fas fa-utensils"></i>
+                                        </div>
                                         <div class="service-option-header">
                                             <h4>Lakeside Picnic Setup</h4>
                                             <span class="service-price">From $80</span>
@@ -118,6 +122,9 @@
                                     </div>
                                     
                                     <div class="service-option">
+                                        <div class="service-option-icon">
+                                            <i class="fas fa-camera"></i>
+                                        </div>
                                         <div class="service-option-header">
                                             <h4>Photography Package</h4>
                                             <span class="service-price">From $200</span>
@@ -136,9 +143,6 @@
                     <!-- Add-ons Tab -->
                     <div class="tab-pane" id="add-ons">
                         <div class="service-content">
-                            <div class="service-image image-container">
-                                <img src="images/jbl_flip6.png" alt="Rental Add-ons" loading="lazy">
-                            </div>
                             <div class="service-details">
                                 <h3>Enhance Your Adventure</h3>
                                 <p>Make your day on the lake even better with our premium add-ons. From coolers to speakers, we have everything you need for the perfect day on the water.</p>
@@ -227,12 +231,47 @@
         .services {
             position: relative;
             overflow: hidden;
+            z-index: 1;
+        }
+        
+        .services-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .services .section-heading,
+        .services .section-subtitle {
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .services .tabs-navigation {
+            background: rgba(255, 255, 255, 0.2);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
         }
         
         .service-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-lg);
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
         
         .service-image {
@@ -251,41 +290,48 @@
             margin-top: var(--space-lg);
         }
         
-        .tabs-navigation {
-            display: flex;
-            flex-wrap: wrap;
-            border-bottom: 2px solid var(--section-bg);
-            margin-bottom: var(--space-lg);
-            overflow: auto;
-        }
-        
         .tab-button {
-            background: none;
+            background: transparent;
             border: none;
-            padding: 1rem 1.5rem;
+            padding: 12px 24px;
+            margin: 0 5px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--gray);
-            transition: all var(--transition-medium);
-            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            position: relative;
+            color: #0066cc;
+            font-weight: 700;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            white-space: nowrap;
         }
         
         .tab-button i {
-            margin-right: 0.5rem;
-            font-size: 1.1rem;
+            margin-right: 10px;
+            font-size: 1.3rem;
+            color: #0066cc;
         }
         
         .tab-button:hover {
-            color: var(--secondary);
+            background: rgba(255, 255, 255, 0.3);
         }
         
         .tab-button.active {
-            color: var(--secondary);
-            border-bottom-color: var(--secondary);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid rgba(255, 255, 255, 0.8);
         }
         
         .tab-pane {
@@ -303,9 +349,18 @@
         }
         
         .service-details h3 {
-            margin-bottom: var(--space-md);
-            color: var(--primary-dark);
-            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .service-details h4 {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
         }
         
         .service-benefits, .service-policies {
@@ -315,34 +370,20 @@
         }
         
         .service-benefits li, .service-policies li {
-            display: flex;
-            align-items: flex-start;
             margin-bottom: 0.75rem;
         }
         
-        .service-benefits li i, .service-policies li i {
+        .service-benefits .fa-check, .service-policies .fa-info-circle {
             color: var(--secondary);
-            margin-right: var(--space-sm);
-            flex-shrink: 0;
-            margin-top: 0.25rem;
-        }
-        
-        .service-details h4 {
-            margin-bottom: var(--space-sm);
-            color: var(--primary-dark);
-            font-size: 1.2rem;
+            margin-right: 0.5rem;
         }
         
         /* Pricing Table */
         .pricing-table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: var(--space-lg);
-            background-color: var(--white);
+            background-color: rgba(0,0,0,0.1);
             border-radius: var(--radius-md);
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .pricing-row {
@@ -376,159 +417,398 @@
         /* Service Options */
         .service-options {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-md);
-            margin-bottom: var(--space-lg);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         
         .service-option {
-            background-color: var(--white);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            transition: all var(--transition-medium);
-            border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color), var(--primary-color-light, #4dabf7));
         }
         
         .service-option:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
         
         .service-option-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-xs);
+            margin-bottom: 1rem;
+            position: relative;
         }
         
-        .service-option h4 {
+        .service-option-header h4 {
+            color: #333 !important;
             margin: 0;
-            color: var(--primary-dark);
+            font-size: 1.35rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-option-icon {
+            background: white;
+            color: #0066cc;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+        
+        .service-option:nth-child(1) .service-option-icon i {
+            color: #0066cc; /* Blue for guided tours */
+        }
+        
+        .service-option:nth-child(2) .service-option-icon i {
+            color: #00a0dc; /* Light blue for driver */
+        }
+        
+        .service-option:nth-child(3) .service-option-icon i {
+            color: #00b4d8; /* Teal for picnic */
+        }
+        
+        .service-option:nth-child(4) .service-option-icon i {
+            color: #0077b6; /* Medium blue for photography */
+        }
+        
+        .service-option-icon i {
+            font-size: 1.5rem;
         }
         
         .service-price {
-            background-color: var(--secondary);
-            color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: var(--radius-full);
+            background: #0066cc;
+            color: white;
+            padding: 0.35rem 1rem;
+            border-radius: 30px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         .service-option p {
-            margin: var(--space-xs) 0 0;
-            font-size: 0.95rem;
+            color: #555 !important;
+            margin-bottom: 0;
+            font-size: 1rem;
+            line-height: 1.6;
         }
         
         /* Add-ons */
         .add-ons-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-md);
-            margin-bottom: var(--space-lg);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         
         .add-on-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 1.5rem;
             display: flex;
-            background-color: var(--white);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            transition: all var(--transition-medium);
-            border: 1px solid rgba(0,0,0,0.05);
+            align-items: flex-start;
+            gap: 1.25rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .add-on-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-color), var(--primary-color-light, #4dabf7));
         }
         
         .add-on-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
         
         .add-on-icon {
+            background: white;
+            color: #0066cc;
             width: 50px;
             height: 50px;
-            background-color: rgba(78, 205, 196, 0.1);
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: var(--space-md);
-            font-size: 1.25rem;
-            color: var(--secondary);
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .add-on-item:nth-child(1) .add-on-icon {
+            color: #0066cc; /* Blue for cooler */
+        }
+        
+        .add-on-item:nth-child(2) .add-on-icon {
+            color: #00a0dc; /* Light blue for speaker */
+        }
+        
+        .add-on-item:nth-child(3) .add-on-icon {
+            color: #00b4d8; /* Teal for dry bags */
+        }
+        
+        .add-on-item:nth-child(4) .add-on-icon {
+            color: #0077b6; /* Medium blue for GoPro */
+        }
+        
+        .add-on-item:nth-child(5) .add-on-icon {
+            color: #03045e; /* Dark blue for fishing */
+        }
+        
+        .add-on-item:nth-child(6) .add-on-icon {
+            color: #4cc9f0; /* Light teal for beach essentials */
+        }
+        
+        .add-on-icon i {
+            font-size: 1.5rem;
         }
         
         .add-on-details {
-            flex: 1;
+            flex-grow: 1;
         }
         
         .add-on-details h4 {
-            margin-bottom: 0.25rem;
-            color: var(--primary-dark);
+            margin: 0 0 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333 !important;
         }
         
         .add-on-details p {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #555 !important;
         }
         
         .add-on-price {
-            font-weight: 700;
-            color: var(--secondary);
-            font-size: 1rem;
-            display: block;
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
+        /* Service Notes */
         .service-note {
-            background-color: rgba(255, 158, 67, 0.1);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--space-md);
-            font-size: 0.9rem;
-            border-left: 3px solid var(--accent);
+            background: rgba(255, 165, 0, 0.15);
+            border-left: 4px solid #FFA500;
+            padding: 1rem 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0 8px 8px 0;
+            color: #fff !important;
+            display: flex;
+            align-items: center;
         }
         
         .service-note i {
-            color: var(--accent);
-            margin-right: var(--space-xs);
+            color: #FFA500;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        /* Service Benefits and Policies */
+        .service-benefits, 
+        .service-policies {
+            padding-left: 0;
+            list-style: none;
+            margin: 1.5rem 0;
         }
         
-        /* Media Queries */
-        @media (min-width: 768px) {
-            .service-content {
-                grid-template-columns: 1fr 2fr;
-                align-items: start;
-            }
-            
-            .service-image {
-                min-height: 400px;
-            }
-            
-            .service-options {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
+        .service-benefits li, 
+        .service-policies li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .service-benefits li i, 
+        .service-policies li i {
+            color: #0066cc;
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Tab Content Styles */
+        .tabs-content {
+            background: rgba(0, 0, 0, 0.6);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: -10px; /* Overlap with tabs */
+            z-index: 10;
+            position: relative;
+        }
+        
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        .service-details {
+            flex: 2 1 60%;
+        }
+
+        .services .service-details p,
+        .services .service-details .service-note,
+        .services .service-details ul li {
+            color: #fff;
+        }
+
+        .services .service-details h3,
+        .services .service-details h4 {
+            color: #fff;
+        }
+
+        /* Pricing Table Styling */
+        .pricing-table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-row {
+            display: flex;
+        }
+        
+        .pricing-row.pricing-header {
+            background: #0066cc;
+        }
+        
+        .pricing-row:not(.pricing-header) {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-cell {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            color: #333 !important;
+        }
+        
+        .pricing-row.pricing-header .pricing-cell {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .pricing-cell small {
+            display: block;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        /* Service Benefits and Policies */
+        .service-benefits, 
+        .service-policies {
+            padding-left: 0;
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .service-benefits li, 
+        .service-policies li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-benefits li:hover, 
+        .service-policies li:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .service-benefits li i, 
+        .service-policies li i {
+            color: #0066cc;
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .service-options,
             .add-ons-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 767px) {
-            .tab-button {
-                padding: 0.75rem 1rem;
-                font-size: 0.85rem;
+                grid-template-columns: 1fr;
             }
             
-            .tab-button i {
-                margin-right: 0.25rem;
+            .pricing-row {
+                flex-direction: column;
             }
             
-            .service-note {
-                font-size: 0.8rem;
+            .pricing-cell {
+                padding: 0.75rem;
             }
             
-            .service-price {
-                font-size: 0.8rem;
+            .pricing-row.pricing-header {
+                display: none;
+            }
+            
+            .pricing-cell:before {
+                content: attr(data-label);
+                font-weight: 600;
+                display: block;
+                margin-bottom: 0.5rem;
             }
         }
     </style>

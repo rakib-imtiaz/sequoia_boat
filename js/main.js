@@ -192,73 +192,50 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if (overlappingBookings >= MAX_CONCURRENT_BOATS) {
-                    await showModal({
-                        title: 'Fully Booked',
-                        message: "We're sorry, but we are fully booked for this time slot. Please select a different time or date.",
-                        confirmText: 'OK'
-                    });
-                } else {
-                    const userConfirmed = await showModal({
-                        title: 'Slot Available',
-                        message: 'Your selected slot is available! Would you like to proceed with the booking?',
-                        confirmText: 'Book Now',
-                        cancelText: 'Cancel'
-                    });
-                    if (userConfirmed) {
-                        submitButton.textContent = 'Processing...';
-                        const bookingData = {
-                            lake: lake.options[lake.selectedIndex].text,
-                            boatType: boatType.options[boatType.selectedIndex].text,
-                            duration: duration.options[duration.selectedIndex].text,
-                            date: bookingDate.value,
-                            time: bookingTime.options[bookingTime.selectedIndex].text,
-                            addons: { cooler: cooler.checked, speaker: speaker.checked, drybags: drybags.checked },
-                            estimatedTotal: estimatedTotal,
-                            status: 'pending',
-                            isPaid: false,
-                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                        };
-
-                        try {
-                            // Save booking to Firestore
-                            const docRef = await db.collection('bookings').add(bookingData);
-                            const bookingId = docRef.id;
-
-                            // Show invoice modal
-                            if (typeof showInvoiceModal === 'function') {
-                                const proceedToPayment = await showInvoiceModal(bookingData, bookingId);
-
-                                if (proceedToPayment) {
-                                    // Simple redirect to Stripe checkout
-                                    if (typeof createCheckoutLink === 'function') {
-                                        window.location.href = createCheckoutLink(bookingData, bookingData.estimatedTotal);
-                                    } else {
-                                        // Fallback direct link
-                                        window.location.href = 'https://checkout.stripe.com/pay/cs_test_b1eRxfQ5vvNkHQniMaZNrIIgbTo0Zk3QeNPE0u9nRRzScg3jiXoQSJxUKH';
-                                    }
-                                }
-                            } else {
-                                // Fallback if invoice modal is not available
-                                await showModal({
-                                    title: 'Booking Confirmed',
-                                    message: 'Thank you! Your booking has been confirmed.',
-                                    confirmText: 'Great!'
-                                });
-                            }
-
-                            bookingForm.reset();
-                            summaryDetails.style.display = 'none';
-                        } catch (error) {
-                            console.error("Error saving booking:", error);
-                            await showModal({
-                                title: 'Error',
-                                message: 'There was an error saving your booking. Please try again.',
-                                confirmText: 'OK'
-                            });
-                        } finally {
-                            submitButton.disabled = false;
-                            submitButton.textContent = originalButtonText;
+                    // compute suggestion times on same day
+                    const suggestedTimes = [];
+                    const openingHours = [9, 10, 11, 12, 13, 14];
+                    openingHours.forEach(h => {
+                        const slotStart = new Date(`${bookingDate.value}T00:00:00`);
+                        slotStart.setHours(h, 0, 0, 0);
+                        const slotEnd = new Date(slotStart.getTime());
+                        slotEnd.setHours(slotStart.getHours() + parseInt(duration.value.split('-')[0], 10));
+                        let conflict = false;
+                        bookingsForDay.forEach(b => {
+                            const exSlot = getBookingSlot(b.date, b.time, b.duration);
+                            if (exSlot && slotStart < exSlot.endTime && slotEnd > exSlot.startTime) { conflict = true; }
+                        });
+                        if (!conflict) {
+                            suggestedTimes.push(`${('' + h).padStart(2, '0')}:00`);
                         }
+                    });
+                    const suggestionMsg = suggestedTimes.length ? `Available start times on ${bookingDate.value}: ${suggestedTimes.join(', ')}` : 'No alternate slots available for this day.';
+                    await showModal({ title: 'Not Available', message: `Sorry, selected slot is fully booked.<br>${suggestionMsg}`, confirmText: 'OK' });
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                } else {
+                    // Availability good: auto save and show invoice
+                    submitButton.textContent = 'Processing...';
+                    const bookingData = {
+                        lake: lake.options[lake.selectedIndex].text,
+                        boatType: boatType.options[boatType.selectedIndex].text,
+                        duration: duration.options[duration.selectedIndex].text,
+                        date: bookingDate.value,
+                        time: bookingTime.options[bookingTime.selectedIndex].text,
+                        addons: { cooler: cooler.checked, speaker: speaker.checked, drybags: drybags.checked },
+                        estimatedTotal: estimatedTotal,
+                        status: 'pending',
+                        isPaid: false,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    try {
+                        const docRef = await db.collection('bookings').add(bookingData);
+                        const bookingId = docRef.id;
+                        await showInvoiceModal(bookingData, bookingId);
+                    } catch (e) { console.error(e); await showModal({ title: 'Error', message: 'Error saving booking. Try again.', confirmText: 'OK' }); } finally {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Check Availability';
+                        bookingForm.reset(); summaryDetails.style.display = 'none';
                     }
                 }
             } catch (error) {

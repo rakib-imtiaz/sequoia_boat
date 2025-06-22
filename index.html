@@ -18,6 +18,23 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Fix for mobile view spacing issues */
+        body {
+            overflow-x: hidden;
+        }
+
+        main>section {
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 767px) {
+            main>section {
+                overflow: hidden;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -63,6 +80,7 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
 
     <!-- Stripe SDK -->
     <script src="https://js.stripe.com/v3/"></script>

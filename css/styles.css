@@ -140,6 +140,11 @@ textarea {
     z-index: 2;
 }
 
+/* Fix for section spacing on mobile */
+main>div[id$="-container"] {
+    overflow: hidden;
+}
+
 .section-padding {
     padding: var(--space-lg) 0;
 }

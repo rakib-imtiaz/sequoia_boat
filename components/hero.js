@@ -28,6 +28,13 @@
             <button class="slider-arrow prev"><i class="fas fa-chevron-left"></i></button>
             <button class="slider-arrow next"><i class="fas fa-chevron-right"></i></button>
         </div>
+        
+        <!-- Wave divider -->
+        <div class="wave-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,64 C288,100 960,0 1440,80 L1440,120 L0,120 Z" fill="#ffffff"></path>
+            </svg>
+        </div>
     </div>
 
     <style>
@@ -41,7 +48,7 @@
             align-items: center;
             text-align: center;
             margin-bottom: 0;
-            padding-top: 120px; /* Account for fixed header with top bar */
+            padding-top: 80px; /* Reduced padding to account for header */
         }
         
         .hero-content {
@@ -197,6 +204,37 @@
             z-index: 0;
         }
         
+        /* Wave Divider */
+        .wave-divider {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            z-index: 5;
+            pointer-events: none;
+            overflow: hidden;
+            display: block;
+            line-height: 0;
+        }
+        
+        .wave-divider svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            transform-origin: bottom;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .wave-divider svg path {
+            fill-opacity: 0.8;
+            filter: drop-shadow(0 -5px 10px rgba(0, 0, 0, 0.1));
+        }
+        
+        .hero:hover .wave-divider svg {
+            transform: scaleY(1.05);
+        }
+        
         /* Media Queries */
         @media (min-width: 576px) {
             .hero h1 {
@@ -258,18 +296,43 @@
             }
         }
         
-        /* Fix for mobile Safari and other mobile browsers */
-        @media (max-width: 767px) and (orientation: portrait) {
+        @media (max-width: 767px) {
             .hero {
                 height: 100vh;
-                height: -webkit-fill-available;
-                height: fill-available;
+                min-height: 500px;
+                padding-top: 70px;
             }
             
-            .video-background video {
-                height: 100%;
-                width: auto;
-                min-width: 100%;
+            .hero-text {
+                padding: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-cta .btn {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .hero-slider-controls {
+                display: none; /* Hide slider controls on mobile */
+            }
+            
+            .wave-divider {
+                height: 60px; /* Smaller wave on mobile */
+            }
+            
+            .wave-divider svg path {
+                fill-opacity: 0.9; /* More opaque on mobile */
             }
         }
     </style>
