@@ -3,7 +3,8 @@
  * Stripe Payment Integration
  */
 
-// Initialize Stripe with your publishable key
+// Initialize Stripe with your publishable key (from environment variables in production)
+// For development, you can set this in a .env file (not committed to git)
 const stripePublicKey = 'pk_test_51Q3kG52MjkSKR6fvmtb34MRHNdvuf71pcRXm8AnvPEOXLAHnVe21vxp6yhs0M4pesJJbi0zPE98GDEG7lHmqATWn00rj6Mm2Ag';
 let stripe;
 
@@ -17,6 +18,8 @@ const functions = firebase.functions();
  * Initialize Stripe with the provided key
  */
 function initializeStripe() {
+    // In a production environment, you would load this from environment variables
+    // For example: const stripeKey = process.env.STRIPE_PUBLIC_KEY;
     if (typeof Stripe !== 'undefined') {
         stripe = Stripe(stripePublicKey);
     } else {

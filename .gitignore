@@ -67,3 +67,21 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# API keys and secrets
+api_keys.txt
+**/api_keys.*
+**/*.pem
+**/*.key
+
+# Local development files
+.env.local
+.env.development
+.env.test
+.env.production
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace

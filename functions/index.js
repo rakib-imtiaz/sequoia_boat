@@ -2,8 +2,8 @@ const functions = require("firebase-functions");
 
 // A simple callable function for testing deployment
 exports.helloWorld = functions.https.onCall((data, context) => {
-    console.log("Hello from Firebase!");
-    return { message: "Hello from Firebase!" };
+  console.log("Hello from Firebase!");
+  return { message: "Hello from Firebase!" };
 });
 
 /*
@@ -11,6 +11,7 @@ exports.helloWorld = functions.https.onCall((data, context) => {
 // We will restore it once deployment is successful.
 
 const admin = require('firebase-admin');
+// Use Firebase environment configuration to securely store the secret key
 const stripe = require('stripe')(functions.config().stripe.secret_key);
 admin.initializeApp();
 
