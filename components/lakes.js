@@ -256,6 +256,55 @@
             color: var(--white);
             border-color: var(--secondary);
         }
+        
+        /* Mobile optimizations */
+        @media (max-width: 767px) {
+            .lakes-map {
+                height: 350px;  /* Reduce map height on mobile */
+            }
+            
+            .lakes-tabs {
+                overflow-x: auto;
+                padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                width: 100%;
+            }
+            
+            .lakes-tab {
+                flex: 0 0 auto;
+                white-space: nowrap;
+                padding: 0.45rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .lakes-bento-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 180px;
+                grid-gap: 1rem;
+                margin-top: 2rem;
+            }
+            
+            .lake-bento-content {
+                transform: translateY(0);
+                background: rgba(0, 0, 0, 0.4);
+            }
+            
+            .lake-bento-content p {
+                opacity: 1;
+                font-size: 0.85rem;
+            }
+            
+            .lake-bento-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .section-subtitle {
+                padding: 0 0.5rem;
+            }
+        }
     </style>
     `;
 
@@ -278,7 +327,17 @@
         mapContainer.dataset.mapInitialized = 'true';
 
         // Create the map
-        const map = L.map('lakesMap', { scrollWheelZoom: false }).setView([50.72, -120.33], 8);
+        const map = L.map('lakesMap', {
+            scrollWheelZoom: false,
+            dragging: !L.Browser.mobile,
+            tap: !L.Browser.mobile
+        }).setView([50.72, -120.33], 8);
+
+        // Enable drag and tap for mobile after user interaction
+        map.on('focus', function () {
+            map.dragging.enable();
+            if (L.Browser.mobile) map.tap.enable();
+        });
 
         // Add tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -358,7 +417,10 @@
         const allLayer = L.featureGroup(Object.values(layers));
         layers['all'] = allLayer;
         allLayer.addTo(map);
-        map.fitBounds(allLayer.getBounds(), { padding: [20, 20] });
+
+        // Adjust padding for mobile
+        const padding = L.Browser.mobile ? [10, 10] : [20, 20];
+        map.fitBounds(allLayer.getBounds(), { padding: padding });
 
         // Add highlighted border to map
         mapContainer.classList.add('highlighted');
@@ -384,8 +446,9 @@
                 // Add selected route(s)
                 layers[area].addTo(map);
 
-                // Adjust viewport
-                map.fitBounds(layers[area].getBounds(), { padding: [40, 40] });
+                // Adjust viewport with proper padding for mobile
+                const fitPadding = L.Browser.mobile ? [20, 20] : [40, 40];
+                map.fitBounds(layers[area].getBounds(), { padding: fitPadding });
 
                 // Highlight effect
                 mapContainer.classList.remove('highlighted');

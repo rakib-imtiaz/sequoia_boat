@@ -840,6 +840,49 @@ section:nth-of-type(odd) {
     body.nav-open {
         overflow: hidden;
     }
+
+    /* Better form controls for mobile */
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 16px !important;
+        /* Prevents iOS zoom on focus */
+    }
+
+    /* Improve tap targets */
+    .btn,
+    .nav-link,
+    .tab-button,
+    .form-control {
+        min-height: 44px;
+    }
+
+    /* Improve spacing */
+    .section-padding {
+        padding: var(--space-lg) 0;
+    }
+
+    .section-heading {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+        padding: 0 0.5rem;
+    }
+
+    /* Fix mobile table displays */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Improve readability in mobile */
+    p {
+        font-size: 0.95rem;
+    }
 }
 
 /* ================== MODAL STYLES ================== */

@@ -242,36 +242,39 @@
             height: 100%;
             background-size: cover;
             background-position: center;
+            opacity: 0.85;
             z-index: -2;
         }
 
         .services .section-heading,
         .services .section-subtitle {
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            color: var(--dark);
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+            position: relative;
         }
 
         .services .tabs-navigation {
-            background: rgba(255, 255, 255, 0.2);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-lg);
             padding: 15px;
             margin-bottom: 15px;
             display: flex;
             justify-content: center;
+            box-shadow: var(--shadow-md);
         }
         
         .service-content {
             padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-radius: var(--radius-lg);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--white);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: var(--dark);
+            box-shadow: var(--shadow-md);
         }
         
         .service-image {
@@ -299,7 +302,7 @@
             transition: all 0.3s ease;
             border-radius: 8px;
             position: relative;
-            color: #0066cc;
+            color: var(--primary);
             font-weight: 700;
             font-size: 1.2rem;
             display: flex;
@@ -309,16 +312,16 @@
         .tab-button i {
             margin-right: 10px;
             font-size: 1.3rem;
-            color: #0066cc;
+            color: var(--primary);
         }
         
         .tab-button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
         }
         
         .tab-button.active {
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-sm);
         }
         
         .tab-button.active::after {
@@ -331,7 +334,7 @@
             height: 0;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-top: 10px solid rgba(255, 255, 255, 0.8);
+            border-top: 10px solid rgba(255, 255, 255, 0.9);
         }
         
         .tab-pane {
@@ -351,7 +354,7 @@
         .service-details h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
-            color: var(--white);
+            color: var(--primary-dark);
         }
         
         .service-details h4 {
@@ -359,8 +362,8 @@
             margin-top: 2rem;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            color: var(--white);
+            border-bottom: 1px solid rgba(11, 83, 148, 0.3);
+            color: var(--primary);
         }
         
         .service-benefits, .service-policies {
@@ -380,16 +383,17 @@
         
         /* Pricing Table */
         .pricing-table {
-            background-color: rgba(0,0,0,0.1);
+            background-color: rgba(255, 255, 255, 0.7);
             border-radius: var(--radius-md);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow-sm);
         }
         
         .pricing-row {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .pricing-row:last-child {
@@ -397,7 +401,7 @@
         }
         
         .pricing-header {
-            background-color: var(--secondary);
+            background-color: var(--primary);
             color: white;
             font-weight: 600;
         }
@@ -423,7 +427,7 @@
         }
         
         .service-option {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 16px;
             padding: 1.75rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -442,7 +446,7 @@
             left: 0;
             width: 5px;
             height: 100%;
-            background: linear-gradient(180deg, var(--primary-color), var(--primary-color-light, #4dabf7));
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
         }
         
         .service-option:hover {
@@ -459,17 +463,18 @@
         }
         
         .service-option-header h4 {
-            color: #333 !important;
+            color: var(--dark) !important;
             margin: 0;
             font-size: 1.35rem;
             font-weight: 600;
             display: flex;
             align-items: center;
+            border-bottom: none;
         }
         
         .service-option-icon {
             background: white;
-            color: #0066cc;
+            color: var(--primary);
             width: 50px;
             height: 50px;
             border-radius: 12px;
@@ -481,28 +486,12 @@
             margin-bottom: 1rem;
         }
         
-        .service-option:nth-child(1) .service-option-icon i {
-            color: #0066cc; /* Blue for guided tours */
-        }
-        
-        .service-option:nth-child(2) .service-option-icon i {
-            color: #00a0dc; /* Light blue for driver */
-        }
-        
-        .service-option:nth-child(3) .service-option-icon i {
-            color: #00b4d8; /* Teal for picnic */
-        }
-        
-        .service-option:nth-child(4) .service-option-icon i {
-            color: #0077b6; /* Medium blue for photography */
-        }
-        
         .service-option-icon i {
             font-size: 1.5rem;
         }
         
         .service-price {
-            background: #0066cc;
+            background: var(--primary);
             color: white;
             padding: 0.35rem 1rem;
             border-radius: 30px;
@@ -512,7 +501,7 @@
         }
         
         .service-option p {
-            color: #555 !important;
+            color: var(--dark) !important;
             margin-bottom: 0;
             font-size: 1rem;
             line-height: 1.6;
@@ -527,7 +516,7 @@
         }
         
         .add-on-item {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 16px;
             padding: 1.5rem;
             display: flex;
@@ -547,7 +536,7 @@
             left: 0;
             width: 5px;
             height: 100%;
-            background: linear-gradient(180deg, var(--primary-color), var(--primary-color-light, #4dabf7));
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
         }
         
         .add-on-item:hover {
@@ -557,7 +546,7 @@
         
         .add-on-icon {
             background: white;
-            color: #0066cc;
+            color: var(--primary);
             width: 50px;
             height: 50px;
             border-radius: 12px;
@@ -566,30 +555,6 @@
             justify-content: center;
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .add-on-item:nth-child(1) .add-on-icon {
-            color: #0066cc; /* Blue for cooler */
-        }
-        
-        .add-on-item:nth-child(2) .add-on-icon {
-            color: #00a0dc; /* Light blue for speaker */
-        }
-        
-        .add-on-item:nth-child(3) .add-on-icon {
-            color: #00b4d8; /* Teal for dry bags */
-        }
-        
-        .add-on-item:nth-child(4) .add-on-icon {
-            color: #0077b6; /* Medium blue for GoPro */
-        }
-        
-        .add-on-item:nth-child(5) .add-on-icon {
-            color: #03045e; /* Dark blue for fishing */
-        }
-        
-        .add-on-item:nth-child(6) .add-on-icon {
-            color: #4cc9f0; /* Light teal for beach essentials */
         }
         
         .add-on-icon i {
@@ -604,19 +569,21 @@
             margin: 0 0 0.75rem;
             font-size: 1.25rem;
             font-weight: 600;
-            color: #333 !important;
+            color: var(--dark) !important;
+            border-bottom: none;
+            padding-bottom: 0;
         }
         
         .add-on-details p {
             margin: 0 0 0.75rem;
             font-size: 1rem;
             line-height: 1.5;
-            color: #555 !important;
+            color: var(--dark) !important;
         }
         
         .add-on-price {
             display: inline-block;
-            background: #0066cc;
+            background: var(--primary);
             color: white;
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
@@ -624,21 +591,21 @@
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
+        
         /* Service Notes */
         .service-note {
-            background: rgba(255, 165, 0, 0.15);
-            border-left: 4px solid #FFA500;
+            background: rgba(255, 158, 67, 0.1);
+            border-left: 4px solid var(--accent);
             padding: 1rem 1.5rem;
             margin-top: 2rem;
             border-radius: 0 8px 8px 0;
-            color: #fff !important;
+            color: var(--dark) !important;
             display: flex;
             align-items: center;
         }
         
         .service-note i {
-            color: #FFA500;
+            color: var(--accent);
             margin-right: 0.75rem;
             font-size: 1.25rem;
         }
@@ -656,11 +623,21 @@
             margin-bottom: 0.75rem;
             display: flex;
             align-items: flex-start;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
         }
         
+        .service-benefits li:hover, 
+        .service-policies li:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+            
         .service-benefits li i, 
         .service-policies li i {
-            color: #0066cc;
+            color: var(--primary);
             margin-right: 0.75rem;
             font-size: 1.1rem;
             margin-top: 0.2rem;
@@ -668,13 +645,13 @@
 
         /* Tab Content Styles */
         .tabs-content {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.4);
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-lg);
             padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
             margin-top: -10px; /* Overlap with tabs */
             z-index: 10;
             position: relative;
@@ -696,12 +673,12 @@
         .services .service-details p,
         .services .service-details .service-note,
         .services .service-details ul li {
-            color: #fff;
+            color: var(--dark);
         }
-
+            
         .services .service-details h3,
         .services .service-details h4 {
-            color: #fff;
+            color: var(--primary-dark);
         }
 
         /* Pricing Table Styling */
@@ -712,22 +689,22 @@
             border-spacing: 0;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-sm);
         }
-        
+            
         .pricing-row {
             display: flex;
         }
         
         .pricing-row.pricing-header {
-            background: #0066cc;
+            background: var(--primary);
         }
         
         .pricing-row:not(.pricing-header) {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.9);
             border-bottom: 1px solid #e0e0e0;
         }
-        
+            
         .pricing-row:last-child {
             border-bottom: none;
         }
@@ -736,7 +713,7 @@
             flex: 1;
             padding: 1rem;
             text-align: center;
-            color: #333 !important;
+            color: var(--dark) !important;
         }
         
         .pricing-row.pricing-header .pricing-cell {
@@ -748,41 +725,8 @@
         .pricing-cell small {
             display: block;
             font-size: 0.85rem;
-            color: #666;
+            color: var(--gray);
             margin-top: 0.25rem;
-        }
-
-        /* Service Benefits and Policies */
-        .service-benefits, 
-        .service-policies {
-            padding-left: 0;
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-        
-        .service-benefits li, 
-        .service-policies li {
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: flex-start;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-        
-        .service-benefits li:hover, 
-        .service-policies li:hover {
-            transform: translateX(5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .service-benefits li i, 
-        .service-policies li i {
-            color: #0066cc;
-            margin-right: 0.75rem;
-            font-size: 1.1rem;
-            margin-top: 0.2rem;
         }
 
         /* Responsive Styles */

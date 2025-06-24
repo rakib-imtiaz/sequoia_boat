@@ -64,6 +64,11 @@
             justify-content: space-between;
             align-items: center;
             height: 80px;
+            transition: height 0.3s ease;
+        }
+        
+        .header.scrolled .main-header .container {
+            height: 60px;
         }
         
         .logo {
@@ -82,6 +87,11 @@
         .logo img {
             height: 65px;
             margin-right: 0.5rem;
+            transition: height 0.3s ease;
+        }
+        
+        .header.scrolled .logo img {
+            height: 45px;
         }
         
         .main-nav ul {
@@ -186,9 +196,24 @@
                 -webkit-backdrop-filter: blur(10px);
                 padding: 1.5rem 0;
                 display: none; /* Hidden by default on mobile */
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
             .main-nav.show {
                 display: flex;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            .main-nav li {
+                margin: 0.75rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            .main-nav a {
+                padding: 0.5rem 0;
+                justify-content: center;
             }
             .header.scrolled .main-nav a {
                 color: var(--dark);
@@ -207,14 +232,24 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
             }
+            .main-header .container {
+                height: 70px;
+            }
+            .header.scrolled .main-header .container {
+                height: 55px;
+            }
+            .mobile-nav-toggle {
+                display: block;
+            }
         }
         
         @media (max-width: 576px) {
             .logo img {
-                height: 40px;
+                height: 38px;
+                margin-right: 0.25rem;
             }
-            .logo {
-                font-size: 1.5rem;
+            .logo span {
+                font-size: 1.4rem;
             }
             .btn-book-now {
                 padding: 0.4rem 0.8rem;
@@ -223,38 +258,87 @@
                 z-index: 1001;
             }
             .main-header .container {
-                height: 70px;
+                height: 60px;
+                padding: 0 0.5rem;
+            }
+            .header.scrolled .main-header .container {
+                height: 55px;
+            }
+            .main-header {
+                background-color: rgba(255, 255, 255, 0.9);
+            }
+            .logo {
+                color: var(--primary);
+            }
+            .mobile-nav-toggle span {
+                background-color: var(--dark);
             }
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.header');
+            const navToggle = document.querySelector('.mobile-nav-toggle');
+            const mainNav = document.querySelector('.main-nav');
+            
+            // Scroll event to change header style
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Initialize header state on page load
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            }
+            
+            // Mobile nav toggle
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    navToggle.classList.toggle('open');
+                    mainNav.classList.toggle('show');
+                    document.body.classList.toggle('nav-open');
+                });
+            }
+            
+            // Close mobile nav when clicking on links
+            const navLinks = document.querySelectorAll('.main-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('open');
+                    mainNav.classList.remove('show');
+                    document.body.classList.remove('nav-open');
+                });
+            });
+            
+            // Set active nav item based on scroll position
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        current = '#' + section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
     `;
 
     // Load the header component
     ComponentLoader.loadComponent('header-container', headerHTML);
-
-    // Header scroll and active link functionality
-    document.addEventListener('DOMContentLoaded', () => {
-        const header = document.querySelector('.header');
-        const navLinks = document.querySelectorAll('.main-nav a');
-        const sections = document.querySelectorAll('div[id$="-container"]');
-
-        // Scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Mobile nav toggle
-        const mobileToggle = header.querySelector('.mobile-nav-toggle');
-        const mainNav = header.querySelector('.main-nav');
-        if (mobileToggle && mainNav) {
-            mobileToggle.addEventListener('click', () => {
-                mobileToggle.classList.toggle('open');
-                mainNav.classList.toggle('show');
-            });
-        }
-    });
 })(); 
