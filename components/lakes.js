@@ -524,32 +524,32 @@
 
         // Function to switch the map area
         function switchArea(area) {
-            // Update map label
-            mapLabel.textContent = areaLabels[area] || 'Selected Area';
+                // Update map label
+                mapLabel.textContent = areaLabels[area] || 'Selected Area';
             mapLabel.style.display = 'block'; // Show the label
 
-            // Remove all layers
-            Object.values(layers).forEach(layer => {
-                if (map.hasLayer(layer)) map.removeLayer(layer);
-            });
+                // Remove all layers
+                Object.values(layers).forEach(layer => {
+                    if (map.hasLayer(layer)) map.removeLayer(layer);
+                });
 
-            // Add selected route(s)
-            layers[area].addTo(map);
+                // Add selected route(s)
+                layers[area].addTo(map);
 
             // Adjust viewport with proper padding for mobile
             const fitPadding = L.Browser.mobile ? [20, 20] : [40, 40];
             map.fitBounds(layers[area].getBounds(), { padding: fitPadding });
 
-            // Highlight effect
-            mapContainer.classList.remove('highlighted');
-            // Dynamically update border color based on selected area for extra clarity
-            const newBorderColor = areaColors[area] || getComputedStyle(document.documentElement).getPropertyValue('--secondary');
-            mapContainer.style.borderColor = newBorderColor.trim();
+                // Highlight effect
+                mapContainer.classList.remove('highlighted');
+                // Dynamically update border color based on selected area for extra clarity
+                const newBorderColor = areaColors[area] || getComputedStyle(document.documentElement).getPropertyValue('--secondary');
+                mapContainer.style.borderColor = newBorderColor.trim();
 
-            // Re-trigger highlight animation by toggling the class
-            setTimeout(() => {
-                mapContainer.classList.add('highlighted');
-            }, 10);
+                // Re-trigger highlight animation by toggling the class
+                setTimeout(() => {
+                    mapContainer.classList.add('highlighted');
+                }, 10);
         }
     }
 })();

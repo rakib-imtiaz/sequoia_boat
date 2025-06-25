@@ -43,21 +43,30 @@ function createCheckoutLink(bookingData, price) {
     return paymentLinkURL;
 }
 
+// Map package keywords to Stripe Payment Links
+const PACKAGE_LINKS = {
+    standard: 'https://buy.stripe.com/test_7sY00cbTV4wgetsdESdUY01', // 2-6 hour rentals
+    fullDay: 'https://buy.stripe.com/test_bJeaEQaPRbYI2KK44idUY02', // 8 hour package
+    family: 'https://buy.stripe.com/test_dRm28k8HJ2o81GGbwKdUY03'  // family plan
+};
+
 /**
- * Direct Stripe checkout creation - temporary while Cloud Functions are being set up
- * @param {Object} booking - Booking data
+ * Return the correct Stripe Payment Link based on the booking data.
+ * @param {Object} booking – Firestore booking document data
  */
 function createDirectCheckoutSession(booking) {
-    // This is a demo-only version that redirects to a test Stripe checkout
-    // In production, this would be properly implemented with your backend
+    const dur = (booking.duration || '').toLowerCase();
 
-    // Format price from booking data
-    const priceString = booking.estimatedTotal || '100.00';
-    const price = parseFloat(priceString.replace(/[^0-9.]/g, ''));
+    // Detect Full-Day package (8h) first
+    if (dur.includes('8')) return PACKAGE_LINKS.fullDay;
 
-    // Construct test URL with price and product info in the URL
-    const testSessionURL = `https://checkout.stripe.com/c/pay/cs_test_a1AEM4JM1EAq8SwucMkFhtdLTMiuQitkQT9tfONp3wPOergPWuZj2q3j9i#fidkdWxOYHwnPyd1blpxYHZxWjA0SWZpXGdHV013UmB0PEF3Nnc1QF9JNzY0TnJMNTJqfzNJSTVhTjxDRzdJNDQwMnc2YnBxNWFBR3dhVDA1N2NKbk1XUHVsYmFkZEltS21dXGRLYDU1MWs0NGdyVm5NVWtnTicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl`;
-    return testSessionURL;
+    // Detect Family plan via boatType or a custom flag
+    if ((booking.boatType || '').toLowerCase().includes('family')) {
+        return PACKAGE_LINKS.family;
+    }
+
+    // Default to standard hourly/half-day rental
+    return PACKAGE_LINKS.standard;
 }
 
 /**
@@ -79,7 +88,8 @@ async function redirectToStripeCheckout(bookingId) {
         const bookingData = bookingDoc.data();
 
         // TEMPORARY SOLUTION: Use direct checkout instead of Cloud Functions
-        window.location.href = createDirectCheckoutSession(bookingData);
+        const paymentURL = createDirectCheckoutSession(bookingData);
+        window.open(paymentURL, '_blank', 'noopener,noreferrer');
         return;
 
         /* CLOUD FUNCTION CODE - COMMENTED OUT UNTIL CLOUD FUNCTION DEPLOYS

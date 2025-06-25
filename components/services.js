@@ -64,6 +64,15 @@
                                         <div class="pricing-cell">$50-59.89/hr <small>($300-359.34 total)</small></div>
                                         <div class="pricing-cell">$60-69.89/hr <small>($360-419.34 total)</small></div>
                                     </div>
+                                    <div class="pricing-row highlight-savings">
+                                        <div class="pricing-cell">Full Day (8 Hours)<br><small><button class="package-link-button" data-url="https://buy.stripe.com/test_bJeaEQaPRbYI2KK44idUY01">Book Full Day Package</button></small></div>
+                                        <div class="pricing-cell">$45/hr <small>($360 total)</small><br><span class="savings-badge">Best Value!</span></div>
+                                        <div class="pricing-cell">$55/hr <small>($440 total)</small><br><span class="savings-badge">Best Value!</span></div>
+                                    </div>
+                                    <div class="pricing-row highlight-savings">
+                                        <div class="pricing-cell">Family Plan<br><small><button class="package-link-button" data-url="https://buy.stripe.com/test_dRm28k8HJ2o81GGbwKdUY03">Book Family Package</button></small></div>
+                                        <div class="pricing-cell" style="grid-column: span 2;">$499 Weekend<br><small>Includes 2 boats for 6 hours</small><br><span class="savings-badge">Save $220!</span></div>
+                                    </div>
                                 </div>
                                 
                                 <h4>Rental Policies</h4>
@@ -75,7 +84,12 @@
                                     <li><i class="fas fa-info-circle"></i> Rentals include basic safety training</li>
                                 </ul>
                                 
-                                <a href="#booking-preview-container" class="btn btn-primary mt-4">Book Your Boat</a>
+                                <a href="https://buy.stripe.com/test_7sY00cbTV4wgetsdESdUY01" target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-4">Book Your Boat</a>
+                                
+                                <!-- Test link for debugging -->
+                                <div class="mt-3">
+                                    <p><small>Test link: <a href="https://buy.stripe.com/test_7sY00cbTV4wgetsdESdUY01" target="_blank" class="test-link">Direct Stripe Link</a></small></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -135,7 +149,7 @@
                                 
                                 <p class="service-note"><i class="fas fa-info-circle"></i> All concierge services should be booked at least 48 hours in advance. Contact us for custom packages and special requests.</p>
                                 
-                                <a href="#booking-preview-container" class="btn btn-primary mt-4">Inquire About Services</a>
+                                <a href="https://buy.stripe.com/test_bJeaEQaPRbYI2KK44idUY02" target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-4">Book Concierge Services</a>
                             </div>
                         </div>
                     </div>
@@ -217,7 +231,7 @@
                                 
                                 <p class="service-note"><i class="fas fa-info-circle"></i> Add-ons can be reserved during the booking process or added up to 24 hours before your rental.</p>
                                 
-                                <a href="#booking-preview-container" class="btn btn-primary mt-4">Book With Add-ons</a>
+                                <a href="https://buy.stripe.com/test_dRm28k8HJ2o81GGbwKdUY03" target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-4">Book With Add-ons</a>
                             </div>
                         </div>
                     </div>
@@ -432,6 +446,46 @@
             font-size: 0.8rem;
             color: var(--gray);
             margin-top: 0.2rem;
+        }
+        
+        .package-link {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .package-link:hover {
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .package-link-button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 600;
+            padding: 0;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .package-link-button:hover {
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .highlight-savings .savings-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 5px;
         }
         
         /* Service Options */
@@ -655,7 +709,7 @@
             transform: translateX(5px);
             background: rgba(255, 255, 255, 0.8);
         }
-            
+        
         .service-benefits li i, 
         .service-policies li i {
             color: var(--primary);
@@ -695,7 +749,7 @@
         .services .service-details .service-note,
         .services .service-details ul li {
             color: var(--dark);
-        }
+            }
             
         .services .service-details h3,
         .services .service-details h4 {
@@ -711,7 +765,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
-        }
+            }
             
         .pricing-row {
             display: flex;
@@ -724,7 +778,7 @@
         .pricing-row:not(.pricing-header) {
             background-color: rgba(255, 255, 255, 0.9);
             border-bottom: 1px solid #e0e0e0;
-        }
+            }
             
         .pricing-row:last-child {
             border-bottom: none;
@@ -799,7 +853,7 @@
                 padding: 1rem;
                 border-radius: 10px;
             }
-            
+        
             .services .service-content {
                 padding: 1rem;
             }
@@ -811,7 +865,7 @@
             /* Service Details & Headings */
             .services .service-details h3 {
                 font-size: 1.3rem;
-                margin-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
             }
             
             .services .service-details h4 {
@@ -887,8 +941,8 @@
             .services .service-note i {
                 font-size: 1rem;
                 margin-right: 0.5rem;
-            }
-            
+        }
+        
             /* Service Options Layout for Mobile */
             .services .service-options {
                 display: flex;
@@ -926,7 +980,7 @@
                 margin-bottom: 0.5rem;
             }
         }
-        
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .service-options,
@@ -975,6 +1029,68 @@
                     // Show corresponding tab pane
                     const tabId = button.getAttribute('data-tab');
                     document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+
+        // Debug helper for Stripe payment links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button URL mappings
+            const buttonUrls = {
+                'boat-button': 'https://buy.stripe.com/test_7sY00cbTV4wgetsdESdUY01',
+                'concierge-button': 'https://buy.stripe.com/test_bJeaEQaPRbYI2KK44idUY02',
+                'addons-button': 'https://buy.stripe.com/test_dRm28k8HJ2o81GGbwKdUY03'
+            };
+            
+            // Add click handlers for main buttons
+            Object.keys(buttonUrls).forEach(id => {
+                const button = document.getElementById(id);
+                if (button) {
+                    button.addEventListener('click', function() {
+                        openStripeCheckout(buttonUrls[id]);
+                    });
+                }
+            });
+            
+            // Add click handlers for package buttons
+            const packageButtons = document.querySelectorAll('.package-link-button');
+            packageButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        openStripeCheckout(url);
+                    }
+                });
+            });
+            
+            // Function to handle opening Stripe checkout
+            function openStripeCheckout(url) {
+                console.log('Opening Stripe checkout URL:', url);
+                
+                // Try multiple methods to open the URL
+                try {
+                    // Method 1: Direct location change
+                    window.location.href = url;
+                } catch (error) {
+                    console.error('Error opening URL:', error);
+                    
+                    // Method 2: Use window.open as fallback
+                    window.open(url, '_blank', 'noopener,noreferrer');
+                }
+            }
+
+            // Check if tabs are initialized correctly
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            console.log('Tab buttons found:', tabButtons.length);
+            console.log('Tab panes found:', tabPanes.length);
+            
+            // Make sure tab switching works correctly
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    console.log('Tab clicked:', tabId);
                 });
             });
         });

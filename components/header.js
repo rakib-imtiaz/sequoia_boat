@@ -149,7 +149,7 @@
         /* Hamburger animation when open */
         .mobile-nav-toggle.open span:nth-child(1) {
             transform: translateY(8px) rotate(45deg);
-        }
+            }
         .mobile-nav-toggle.open span:nth-child(2) {
             opacity: 0;
         }
@@ -243,32 +243,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const header = document.querySelector('.header');
+        const header = document.querySelector('.header');
             const navToggle = document.querySelector('.mobile-nav-toggle');
             const mainNav = document.querySelector('.main-nav');
-            
+
             // Scroll event to change header style
-            window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', () => {
                 if (window.scrollY > 10) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
             
             // Initialize header state on page load
             if (window.scrollY > 10) {
                 header.classList.add('scrolled');
             }
-            
-            // Mobile nav toggle
+
+        // Mobile nav toggle
             if (navToggle) {
                 navToggle.addEventListener('click', () => {
                     navToggle.classList.toggle('open');
-                    mainNav.classList.toggle('show');
+                mainNav.classList.toggle('show');
                     document.body.classList.toggle('nav-open');
-                });
-            }
+            });
+        }
             
             // Close mobile nav when clicking on links
             const navLinks = document.querySelectorAll('.main-nav a');

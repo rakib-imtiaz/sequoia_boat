@@ -137,14 +137,15 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            color: white;
-            font-weight: 100;
+            color: #ffffff;
+            font-weight: 1000;
         }
 
         .hero-cta .btn:hover {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
         }
         
         .hero-navigation {
@@ -329,7 +330,7 @@
             }
         }
     </style>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Video fallback logic
