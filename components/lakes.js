@@ -8,19 +8,31 @@
     <div class="lakes section-padding">
         <div class="container">
             <h2 class="section-heading text-center">Explore Our Lakes</h2>
-            <p class="section-subtitle text-center">Discover pristine waters around Kamloops with our eco-friendly boats. Each lake offers a unique experience.</p>
+            <p class="section-subtitle text-center">Discover the pristine waters surrounding Kamloops with our eco-friendly inflatable boats. Each lake offers a unique experience!</p>
             
             <!-- Interactive Leaflet Map -->
             <div class="lakes-map-container mb-5">
-                <div class="lakes-tabs-wrapper">
-                    <div class="lakes-tabs">
-                        <button class="lakes-tab" data-area="kamloops" role="tab" aria-label="Kamloops Area">Kamloops Area</button>
-                        <button class="lakes-tab" data-area="shuswap" role="tab" aria-label="Shuswap Area">Shuswap Area</button>
-                        <button class="lakes-tab" data-area="sunpeaks" role="tab" aria-label="Sun Peaks Area">Sun Peaks Area</button>
-                        <button class="lakes-tab active" data-area="all" role="tab" aria-label="All Boating Areas">All Routes</button>
+                <div class="lakes-tabs">
+                    <button class="lakes-tab active" data-area="all">All Routes</button>
+                    <button class="lakes-tab" data-area="kamloops">Kamloops Area</button>
+                    <button class="lakes-tab" data-area="shuswap">Shuswap Area</button>
+                    <button class="lakes-tab" data-area="sunpeaks">Sun Peaks Area</button>
+                </div>
+                
+                <!-- Mobile Dropdown (hidden on desktop) -->
+                <div class="lakes-dropdown">
+                    <select id="lakes-mobile-selector" class="lakes-mobile-selector">
+                        <option value="all">All Routes</option>
+                        <option value="kamloops">Kamloops Area</option>
+                        <option value="shuswap">Shuswap Area</option>
+                        <option value="sunpeaks">Sun Peaks Area</option>
+                    </select>
+                    <div class="lakes-dropdown-icon">
+                        <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
-                <div id="lakesMap" class="lakes-map" aria-label="Interactive map of boating areas" role="application"></div>
+                
+                <div id="lakesMap" class="lakes-map"></div>
             </div>
             
             <div class="lakes-bento-grid">
@@ -79,6 +91,18 @@
         /* Lakes Section Styles */
         .lakes {
             background-color: var(--section-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Remove any potential floating elements */
+        .lakes .container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Fix for any potential absolute positioned elements */
+        .lakes-map-container {
             position: relative;
             overflow: hidden;
         }
@@ -204,81 +228,39 @@
             width: 100%;
             height: 500px;
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(0, 180, 171, 0.25);
+            box-shadow: var(--shadow-md);
             border: 3px solid transparent;
             transition: border-color var(--transition-medium);
         }
         
         .lakes-map.highlighted {
             border: 3px solid var(--secondary);
-            box-shadow: 0 0 15px rgba(78, 205, 196, 0.5), inset 0 0 0 1px rgba(0, 180, 171, 0.25);
+            box-shadow: 0 0 15px rgba(78, 205, 196, 0.5);
         }
 
         .lakes-map-container {
             position: relative;
-            background: #f6f9fb;
-            border-radius: var(--radius-lg);
-            padding: 1.5rem 0 0;
         }
         
         .map-highlight-label {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: var(--white);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 6px 12px;
             border-radius: var(--radius-md);
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary-dark);
             box-shadow: var(--shadow-sm);
             z-index: 1000;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .lakes-tabs-wrapper {
-            position: relative;
-            margin-bottom: 1.25rem;
-            padding: 0 1.5rem;
-        }
-        
-        /* Gradient indicators for horizontal scrolling */
-        .lakes-tabs-wrapper::before,
-        .lakes-tabs-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 20px;
+            border-left: 3px solid var(--secondary);
+            max-width: 150px;
+            text-align: center;
             pointer-events: none;
-            z-index: 5;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .lakes-tabs-wrapper::before {
-            left: 0;
-            background: linear-gradient(to right, #f6f9fb, rgba(246, 249, 251, 0));
-        }
-        
-        .lakes-tabs-wrapper::after {
-            right: 0;
-            background: linear-gradient(to left, #f6f9fb, rgba(246, 249, 251, 0));
-        }
-        
-        .lakes-tabs-wrapper.scroll-start::after {
-            opacity: 1;
-        }
-        
-        .lakes-tabs-wrapper.scroll-middle::before,
-        .lakes-tabs-wrapper.scroll-middle::after {
-            opacity: 1;
-        }
-        
-        .lakes-tabs-wrapper.scroll-end::before {
-            opacity: 1;
         }
 
+        /* Lakes-tabs styling */
         .lakes-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -291,13 +273,11 @@
             background: var(--white);
             border: 1px solid rgba(0,0,0,0.1);
             color: var(--dark);
-            padding: 0.5rem 1rem;
+            padding: 0.45rem 1rem;
             border-radius: var(--radius-full);
             font-size: 0.85rem;
             cursor: pointer;
             transition: all var(--transition-medium);
-            min-height: 44px;
-            min-width: 100px;
         }
 
         .lakes-tab.active,
@@ -306,48 +286,60 @@
             color: var(--white);
             border-color: var(--secondary);
         }
-        
+
+        /* Mobile Dropdown Styles */
+        .lakes-dropdown {
+            display: none; /* Hidden by default, shown on mobile */
+            position: relative;
+            margin-bottom: 1rem;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .lakes-mobile-selector {
+            width: 100%;
+            padding: 0.85rem 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0,0,0,0.08);
+            background: var(--white);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary-dark);
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .lakes-mobile-selector:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.25);
+        }
+
+        .lakes-dropdown-icon {
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            pointer-events: none;
+            font-size: 0.9rem;
+        }
+
         /* Mobile optimizations */
         @media (max-width: 767px) {
             .lakes-map {
-                height: calc(100vh - 350px);
-                min-height: 300px;
-                max-height: 500px;
-            }
-            
-            .lakes-tabs-wrapper {
-                position: sticky;
-                top: 60px;
-                z-index: 10;
-                background: #f6f9fb;
-                padding: 0.75rem 0.5rem;
-                border-radius: 20px 20px 0 0;
-                margin: 0 0 0.75rem;
+                height: 300px;  /* Reduce map height on mobile */
             }
             
             .lakes-tabs {
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 5px;
-                justify-content: flex-start;
-                gap: 0.75rem;
-                scrollbar-width: none; /* Firefox */
+                display: none; /* Hide tabs on mobile */
             }
             
-            .lakes-tabs::-webkit-scrollbar { 
-                display: none;  /* Chrome, Safari */
-            }
-            
-            .lakes-tab {
-                flex: 0 0 auto;
-                white-space: nowrap;
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-                min-width: auto;
-                scroll-snap-align: center;
+            .lakes-dropdown {
+                display: block; /* Show dropdown on mobile */
             }
             
             .lakes-bento-grid {
@@ -373,266 +365,191 @@
             
             .section-subtitle {
                 padding: 0 0.5rem;
-                font-size: 0.9rem;
-                margin-bottom: 1.5rem;
             }
             
-            /* Improved map controls for mobile */
-            .leaflet-control-zoom a {
-                width: 40px !important;
-                height: 40px !important;
-                line-height: 40px !important;
-                border-radius: 50% !important;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
-            }
-        }
-        
-        /* Additional mobile optimization for very small screens */
-        @media (max-width: 480px) {
-            .lakes-tab[data-area="all"] {
-                order: 10; /* Move "All Routes" to the end on small screens */
-            }
-            
-            .section-subtitle {
-                font-size: 0.875rem;
-            }
-        }
-        
-        /* Respect user's motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-            .lakes-tabs {
-                scroll-snap-type: none;
-            }
-            
-            .lake-bento-content {
-                transition: none;
-            }
-            
-            .lake-bento-content p {
-                transition: none;
+            .map-highlight-label {
+                display: none; /* Hide the label on mobile to avoid redundancy with dropdown */
             }
         }
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', initLakesInteractiveMap);
-
-        function initLakesInteractiveMap() {
-            const mapContainer = document.getElementById('lakesMap');
-            if (!mapContainer) return; // Component not yet in DOM
-            
-            // Handle horizontal scroll indicators for tabs
-            const tabsWrapper = document.querySelector('.lakes-tabs-wrapper');
-            const tabs = document.querySelector('.lakes-tabs');
-            
-            if (tabs && tabsWrapper) {
-                // Check for scroll position
-                const checkScrollPosition = () => {
-                    const { scrollLeft, scrollWidth, clientWidth } = tabs;
-                    
-                    // Reset all classes
-                    tabsWrapper.classList.remove('scroll-start', 'scroll-middle', 'scroll-end');
-                    
-                    if (scrollLeft <= 5) {
-                        tabsWrapper.classList.add('scroll-start');
-                    } else if (scrollLeft + clientWidth >= scrollWidth - 5) {
-                        tabsWrapper.classList.add('scroll-end');
-                    } else {
-                        tabsWrapper.classList.add('scroll-middle');
-                    }
-                };
-                
-                // Initial check
-                checkScrollPosition();
-                
-                // Listen for scroll
-                tabs.addEventListener('scroll', checkScrollPosition);
-            }
-            
-            // Check if Leaflet is loaded
-            if (typeof L === 'undefined') {
-                console.error('Leaflet library not loaded.');
-                return;
-            }
-
-            // Lazy load the map if supported
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            initMap();
-                            observer.disconnect();
-                        }
-                    });
-                }, {
-                    rootMargin: '250px 0px'
-                });
-                
-                observer.observe(mapContainer);
-            } else {
-                // Fallback for browsers not supporting IntersectionObserver
-                initMap();
-            }
-            
-            function initMap() {
-                // Prevent multiple initializations
-                if (mapContainer.dataset.mapInitialized) return;
-                mapContainer.dataset.mapInitialized = 'true';
-
-                // Create the map
-                const isMobile = window.innerWidth <= 767;
-                const map = L.map('lakesMap', { 
-                    scrollWheelZoom: !isMobile,
-                    dragging: true,
-                    tap: true,
-                    doubleClickZoom: true
-                }).setView([50.72, -120.33], 8);
-                
-                // Enable touch gestures
-                if (map.tap) map.tap.enable();
-
-                // Add tile layer
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&copy; OpenStreetMap contributors'
-                }).addTo(map);
-
-                // Sample route coordinates (replace with real tour paths)
-                const routes = {
-                    kamloops: [
-                        [50.7136, -120.3718],
-                        [50.7659, -120.4001],
-                        [50.7912, -120.3299]
-                    ],
-                    shuswap: [
-                        [50.9270, -119.5083],
-                        [50.9371, -119.4465],
-                        [50.9042, -119.4250]
-                    ],
-                    sunpeaks: [
-                        [50.8880, -119.9350],
-                        [50.9082, -119.9551],
-                        [50.9233, -119.8999]
-                    ]
-                };
-
-                // Create area labels and colors
-                const areaLabels = {
-                    all: "All Boating Areas",
-                    kamloops: "Kamloops Lake Area",
-                    shuswap: "Shuswap Lake Area",
-                    sunpeaks: "Sun Peaks Area"
-                };
-
-                const areaColors = {
-                    kamloops: '#4ecdc4',
-                    shuswap: '#ff9e43',
-                    sunpeaks: '#6a11cb'
-                };
-
-                // Create map label
-                const mapLabel = document.createElement('div');
-                mapLabel.className = 'map-highlight-label';
-                mapLabel.textContent = areaLabels['all'];
-                document.querySelector('.lakes-map-container').appendChild(mapLabel);
-
-                const layers = {};
-                Object.keys(routes).forEach(area => {
-                    // Create a featureGroup so we can add multiple layers (polyline + markers)
-                    const group = L.featureGroup();
-
-                    // Create polyline for the route
-                    const polyline = L.polyline(routes[area], {
-                        color: areaColors[area] || '#4ecdc4',
-                        weight: 5,
-                        dashArray: '6 8',
-                        lineJoin: 'round',
-                        opacity: 0.9
-                    }).addTo(group);
-
-                    // Add markers to highlight route points
-                    routes[area].forEach(coord => {
-                        L.circleMarker(coord, {
-                            radius: 6,
-                            fillColor: areaColors[area] || '#4ecdc4',
-                            color: '#ffffff',
-                            weight: 2,
-                            opacity: 1,
-                            fillOpacity: 0.9
-                        }).addTo(group);
-                    });
-
-                    layers[area] = group;
-                });
-
-                // Group containing all areas so we can show everything initially
-                const allLayer = L.featureGroup(Object.values(layers));
-                layers['all'] = allLayer;
-                allLayer.addTo(map);
-                
-                // Adjust padding for mobile
-                const padding = isMobile ? [10, 10] : [20, 20];
-                map.fitBounds(allLayer.getBounds(), { padding: padding });
-
-                // Add highlighted border to map
-                mapContainer.classList.add('highlighted');
-
-                // Tab switching logic
-                const tabsEls = document.querySelectorAll('.lakes-tab');
-                tabsEls.forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        // Active state styling
-                        tabsEls.forEach(t => t.classList.remove('active'));
-                        tab.classList.add('active');
-                        
-                        // Scroll tab into view on mobile
-                        if (isMobile) {
-                            tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                        }
-
-                        const area = tab.dataset.area;
-
-                        // Update map label
-                        mapLabel.textContent = areaLabels[area] || 'Selected Area';
-
-                        // Remove all layers
-                        Object.values(layers).forEach(layer => {
-                            if (map.hasLayer(layer)) map.removeLayer(layer);
-                        });
-
-                        // Add selected route(s)
-                        layers[area].addTo(map);
-
-                        // Adjust viewport with proper padding for mobile
-                        const fitPadding = isMobile ? [20, 20] : [40, 40];
-                        map.fitBounds(layers[area].getBounds(), { padding: fitPadding });
-
-                        // Highlight effect
-                        mapContainer.classList.remove('highlighted');
-                        // Dynamically update border color based on selected area for extra clarity
-                        const newBorderColor = areaColors[area] || getComputedStyle(document.documentElement).getPropertyValue('--secondary');
-                        mapContainer.style.borderColor = newBorderColor.trim();
-
-                        // Re-trigger highlight animation by toggling the class
-                        setTimeout(() => {
-                            mapContainer.classList.add('highlighted');
-                        }, 10);
-                    });
-                });
-                
-                // Resize handler for mobile
-                window.addEventListener('resize', () => {
-                    const newIsMobile = window.innerWidth <= 767;
-                    if (newIsMobile !== isMobile) {
-                        // Reload the page to reinitialize the map with proper settings
-                        window.location.reload();
-                    }
-                });
-            }
-        }
-    </script>
     `;
 
     // Load the lakes component
     ComponentLoader.loadComponent('lakes-container', lakesHTML);
+
+    // Initialize Leaflet map once component is in the DOM
+    document.addEventListener('DOMContentLoaded', initLakesInteractiveMap);
+
+    function initLakesInteractiveMap() {
+        const mapContainer = document.getElementById('lakesMap');
+        if (!mapContainer) return; // Component not yet in DOM
+        if (typeof L === 'undefined') {
+            console.error('Leaflet library not loaded.');
+            return;
+        }
+
+        // Prevent multiple initializations
+        if (mapContainer.dataset.mapInitialized) return;
+        mapContainer.dataset.mapInitialized = 'true';
+
+        // Create the map
+        const map = L.map('lakesMap', {
+            scrollWheelZoom: false,
+            dragging: !L.Browser.mobile,
+            tap: !L.Browser.mobile
+        }).setView([50.72, -120.33], 8);
+
+        // Enable drag and tap for mobile after user interaction
+        map.on('focus', function () {
+            map.dragging.enable();
+            if (L.Browser.mobile) map.tap.enable();
+        });
+
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Sample route coordinates (replace with real tour paths)
+        const routes = {
+            kamloops: [
+                [50.7136, -120.3718],
+                [50.7659, -120.4001],
+                [50.7912, -120.3299]
+            ],
+            shuswap: [
+                [50.9270, -119.5083],
+                [50.9371, -119.4465],
+                [50.9042, -119.4250]
+            ],
+            sunpeaks: [
+                [50.8880, -119.9350],
+                [50.9082, -119.9551],
+                [50.9233, -119.8999]
+            ]
+        };
+
+        // Create area labels and colors
+        const areaLabels = {
+            all: "All Boating Areas",
+            kamloops: "Kamloops Lake Area",
+            shuswap: "Shuswap Lake Area",
+            sunpeaks: "Sun Peaks Area"
+        };
+
+        const areaColors = {
+            kamloops: '#4ecdc4',
+            shuswap: '#ff9e43',
+            sunpeaks: '#6a11cb'
+        };
+
+        // Create map label
+        const mapLabel = document.createElement('div');
+        mapLabel.className = 'map-highlight-label';
+        mapLabel.textContent = areaLabels['all'];
+        mapLabel.style.display = 'none'; // Hide the label initially
+        document.querySelector('.lakes-map-container').appendChild(mapLabel);
+
+        const layers = {};
+        Object.keys(routes).forEach(area => {
+            // Create a featureGroup so we can add multiple layers (polyline + markers)
+            const group = L.featureGroup();
+
+            // Create polyline for the route
+            const polyline = L.polyline(routes[area], {
+                color: areaColors[area] || '#4ecdc4',
+                weight: 5,
+                dashArray: '6 8',
+                lineJoin: 'round',
+                opacity: 0.9
+            }).addTo(group);
+
+            // Add markers to highlight route points
+            routes[area].forEach(coord => {
+                L.circleMarker(coord, {
+                    radius: 6,
+                    fillColor: areaColors[area] || '#4ecdc4',
+                    color: '#ffffff',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.9
+                }).addTo(group);
+            });
+
+            layers[area] = group;
+        });
+
+        // Group containing all areas so we can show everything initially
+        const allLayer = L.featureGroup(Object.values(layers));
+        layers['all'] = allLayer;
+        allLayer.addTo(map);
+
+        // Adjust padding for mobile
+        const padding = L.Browser.mobile ? [10, 10] : [20, 20];
+        map.fitBounds(allLayer.getBounds(), { padding: padding });
+
+        // Add highlighted border to map
+        mapContainer.classList.add('highlighted');
+
+        // Tab switching logic
+        const tabs = document.querySelectorAll('.lakes-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchArea(tab.dataset.area);
+
+                // Active state styling for tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Mobile dropdown handling
+        const mobileSelector = document.getElementById('lakes-mobile-selector');
+        if (mobileSelector) {
+            mobileSelector.addEventListener('change', function () {
+                const selectedArea = this.value;
+                switchArea(selectedArea);
+
+                // Update tab active state to keep desktop/mobile in sync
+                tabs.forEach(t => {
+                    if (t.dataset.area === selectedArea) {
+                        t.classList.add('active');
+                    } else {
+                        t.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // Function to switch the map area
+        function switchArea(area) {
+            // Update map label
+            mapLabel.textContent = areaLabels[area] || 'Selected Area';
+            mapLabel.style.display = 'block'; // Show the label
+
+            // Remove all layers
+            Object.values(layers).forEach(layer => {
+                if (map.hasLayer(layer)) map.removeLayer(layer);
+            });
+
+            // Add selected route(s)
+            layers[area].addTo(map);
+
+            // Adjust viewport with proper padding for mobile
+            const fitPadding = L.Browser.mobile ? [20, 20] : [40, 40];
+            map.fitBounds(layers[area].getBounds(), { padding: fitPadding });
+
+            // Highlight effect
+            mapContainer.classList.remove('highlighted');
+            // Dynamically update border color based on selected area for extra clarity
+            const newBorderColor = areaColors[area] || getComputedStyle(document.documentElement).getPropertyValue('--secondary');
+            mapContainer.style.borderColor = newBorderColor.trim();
+
+            // Re-trigger highlight animation by toggling the class
+            setTimeout(() => {
+                mapContainer.classList.add('highlighted');
+            }, 10);
+        }
+    }
 })();

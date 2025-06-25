@@ -34,24 +34,24 @@
     --font-primary: 'Montserrat', sans-serif;
     --font-secondary: 'Poppins', sans-serif;
 
-    /* Spacing */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 2rem;
-    --space-xl: 4rem;
-    --space-xxl: 6rem;
+    /* Spacing - reduced for more compact layout */
+    --space-xs: 0.2rem;
+    --space-sm: 0.4rem;
+    --space-md: 0.8rem;
+    --space-lg: 1.6rem;
+    --space-xl: 3rem;
+    --space-xxl: 5rem;
 
     /* Border radius */
     --radius-sm: 4px;
     --radius-md: 8px;
-    --radius-lg: 16px;
+    --radius-lg: 12px;
     --radius-full: 9999px;
 
     /* Shadows */
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
     /* Animations */
     --transition-fast: 0.2s ease;
@@ -280,66 +280,54 @@ main>div[id$="-container"] {
 
 /* ======= BUTTONS ======= */
 .btn {
-    display: inline-block;
-    padding: 0.75rem 1.75rem;
-    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
+    text-decoration: none;
     cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
     transition: all var(--transition-medium);
-    border: none;
-    outline: none;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
     position: relative;
     overflow: hidden;
     z-index: 1;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: all 0.3s;
-    z-index: -1;
-}
-
-.btn:hover::before {
-    width: 100%;
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary {
     background-color: var(--primary);
+    border-color: var(--primary);
     color: var(--white);
-    box-shadow: 0 4px 15px rgba(11, 83, 148, 0.3);
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
     background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
     color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(11, 83, 148, 0.4);
 }
 
 .btn-accent {
     background-color: var(--accent);
+    border-color: var(--accent);
     color: var(--white);
-    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
 }
 
 .btn-accent:hover,
 .btn-accent:focus {
-    background-color: #e68900;
-    /* Darker orange */
+    background-color: darken(var(--accent), 10%);
+    border-color: darken(var(--accent), 10%);
     color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
 }
 
 .btn-outline {
@@ -387,7 +375,7 @@ main>div[id$="-container"] {
 }
 
 .btn-lg {
-    padding: 1rem 2.5rem;
+    padding: 0.9rem 2rem;
     font-size: 1rem;
 }
 
@@ -411,43 +399,44 @@ h6 {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     letter-spacing: -0.02em;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: -0.01em;
 }
 
 h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 h4 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
 }
 
 p {
     margin-bottom: var(--space-md);
     color: #546e7a;
+    font-size: 0.95rem;
 }
 
 @media (min-width: 768px) {
     h1 {
-        font-size: 3.5rem;
+        font-size: 3rem;
     }
 
     h2 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
 
     h3 {
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
 
     h4 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 }
 
@@ -457,6 +446,7 @@ p {
     padding-bottom: var(--space-sm);
     margin-bottom: var(--space-lg);
     font-weight: 800;
+    font-size: 1.8rem;
 }
 
 .section-heading:after {
@@ -476,11 +466,17 @@ p {
 }
 
 .section-subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--gray);
     max-width: 800px;
     margin: -1rem auto var(--space-lg);
-    line-height: 1.8;
+    line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+    .section-subtitle {
+        font-size: 1.05rem;
+    }
 }
 
 /* ======= COMPONENTS ======= */
@@ -1092,4 +1088,15 @@ section:nth-of-type(odd) {
     .invoice-items td {
         padding: var(--space-xs) var(--space-sm);
     }
+}
+
+/* Fix for lakes component */
+.lakes-map-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hide any fixed elements that might appear as tabs on the right side */
+.lakes-map-container>div:not(.lakes-tabs):not(.lakes-dropdown):not(#lakesMap) {
+    display: none !important;
 }

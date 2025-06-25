@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Function to update summary
         function updateBookingSummary() {
+            if (!summaryDetails) return;  // Summary panel not present in current layout
             const lake = document.getElementById('lake');
             const boatType = document.getElementById('boat-type');
             const duration = document.getElementById('duration');
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     month: 'long',
                     day: 'numeric'
                 });
-                document.getElementById('summary-datetime').textContent = `${formattedDate} at ${bookingTime.options[bookingTime.selectedIndex].text}`;
+                document.getElementById('summary-datetime').textContent = `${formattedDate} at ${bookingTime.value}`;
 
                 // Check add-ons
                 let addons = [];
@@ -92,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 total += basePrice;
-                document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+                const priceTotalEl = document.getElementById('price-total');
+                if (priceTotalEl) priceTotalEl.textContent = `$${total.toFixed(2)}`;
             }
         }
 
@@ -106,10 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             updateBookingSummary();
 
-            const submitButton = bookingForm.querySelector('button[type="submit"]');
+            const submitButton = document.getElementById('cta-btn');
             const originalButtonText = submitButton.textContent;
             submitButton.disabled = true;
             submitButton.textContent = 'Checking...';
+            submitButton.classList.add('processing');
 
             // --- Form Data ---
             const lake = document.getElementById('lake');
@@ -120,7 +123,23 @@ document.addEventListener('DOMContentLoaded', function () {
             const cooler = document.getElementById('cooler');
             const speaker = document.getElementById('speaker');
             const drybags = document.getElementById('drybags');
-            const estimatedTotal = document.getElementById('summary-total').textContent;
+            const priceTotalEl = document.getElementById('price-total');
+            const estimatedTotal = priceTotalEl ? priceTotalEl.textContent : '$0.00';
+
+            // Validate required date/time fields
+            if (!bookingDate || !bookingTime || !bookingDate.value || !bookingTime.value) {
+                await showModal({ title: 'Missing Info', message: 'Please choose a date and time before checking availability.', confirmText: 'OK' });
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+                submitButton.classList.remove('processing');
+                return;
+            }
+
+            // Gather selected add-ons from chip toggles
+            const selectedAddOns = {};
+            document.querySelectorAll('.chip-toggle.active').forEach(chip => {
+                selectedAddOns[chip.dataset.value] = true;
+            });
 
             // --- Availability Check Logic ---
             const MAX_CONCURRENT_BOATS = 2; // We can operate 2 boats at the same time
@@ -173,6 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 submitButton.disabled = false;
                 submitButton.textContent = originalButtonText;
+                submitButton.classList.remove('processing');
                 return;
             }
 
@@ -213,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     await showModal({ title: 'Not Available', message: `Sorry, selected slot is fully booked.<br>${suggestionMsg}`, confirmText: 'OK' });
                     submitButton.disabled = false;
                     submitButton.textContent = originalButtonText;
+                    submitButton.classList.remove('processing');
                 } else {
                     // Availability good: auto save and show invoice
                     submitButton.textContent = 'Processing...';
@@ -221,8 +242,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         boatType: boatType.options[boatType.selectedIndex].text,
                         duration: duration.options[duration.selectedIndex].text,
                         date: bookingDate.value,
-                        time: bookingTime.options[bookingTime.selectedIndex].text,
-                        addons: { cooler: cooler.checked, speaker: speaker.checked, drybags: drybags.checked },
+                        time: bookingTime.value,
+                        addons: selectedAddOns,
                         estimatedTotal: estimatedTotal,
                         status: 'pending',
                         isPaid: false,
@@ -235,7 +256,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     } catch (e) { console.error(e); await showModal({ title: 'Error', message: 'Error saving booking. Try again.', confirmText: 'OK' }); } finally {
                         submitButton.disabled = false;
                         submitButton.textContent = 'Check Availability';
-                        bookingForm.reset(); summaryDetails.style.display = 'none';
+                        submitButton.classList.remove('processing');
+                        bookingForm.reset(); if (summaryDetails) summaryDetails.style.display = 'none';
                     }
                 }
             } catch (error) {

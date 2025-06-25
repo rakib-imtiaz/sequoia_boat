@@ -309,6 +309,22 @@
             align-items: center;
         }
         
+        /* Mobile adjustments for tab buttons */
+        @media(max-width: 575px){
+            .services .tabs-navigation{
+                overflow-x:auto;
+                white-space:nowrap;
+                padding-bottom:4px;
+                justify-content:flex-start;
+            }
+            .services .tab-button{
+                flex:0 0 auto;
+                padding:8px 16px;
+                font-size:0.9rem;
+                margin:0 3px;
+            }
+        }
+        
         .tab-button i {
             margin-right: 10px;
             font-size: 1.3rem;
@@ -493,11 +509,14 @@
         .service-price {
             background: var(--primary);
             color: white;
-            padding: 0.35rem 1rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 30px;
             font-weight: 600;
             font-size: 0.95rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 100px;
+            display: inline-block;
         }
         
         .service-option p {
@@ -585,11 +604,13 @@
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
             font-size: 0.95rem;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 90px;
         }
         
         /* Service Notes */
@@ -729,6 +750,183 @@
             margin-top: 0.25rem;
         }
 
+        /* Mobile Redesign */
+        @media (max-width: 767px) {
+            /* Tab Navigation - Full Width Buttons */
+            .services .tabs-navigation {
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                border-radius: 10px;
+                overflow: hidden;
+                background: #fff;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            
+            .services .tab-button {
+                width: 100%;
+                border-radius: 0;
+                margin: 0;
+                padding: 15px;
+                border-bottom: 1px solid rgba(0,0,0,0.07);
+                justify-content: center;
+                font-size: 0.9rem;
+                font-weight: 600;
+                position: relative;
+            }
+            
+            .services .tab-button:last-child {
+                border-bottom: none;
+            }
+            
+            .services .tab-button.active {
+                background-color: var(--primary);
+                color: white;
+            }
+            
+            .services .tab-button.active i {
+                color: white;
+            }
+            
+            /* Remove arrow indicator on mobile */
+            .services .tab-button.active::after {
+                display: none;
+            }
+            
+            /* Content Container */
+            .services .tabs-content {
+                margin-top: 1rem;
+                padding: 1rem;
+                border-radius: 10px;
+            }
+            
+            .services .service-content {
+                padding: 1rem;
+            }
+            
+            .services .service-details {
+                padding: 0;
+            }
+            
+            /* Service Details & Headings */
+            .services .service-details h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .services .service-details h4 {
+                font-size: 1.1rem;
+                margin-top: 1.5rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .services .service-details p {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            /* Service Cards */
+            .services .service-option {
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+            }
+            
+            .services .service-option-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .services .service-option-header h4 {
+                font-size: 1rem;
+                margin: 0;
+            }
+            
+            .services .service-price {
+                font-size: 0.85rem;
+                padding: 0.4rem 1rem;
+                text-align: center;
+                min-width: 90px;
+            }
+            
+            .services .service-option-icon {
+                width: 36px;
+                height: 36px;
+                margin-bottom: 0.75rem;
+            }
+            
+            .services .service-option-icon i {
+                font-size: 1rem;
+            }
+            
+            .services .service-option p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+            
+            .services .add-on-price {
+                padding: 0.4rem 1rem;
+                text-align: center;
+                font-size: 0.85rem;
+            }
+            
+            /* Call to action buttons */
+            .services .btn {
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+            
+            /* Service Note */
+            .services .service-note {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+                margin-top: 1.5rem;
+            }
+            
+            .services .service-note i {
+                font-size: 1rem;
+                margin-right: 0.5rem;
+            }
+            
+            /* Service Options Layout for Mobile */
+            .services .service-options {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            /* Add-ons Grid */
+            .services .add-ons-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .services .add-on-item {
+                padding: 1rem;
+            }
+            
+            .services .add-on-icon {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .services .add-on-icon i {
+                font-size: 1rem;
+            }
+            
+            .services .add-on-details h4 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .services .add-on-details p {
+                font-size: 0.85rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+        
         /* Responsive Styles */
         @media (max-width: 768px) {
             .service-options,
@@ -755,6 +953,8 @@
                 margin-bottom: 0.5rem;
             }
         }
+
+        /* End of responsive styles */
     </style>
 
     <script>

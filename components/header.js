@@ -21,11 +21,6 @@
                         <li><a href="#footer-container"><i class="fas fa-envelope"></i> Contact</a></li>
                         </ul>
                 </nav>
-                <div class="header-actions">
-                    <a href="#booking-preview-container" class="btn btn-book-now">
-                        <i class="fas fa-plus"></i> Book Now
-                    </a>
-                </div>
                 <button class="mobile-nav-toggle" aria-label="Toggle Navigation">
                             <span></span>
                             <span></span>
@@ -76,9 +71,13 @@
             align-items: center;
             text-decoration: none;
             color: var(--white);
-            font-size: 2.2rem;
+            font-size: 1.2rem;
             font-weight: 700;
             transition: color 0.3s ease;
+        }
+        .logo span {
+            font-size: 1.2rem;
+            font-weight: 700;
         }
         .header.scrolled .logo {
             color: var(--primary);
@@ -124,30 +123,6 @@
             color: var(--primary);
         }
         
-        .header-actions {
-            display: flex;
-            align-items: center;
-        }
-        
-        .btn-book-now {
-            background: linear-gradient(90deg, #1cb5e0, #0072ff);
-            color: white;
-            padding: 0.6rem 1.25rem;
-            border-radius: 50px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            white-space: nowrap;
-            z-index: 100;
-        }
-        .btn-book-now:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
-            color: white;
-        }
-        
         .mobile-nav-toggle {
             display: none;
             background: none;
@@ -174,7 +149,7 @@
         /* Hamburger animation when open */
         .mobile-nav-toggle.open span:nth-child(1) {
             transform: translateY(8px) rotate(45deg);
-            }
+        }
         .mobile-nav-toggle.open span:nth-child(2) {
             opacity: 0;
         }
@@ -226,11 +201,7 @@
                 height: 50px;
             }
             .logo {
-                font-size: 1.8rem;
-            }
-            .btn-book-now {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
+                font-size: 1.2rem;
             }
             .main-header .container {
                 height: 70px;
@@ -249,13 +220,7 @@
                 margin-right: 0.25rem;
             }
             .logo span {
-                font-size: 1.4rem;
-            }
-            .btn-book-now {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-                position: relative;
-                z-index: 1001;
+                font-size: 1.2rem;
             }
             .main-header .container {
                 height: 60px;
