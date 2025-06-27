@@ -13,15 +13,15 @@
             <div class="services-slider-tabs">
                 <button class="service-tab-button active" data-tab="boat-rentals-slider">
                     <i class="fas fa-ship"></i> Boat Rentals
-                </button>
+                    </button>
                 <button class="service-tab-button" data-tab="concierge-slider">
                     <i class="fas fa-concierge-bell"></i> Concierge
-                </button>
+                    </button>
                 <button class="service-tab-button" data-tab="add-ons-slider">
                     <i class="fas fa-plus-circle"></i> Add-ons
-                </button>
-            </div>
-
+                    </button>
+                </div>
+                
             <div class="service-sliders-container">
                 <!-- Boat Rentals Slider -->
                 <div id="boat-rentals-slider" class="service-slider-wrapper active">
@@ -30,22 +30,22 @@
                             <!-- Slide 1: Features -->
                             <div class="swiper-slide">
                                 <div class="service-slide-content">
-                                    <h3>Electric, Eco-friendly Inflatable Boats</h3>
+                                <h3>Electric, Eco-friendly Inflatable Boats</h3>
                                     <p>Our premium electric boats provide a quiet, peaceful experience that lets you connect with nature without disturbing it.</p>
-                                    <ul class="service-benefits">
-                                        <li><i class="fas fa-check"></i> Quiet, zero-emission electric motors</li>
-                                        <li><i class="fas fa-check"></i> Comfortable seating for 2-4 people</li>
-                                        <li><i class="fas fa-check"></i> Easy to operate, no experience needed</li>
-                                        <li><i class="fas fa-check"></i> 6+ hours of battery life</li>
-                                        <li><i class="fas fa-check"></i> Safety equipment included (life jackets, etc.)</li>
-                                    </ul>
+                                <ul class="service-benefits">
+                                    <li><i class="fas fa-check"></i> Quiet, zero-emission electric motors</li>
+                                    <li><i class="fas fa-check"></i> Comfortable seating for 2-4 people</li>
+                                    <li><i class="fas fa-check"></i> Easy to operate, no experience needed</li>
+                                    <li><i class="fas fa-check"></i> 6+ hours of battery life</li>
+                                    <li><i class="fas fa-check"></i> Safety equipment included (life jackets, etc.)</li>
+                                </ul>
                                 </div>
                             </div>
                             <!-- Slide 2: Pricing -->
                             <div class="swiper-slide">
                                 <div class="service-slide-content">
-                                    <h4>Pricing Information</h4>
-                                    <div class="pricing-table">
+                                <h4>Pricing Information</h4>
+                                <div class="pricing-table">
                                         <div class="pricing-row pricing-header"><div>Duration</div><div>Weekday</div><div>Weekend</div></div>
                                         <div class="pricing-row"><div>2 Hours</div><div>$70-80/hr</div><div>$80-90/hr</div></div>
                                         <div class="pricing-row"><div>4 Hours</div><div>$60-70/hr</div><div>$70-80/hr</div></div>
@@ -58,14 +58,14 @@
                             <!-- Slide 3: Policies -->
                             <div class="swiper-slide">
                                 <div class="service-slide-content">
-                                    <h4>Rental Policies</h4>
-                                    <ul class="service-policies">
-                                        <li><i class="fas fa-info-circle"></i> Must be 18+ with valid ID to rent</li>
-                                        <li><i class="fas fa-info-circle"></i> Boating license required (can obtain temporary)</li>
-                                        <li><i class="fas fa-info-circle"></i> Security deposit required at pickup</li>
-                                        <li><i class="fas fa-info-circle"></i> Free delivery to popular lakes</li>
-                                        <li><i class="fas fa-info-circle"></i> Rentals include basic safety training</li>
-                                    </ul>
+                                <h4>Rental Policies</h4>
+                                <ul class="service-policies">
+                                    <li><i class="fas fa-info-circle"></i> Must be 18+ with valid ID to rent</li>
+                                    <li><i class="fas fa-info-circle"></i> Boating license required (can obtain temporary)</li>
+                                    <li><i class="fas fa-info-circle"></i> Security deposit required at pickup</li>
+                                    <li><i class="fas fa-info-circle"></i> Free delivery to popular lakes</li>
+                                    <li><i class="fas fa-info-circle"></i> Rentals include basic safety training</li>
+                                </ul>
                                     <a href="#booking-preview-container" class="btn btn-primary mt-3">Book Your Boat</a>
                                 </div>
                             </div>
@@ -75,8 +75,8 @@
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
                     </div>
-                </div>
-
+                                    </div>
+                                    
                 <!-- Concierge Slider -->
                 <div id="concierge-slider" class="service-slider-wrapper">
                     <div class="swiper">
@@ -89,9 +89,9 @@
                         <div class="swiper-pagination"></div>
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
-                    </div>
-                </div>
-
+                                        </div>
+                                    </div>
+                                    
                 <!-- Add-ons Slider -->
                 <div id="add-ons-slider" class="service-slider-wrapper">
                     <div class="swiper">
@@ -113,8 +113,8 @@
     </div>
     <style>
     .services-slider-tabs {
-        display: flex;
-        justify-content: center;
+            display: flex;
+            justify-content: center;
         gap: 0.5rem;
         margin-bottom: 2rem;
         flex-wrap: wrap;
@@ -127,23 +127,23 @@
         border: 1px solid #ddd;
         border-radius: 999px; /* Pill shape */
         background-color: transparent;
-        color: var(--dark);
-        transition: all 0.3s ease;
+            color: var(--dark);
+            transition: all 0.3s ease;
     }
     .service-tab-button:hover {
         background-color: #e9ecef;
         border-color: #ccc;
     }
     .service-tab-button.active {
-        background-color: var(--primary);
-        color: white;
+            background-color: var(--primary);
+            color: white;
         border-color: var(--primary);
     }
     .service-sliders-container .service-slider-wrapper {
         display: none;
     }
     .service-sliders-container .service-slider-wrapper.active {
-        display: block;
+            display: block;
     }
     .service-slider-wrapper .swiper {
       background-color: #ffffff;
@@ -154,9 +154,9 @@
     }
     .service-slide-content {
         min-height: 350px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         align-items: flex-start; /* Left-align content */
         text-align: left; /* Left-align text */
         width: 80%; /* Give some space on the sides */
@@ -165,7 +165,7 @@
     .service-slide-content h3, .service-slide-content h4 {
         margin-bottom: 1.5rem;
         width: 100%;
-        text-align: center;
+            text-align: center;
     }
     .service-benefits, .service-policies {
         list-style: none;
@@ -175,30 +175,30 @@
     }
     .service-benefits li, .service-policies li {
         margin-bottom: 0.75rem;
-        display: flex;
-        align-items: center;
-    }
+            display: flex;
+            align-items: center;
+        }
     .service-benefits i, .service-policies i {
-        color: var(--primary);
-        margin-right: 0.75rem;
+            color: var(--primary);
+            margin-right: 0.75rem;
     }
-    .pricing-table {
-        width: 100%;
+        .pricing-table {
+            width: 100%;
         max-width: 600px;
         margin: 0 auto;
         border: 1px solid #eee;
         border-radius: var(--radius-md);
     }
-    .pricing-row {
+        .pricing-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         border-bottom: 1px solid #eee;
-    }
+        }
     .pricing-row:last-child { border-bottom: none; }
     .pricing-row div { padding: 0.75rem; text-align: center; }
-    .pricing-row.pricing-header {
+        .pricing-row.pricing-header {
         background-color: #f8f9fa;
-        font-weight: 600;
+            font-weight: 600;
     }
     .service-slide-content .btn {
         align-self: center;
@@ -210,7 +210,7 @@
         height: 2.75rem;
         background-color: #fff;
         border-radius: 50%;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         transition: background-color 0.3s;
     }
     .swiper-button-next:hover, .swiper-button-prev:hover {
@@ -232,9 +232,9 @@
         font-size: 1.2rem;
         font-weight: bold;
         color: var(--primary);
-        margin-top: 1rem;
-        text-align: center;
-        width: 100%;
+                margin-top: 1rem;
+                text-align: center;
+                width: 100%;
     }
     </style>
     <script>
@@ -277,9 +277,9 @@
                         wrapper.classList.remove('active');
                     }
                 });
+                });
             });
         });
-    });
     </script>
     `;
 
