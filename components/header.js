@@ -18,9 +18,10 @@
                     <nav class="main-nav">
                     <ul>
                         <li><a href="#hero-container"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#about-container"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li><a href="#services-container"><i class="fas fa-concierge-bell"></i> Services</a></li>
+                        <li><a href="#services-container"><i class="fas fa-concierge-bell"></i> Our Services</a></li>
                         <li><a href="#lakes-container"><i class="fas fa-water"></i> Lakes</a></li>
+                        <li><a href="#booking-preview-container"><i class="fas fa-calendar-check"></i> Quick Book</a></li>
+                        <li><a href="#about-container"><i class="fas fa-info-circle"></i> About Us</a></li>
                         <li><a href="#footer-container"><i class="fas fa-envelope"></i> Contact</a></li>
                         </ul>
                 </nav>

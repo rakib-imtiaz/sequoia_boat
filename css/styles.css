@@ -69,10 +69,23 @@
 }
 
 html {
-    font-size: 16px;
+    /* Responsive root font-size: 12px on small screens up to 15px on very large */
+    font-size: 12px;
     scroll-behavior: smooth;
     height: 100%;
     overflow-x: hidden;
+}
+
+@media (min-width: 992px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1600px) {
+    html {
+        font-size: 15px;
+    }
 }
 
 body {
