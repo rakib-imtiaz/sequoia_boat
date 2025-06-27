@@ -616,6 +616,45 @@
             return urls;
         }
 
+        // Return candidate low-res URLs derived from a hi-res path
+        function deriveLowResCandidates(hiUrl) {
+            const parts = hiUrl.split('/');
+            const file = parts.pop();
+            const match = file.match(/^(.*?)(\d+)(\.[^.]+)$/); // base, index, ext
+            if (!match) return [];
+            const [, base, index, ext] = match;
+            const variant1 = `${base}_compress_${index}${ext}`; // e.g. Lake_compress_1.png
+            const variant2 = `${base}_compress${index}${ext}`;   // Lake_compress1.png
+            const variant3 = `${base}compress_${index}${ext}`;   // Lakecompress_1.png
+            const variant4 = `${base}compress${index}${ext}`;    // Lakecompress1.png
+            return [variant1, variant2, variant3, variant4].map(v => [...parts, v].join('/'));
+        }
+
+        // Apply progressive image: low-res first, then hi-res when ready
+        async function applyImage(layer, hiUrl) {
+            // Attempt low-res candidates
+            const lowResCandidates = deriveLowResCandidates(hiUrl);
+            let shownUrl = hiUrl;
+            for (const low of lowResCandidates) {
+                try {
+                    await loadImage(low);
+                    shownUrl = low;
+                    break;
+                } catch (e) { /* continue */ }
+            }
+            layer.style.backgroundImage = `url('${shownUrl}')`;
+
+            if (shownUrl !== hiUrl) {
+                // Preload hi-res in background, then swap
+                loadImage(hiUrl).then(() => {
+                    // Ensure we swap only if layer is still showing this logical image
+                    if (layer.style.backgroundImage.includes(shownUrl)) {
+                        layer.style.backgroundImage = `url('${hiUrl}')`;
+                    }
+                }).catch(() => {/* ignore */ });
+            }
+        }
+
         function setupCard(card, images) {
             // Create two layers and append to card
             const layerA = document.createElement('div');
@@ -627,10 +666,6 @@
             let currLayer = layerA;
             let nextLayer = layerB;
             let idx = 0;
-
-            function applyImage(layer, url) {
-                layer.style.backgroundImage = `url('${url}')`;
-            }
 
             // initialise first image/layer
             applyImage(currLayer, images[idx]);

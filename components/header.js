@@ -252,13 +252,13 @@
             .header.scrolled .main-header .container {
                 height: 55px;
             }
-            .main-header {
-                background-color: rgba(255, 255, 255, 0.9);
-            }
-            .logo {
+
+            /* Keep header transparent until scrolled */
+            /* Color adjustments only after scrolled */
+            .header.scrolled .logo {
                 color: var(--primary);
             }
-            .mobile-nav-toggle span {
+            .header.scrolled .mobile-nav-toggle span {
                 background-color: var(--dark);
             }
         }
