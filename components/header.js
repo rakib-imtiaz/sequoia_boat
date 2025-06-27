@@ -10,7 +10,10 @@
             <div class="container">
                 <a href="index.html" class="logo">
                     <img src="images/logo_transparent.png" alt="Sequoia logo">
-                    <span>Sequoia</span>
+                    <div class="logo-text">
+                         <span class="logo-name">Sequoia</span>
+                         <span class="logo-tagline">Boat Rentals</span>
+                    </div>
                 </a>
                     <nav class="main-nav">
                     <ul>
@@ -75,9 +78,29 @@
             font-weight: 700;
             transition: color 0.3s ease;
         }
-        .logo span {
-            font-size: 1.2rem;
+        /* Brand name */
+        .logo-name {
+            font-size: 1.5rem;
             font-weight: 700;
+        }
+        /* Container holding name + tagline in vertical layout */
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        /* Tagline positioned under brand name */
+        .logo-tagline {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            margin-left: 0; /* reset inline gap */
+        }
+        /* Adjust tagline color when header switches to the solid (white) background */
+        .header.scrolled .logo-tagline {
+            color: var(--secondary-dark);
         }
         .header.scrolled .logo {
             color: var(--primary);
@@ -149,7 +172,7 @@
         /* Hamburger animation when open */
         .mobile-nav-toggle.open span:nth-child(1) {
             transform: translateY(8px) rotate(45deg);
-            }
+        }
         .mobile-nav-toggle.open span:nth-child(2) {
             opacity: 0;
         }
@@ -219,7 +242,7 @@
                 height: 38px;
                 margin-right: 0.25rem;
             }
-            .logo span {
+            .logo-name {
                 font-size: 1.2rem;
             }
             .main-header .container {
