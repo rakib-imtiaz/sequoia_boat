@@ -153,7 +153,6 @@
             /* Initial state: partially visible */
             transform: translateY(calc(100% - 5rem)); /* Adjust to show title */
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2;
         }
         
         .lake-bento-item:hover .lake-bento-content {
@@ -183,28 +182,6 @@
         
         .lake-bento-item:hover .lake-bento-content p {
             opacity: 0.9;
-        }
-        
-        /* Ken Burns slideshow layers */
-        .ken-layer {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            will-change: transform, opacity;
-            z-index: 0;
-        }
-
-        .ken-layer.active {
-            opacity: 1;
-            z-index: 1;
-        }
-
-        @keyframes kenBurnsZoom {
-            0%   { transform: scale(1)   translate(0, 0); }
-            100% { transform: scale(1.15) translate(var(--kb-x, 0), var(--kb-y, 0)); }
         }
         
         /* Responsive adjustments */
@@ -400,101 +377,6 @@
     // Load the lakes component
     ComponentLoader.loadComponent('lakes-container', lakesHTML);
 
-    /* ---------------- Ken Burns Slideshow ---------------- */
-    (function () {
-        const EXTENSIONS = ['.webp', '.jpg', '.jpeg', '.png'];
-        const MAX_INDEX = 20;
-        const DISPLAY_MS = 4000; // image stays 4 seconds
-        const FADE_MS = 1000;    // 1s cross-fade
-
-        function imageExists(url) {
-            return new Promise(res => {
-                const img = new Image();
-                img.onload = () => res(true);
-                img.onerror = () => res(false);
-                img.src = url;
-            });
-        }
-
-        async function gatherImages(folder, basename) {
-            const urls = [];
-            for (let i = 1; i <= MAX_INDEX; i++) {
-                for (const ext of EXTENSIONS) {
-                    const u = `images/lakes/${folder}/${basename}${i}${ext}`;
-                    // eslint-disable-next-line no-await-in-loop
-                    if (await imageExists(u)) { urls.push(u); break; }
-                }
-            }
-            return urls;
-        }
-
-        function randomPan() {
-            const dirs = [-4, 4]; // percent shift
-            return {
-                x: `${dirs[Math.floor(Math.random() * dirs.length)]}%`,
-                y: `${dirs[Math.floor(Math.random() * dirs.length)]}%`
-            };
-        }
-
-        async function initKenBurns() {
-            const cards = document.querySelectorAll('.lake-bento-item');
-            for (const card of cards) {
-                const folder = card.dataset.folder;
-                const base = card.dataset.basename;
-                if (!folder || !base) continue;
-
-                const images = await gatherImages(folder, base);
-                if (!images.length) continue;
-
-                // create two layers
-                const layerA = document.createElement('div');
-                const layerB = document.createElement('div');
-                layerA.className = 'ken-layer active';
-                layerB.className = 'ken-layer';
-                // insert layers as first children so textual overlay stays above
-                card.insertBefore(layerB, card.firstChild);
-                card.insertBefore(layerA, card.firstChild);
-
-                let current = 0;
-                const applyKen = (layer) => {
-                    const { x, y } = randomPan();
-                    layer.style.setProperty('--kb-x', x);
-                    layer.style.setProperty('--kb-y', y);
-                    layer.style.animation = `kenBurnsZoom ${DISPLAY_MS}ms linear forwards`;
-                };
-
-                // initial image
-                layerA.style.backgroundImage = `url('${images[0]}')`;
-                applyKen(layerA);
-
-                if (images.length === 1) {
-                    // Just keep the Ken Burns animation running on the single layer
-                    continue;
-                }
-
-                function advance() {
-                    const next = (current + 1) % images.length;
-                    const incoming = layerA.classList.contains('active') ? layerB : layerA;
-                    const outgoing = layerA.classList.contains('active') ? layerA : layerB;
-
-                    incoming.style.backgroundImage = `url('${images[next]}')`;
-                    applyKen(incoming);
-
-                    // cross-fade
-                    incoming.classList.add('active');
-                    outgoing.classList.remove('active');
-
-                    current = next;
-                    setTimeout(advance, DISPLAY_MS);
-                }
-
-                setTimeout(() => advance(), DISPLAY_MS);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', initKenBurns);
-    })();
-
     // Initialize Leaflet map once component is in the DOM
     document.addEventListener('DOMContentLoaded', initLakesInteractiveMap);
 
@@ -670,4 +552,130 @@
             }, 10);
         }
     }
+
+    /* ---------------- Ken Burns Slideshow (4-second cadence) ---------------- */
+    (function () {
+        const IMAGE_EXTS = ['.webp', '.jpg', '.jpeg', '.png'];
+        const DISPLAY_MS = 4000;   // how long each image is fully visible
+        const FADE_MS = 1000;      // cross-fade duration (must be < DISPLAY_MS)
+
+        /* Inject necessary CSS only once */
+        const styleId = 'ken-burns-style';
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.textContent = `
+                .lake-bento-item { position: relative; overflow: hidden; }
+                .lake-bento-item .ken-layer {
+                    position: absolute;
+                    inset: 0;
+                    background-size: cover;
+                    background-position: center;
+                    opacity: 0;
+                    transition: opacity ${FADE_MS}ms ease-in-out;
+                    will-change: transform, opacity;
+                }
+                .lake-bento-item .ken-layer.active {
+                    opacity: 1;
+                    animation: kenBurnsAnim ${DISPLAY_MS * 2}ms linear forwards;
+                }
+                @keyframes kenBurnsAnim {
+                    0%   { transform: scale(1) translate(0, 0); }
+                    100% { transform: scale(1.12) translate(-3%, -3%); }
+                }
+                /* Ensure text overlay stays on top */
+                .lake-bento-content { z-index: 2; }
+            `;
+            document.head.appendChild(style);
+        }
+
+        /* Helper: test if an image exists (preload) */
+        function loadImage(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(url);
+                img.onerror = reject;
+                img.src = url;
+            });
+        }
+
+        async function gatherImages(folder, basename) {
+            const urls = [];
+            for (let i = 1; i <= 20; i++) {
+                for (const ext of IMAGE_EXTS) {
+                    const candidate = `images/lakes/${folder}/${basename}${i}${ext}`;
+                    try {
+                        await loadImage(candidate);
+                        urls.push(candidate);
+                        break; // go to next index once we found a file
+                    } catch (_) {
+                        /* ignore and continue */
+                    }
+                }
+            }
+            return urls;
+        }
+
+        function setupCard(card, images) {
+            // Create two layers and append to card
+            const layerA = document.createElement('div');
+            const layerB = document.createElement('div');
+            layerA.className = layerB.className = 'ken-layer';
+            card.appendChild(layerA);
+            card.appendChild(layerB);
+
+            let currLayer = layerA;
+            let nextLayer = layerB;
+            let idx = 0;
+
+            function applyImage(layer, url) {
+                layer.style.backgroundImage = `url('${url}')`;
+            }
+
+            // initialise first image/layer
+            applyImage(currLayer, images[idx]);
+            currLayer.classList.add('active');
+
+            if (images.length <= 1) {
+                // Only one image: keep Ken-Burns anim looping via CSS (animation-iteration)
+                currLayer.style.animationIterationCount = 'infinite';
+                return;
+            }
+
+            const switchImage = () => {
+                idx = (idx + 1) % images.length;
+
+                // Prepare next layer
+                applyImage(nextLayer, images[idx]);
+
+                // Start cross-fade
+                nextLayer.classList.add('active');
+
+                // After fade time, hide previous layer and swap refs
+                setTimeout(() => {
+                    currLayer.classList.remove('active');
+                    [currLayer, nextLayer] = [nextLayer, currLayer];
+                }, FADE_MS);
+
+                setTimeout(switchImage, DISPLAY_MS); // schedule next switch
+            };
+
+            setTimeout(switchImage, DISPLAY_MS);
+        }
+
+        async function initKenBurns() {
+            const cards = document.querySelectorAll('.lake-bento-item[data-folder][data-basename]');
+            for (const card of cards) {
+                const folder = card.dataset.folder;
+                const basename = card.dataset.basename;
+                if (!folder || !basename) continue;
+
+                const imgs = await gatherImages(folder, basename);
+                if (imgs.length === 0) continue;
+                setupCard(card, imgs);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initKenBurns);
+    })();
 })();
