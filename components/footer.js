@@ -367,6 +367,33 @@
             .footer-links-column:last-child {
                 margin-bottom: 0;
             }
+
+            /* Center align info section on mobile */
+            .footer-info {
+                text-align: center;
+            }
+            .footer-logo a {
+                justify-content: center;
+            }
+            .footer-contact {
+                align-items: center;
+            }
+            .contact-item {
+                justify-content: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .footer-links {
+                text-align: center;
+            }
+            .footer-links-column h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .footer-links-column ul li a:hover {
+                transform: none;
+            }
         }
     </style>
 
