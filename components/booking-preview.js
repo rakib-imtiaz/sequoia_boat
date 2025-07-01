@@ -25,7 +25,19 @@
                             <!-- Package Selection -->
                             <div class="package-selection" id="package-selection">
                                 <h3 class="package-heading"><i class="fas fa-box-open"></i> Choose a Package</h3>
-                                <div class="package-grid">
+                                <!-- Dropdown for mobile -->
+                                <div class="form-group mobile-only">
+                                    <div class="select-wrapper">
+                                        <select id="package-select" class="form-control">
+                                            <option value="" disabled selected>Select a package...</option>
+                                            <option value="lite" data-price="140">Adventure Lite – $140</option>
+                                            <option value="family" data-price="280">Family Fun – $280</option>
+                                            <option value="explorer" data-price="420">Full-Day Explorer – $420</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Card grid for tablet/desktop -->
+                                <div class="package-grid desktop-only">
                                     <button type="button" class="package-card" data-package="lite">
                                         <h4>Adventure Lite</h4>
                                         <p>Heffley • Single Boat • 2 hrs</p>
@@ -355,7 +367,7 @@
         /* Package Selection */
         .package-selection{margin-bottom:1.5rem;}
         .package-heading{font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;color:var(--dark)}
-        .package-grid{display:flex;flex-direction:column;gap:0.75rem}
+        .package-grid{display:grid;grid-template-columns:1fr;gap:0.75rem}
         @media(min-width:768px){.package-grid{flex-direction:row}}
         .package-card{flex:1 1 100%;background:#f8f8f8;border:2px solid transparent;border-radius:var(--radius-md);padding:1rem;text-align:left;cursor:pointer;transition:all .3s}
         .package-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
@@ -365,6 +377,15 @@
 
         .stripe-container{margin-top:1.5rem;text-align:center}
         .hidden{display:none;}
+
+        /* Hide/show elements based on viewport */
+        .mobile-only { display: block; }
+        .desktop-only { display: none; }
+
+        @media (min-width: 768px) {
+            .mobile-only { display: none; }
+            .desktop-only { display: grid; grid-template-columns: repeat(3, 1fr); }
+        }
     </style>
 
     <script>
