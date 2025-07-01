@@ -42,8 +42,8 @@
                     <p>Free delivery to all popular local lakes.</p>
                 </div>
             </div>
+          </div>
         </div>
-    </div>
 
     <style>
         .about-section-new {

@@ -24,7 +24,7 @@
                         <div class="form-step active" id="form-step-1">
                             <!-- Package Selection -->
                             <div class="package-selection" id="package-selection">
-                                <h3 class="package-heading">Choose a Package</h3>
+                                <h3 class="package-heading"><i class="fas fa-box-open"></i> Choose a Package</h3>
                                 <div class="package-grid">
                                     <button type="button" class="package-card" data-package="lite">
                                         <h4>Adventure Lite</h4>
@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="lake">Choose a Lake</label>
+                                <label for="lake"><i class="fas fa-water"></i> Choose a Lake</label>
                                 <div class="select-wrapper">
                             <select id="lake" name="lake" class="form-control" required>
                                         <option value="" disabled selected>Select a lake...</option>
@@ -56,7 +56,7 @@
                         </div>
                             </div>
                         <div class="form-group">
-                                <label for="boat-type">Boat Type</label>
+                                <label for="boat-type"><i class="fas fa-ship"></i> Boat Type</label>
                                 <div class="select-wrapper">
                             <select id="boat-type" name="boat-type" class="form-control" required>
                                         <option value="" disabled selected>Select boat type...</option>
@@ -66,7 +66,7 @@
                         </div>
                             </div>
                         <div class="form-group">
-                                <label for="duration">Rental Duration</label>
+                                <label for="duration"><i class="fas fa-clock"></i> Rental Duration</label>
                                  <div class="select-wrapper">
                             <select id="duration" name="duration" class="form-control" required>
                                         <option value="" disabled selected>Select duration...</option>
@@ -82,15 +82,15 @@
                         <!-- Step 2: Details & Add-ons -->
                         <div class="form-step" id="form-step-2">
                             <div class="form-group">
-                                <label for="booking-date">Date</label>
+                                <label for="booking-date"><i class="fas fa-calendar-alt"></i> Date</label>
                                 <input type="date" id="booking-date" name="booking-date" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="booking-time">Time</label>
+                                <label for="booking-time"><i class="fas fa-hourglass-start"></i> Time</label>
                                 <input type="time" id="booking-time" name="booking-time" class="form-control" required>
                             </div>
                         <div class="form-group">
-                                <label>Add-ons (Optional)</label>
+                                <label><i class="fas fa-plus-circle"></i> Add-ons (Optional)</label>
                                 <div class="chip-group">
                                     <button type="button" class="chip-toggle" data-value="cooler">Cooler ($30)</button>
                                     <button type="button" class="chip-toggle" data-value="speaker">JBL Speaker ($20)</button>
@@ -188,6 +188,9 @@
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
             color: var(--dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         .form-control {
             width: 100%;
