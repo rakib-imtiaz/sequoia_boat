@@ -59,42 +59,79 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 document.getElementById('summary-datetime').textContent = `${formattedDate} at ${bookingTime.value}`;
 
-                // Check add-ons
+                // Check add-ons and calculate promotional pricing
                 let addons = [];
-                let total = 0;
+                let addonsTotal = 0;
 
-                if (cooler.checked) {
-                    addons.push('Cooler (+$30)');
-                    total += 30;
+                if (cooler && cooler.checked) {
+                    addons.push('Cooler (FREE - $30 value)');
+                    addonsTotal += 30;
                 }
 
-                if (speaker.checked) {
-                    addons.push('JBL Speaker (+$20)');
-                    total += 20;
+                if (speaker && speaker.checked) {
+                    addons.push('JBL Speaker (FREE - $20 value)');
+                    addonsTotal += 20;
                 }
 
-                if (drybags.checked) {
-                    addons.push('Dry Bags (+$10)');
-                    total += 10;
+                if (drybags && drybags.checked) {
+                    addons.push('Dry Bags (FREE - $10 value)');
+                    addonsTotal += 10;
                 }
 
                 document.getElementById('summary-addons').textContent = addons.length ? addons.join(', ') : 'None';
 
-                // Calculate estimated total
+                // Calculate base price using promotional pricing system
                 const isWeekend = new Date(bookingDate.value).getDay() === 0 || new Date(bookingDate.value).getDay() === 6;
                 let basePrice = 0;
 
-                if (duration.value === '2-hours') {
-                    basePrice = isWeekend ? 160 : 140;
-                } else if (duration.value === '4-hours') {
-                    basePrice = isWeekend ? 280 : 240;
-                } else if (duration.value === '6-hours') {
-                    basePrice = isWeekend ? 360 : 300;
+                // Base prices per hour (matching booking-preview.js)
+                const hourlyPrices = {
+                    single: {
+                        2: 70,
+                        4: 60,
+                        6: 50
+                    },
+                    family: {
+                        2: 90,
+                        4: 80,
+                        6: 70
+                    }
+                };
+
+                // Get duration from the duration select value
+                const durationHours = parseInt(duration.value.split('-')[0]) || parseInt(duration.value);
+                const boatTypeKey = boatType.value === 'single' ? 'single' : 'family';
+
+                if (hourlyPrices[boatTypeKey] && hourlyPrices[boatTypeKey][durationHours]) {
+                    const hourlyRate = hourlyPrices[boatTypeKey][durationHours];
+                    basePrice = hourlyRate * durationHours;
                 }
 
-                total += basePrice;
+                // Apply weekend surcharge if needed
+                if (isWeekend) {
+                    basePrice = basePrice * 1.125; // 12.5% weekend surcharge
+                }
+
+                // Final price is always the base price (promotional pricing)
+                const finalPrice = basePrice;
+
+                // Update price display
                 const priceTotalEl = document.getElementById('price-total');
-                if (priceTotalEl) priceTotalEl.textContent = `$${total.toFixed(2)}`;
+                if (priceTotalEl) {
+                    if (addonsTotal > 0) {
+                        // Show promotional pricing breakdown
+                        priceTotalEl.innerHTML = `
+                            <div class="price-breakdown-summary">
+                                <div>Base Price: $${basePrice.toFixed(2)}</div>
+                                <div>Add-ons Value: $${addonsTotal.toFixed(2)}</div>
+                                <div style="color: #4caf50; font-weight: 600;">Your Savings: -$${addonsTotal.toFixed(2)}</div>
+                                <div style="color: var(--primary); font-weight: 700; font-size: 1.1rem; border-top: 1px solid #ddd; padding-top: 0.5rem; margin-top: 0.5rem;">Final Price: $${finalPrice.toFixed(2)}</div>
+                            </div>
+                        `;
+                    } else {
+                        priceTotalEl.textContent = `$${finalPrice.toFixed(2)}`;
+                    }
+                }
             }
         }
 

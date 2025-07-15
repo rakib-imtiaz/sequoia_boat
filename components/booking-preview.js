@@ -1,6 +1,6 @@
 /**
  * Sequoia Boat Rentals & Concierge Services
- * Booking Preview Component - Mobile-First Refactor
+ * Booking Preview Component - Mobile-First Refactor with Promotional Pricing
  */
 
 (function () {
@@ -15,6 +15,13 @@
                         <div class="booking-feature"><i class="fas fa-check-circle"></i> Free cancellation</div>
                         <div class="booking-feature"><i class="fas fa-check-circle"></i> Safety gear included</div>
                         <div class="booking-feature"><i class="fas fa-check-circle"></i> No hidden fees</div>
+                    </div>
+                    
+                    <!-- Promotional Offer Badge -->
+                    <div class="promo-badge">
+                        <i class="fas fa-gift"></i>
+                        <span>FREE ADD-ONS</span>
+                        <small>Limited Time Offer</small>
                     </div>
                 </div>
                 
@@ -101,12 +108,31 @@
                                 <label for="booking-time"><i class="fas fa-hourglass-start"></i> Time</label>
                                 <input type="time" id="booking-time" name="booking-time" class="form-control" required>
                             </div>
-                        <div class="form-group">
-                                <label><i class="fas fa-plus-circle"></i> Add-ons (Optional)</label>
+                            <div class="form-group">
+                                <label><i class="fas fa-gift"></i> Add-ons (All Included FREE!)</label>
+                                <div class="addon-offer-label">
+                                    <i class="fas fa-star"></i>
+                                    <span>Special Offer: All add-ons included at no extra charge!</span>
+                                </div>
                                 <div class="chip-group">
-                                    <button type="button" class="chip-toggle" data-value="cooler">Cooler ($30)</button>
-                                    <button type="button" class="chip-toggle" data-value="speaker">JBL Speaker ($20)</button>
-                                    <button type="button" class="chip-toggle" data-value="drybags">Dry Bags ($10)</button>
+                                    <button type="button" class="chip-toggle included" data-value="cooler">
+                                        <i class="fas fa-snowflake"></i>
+                                        <span>Cooler</span>
+                                        <small>$30 value</small>
+                                        <span class="included-badge">INCLUDED</span>
+                                    </button>
+                                    <button type="button" class="chip-toggle included" data-value="speaker">
+                                        <i class="fas fa-music"></i>
+                                        <span>JBL Speaker</span>
+                                        <small>$20 value</small>
+                                        <span class="included-badge">INCLUDED</span>
+                                    </button>
+                                    <button type="button" class="chip-toggle included" data-value="drybags">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Dry Bags</span>
+                                        <small>$10 value</small>
+                                        <span class="included-badge">INCLUDED</span>
+                                    </button>
                                 </div>
                             </div>
                             <button type="button" class="btn-text" id="form-back-btn">← Back</button>
@@ -114,9 +140,23 @@
                     </form>
                     
                     <div class="booking-footer hidden" id="booking-footer">
-                        <div class="price-preview" aria-live="polite">
-                            <span>Est. Total:</span>
-                            <span id="price-total">$0.00</span>
+                        <div class="price-breakdown" id="price-breakdown">
+                            <div class="price-line base-price">
+                                <span>Base Price:</span>
+                                <span id="base-price-display">$0.00</span>
+                            </div>
+                            <div class="price-line addons-value hidden" id="addons-value-line">
+                                <span>Add-ons Value:</span>
+                                <span id="addons-value-display">$0.00</span>
+                            </div>
+                            <div class="price-line savings hidden" id="savings-line">
+                                <span>Your Savings:</span>
+                                <span id="savings-display">-$0.00</span>
+                            </div>
+                            <div class="price-line final-price">
+                                <span>Final Price:</span>
+                                <span id="price-total">$0.00</span>
+                            </div>
                         </div>
                         <button type="submit" form="quick-booking-form" class="btn btn-accent btn-lg btn-block" id="cta-btn">Check Availability</button>
                     </div>
@@ -171,6 +211,47 @@
         .booking-feature i {
             color: var(--secondary);
             margin-right: 0.5rem;
+        }
+        
+        /* PROMOTIONAL OFFER BADGE */
+        .promo-badge {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        .promo-badge i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+        
+        .promo-badge span {
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .promo-badge small {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            }
+            50% { 
+                transform: scale(1.02);
+                box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+            }
         }
         
         /* FORM CONTAINER */
@@ -240,26 +321,120 @@
             padding: 0.5rem;
         }
 
-        /* CHIPS */
+        /* ADD-ON OFFER LABEL */
+        .addon-offer-label {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .addon-offer-label i {
+            margin-right: 0.5rem;
+            color: #ffeb3b;
+        }
+
+        /* CHIPS - REDESIGNED AS INCLUDED ITEMS */
         .chip-group {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 0.75rem;
         }
+        
         .chip-toggle {
-            flex: 1 1 100%;
-            background: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: var(--radius-full);
-            padding: 0.75rem 1rem;
-            font-size: 0.9rem;
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
             cursor: pointer;
-            transition: all var(--transition-medium);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-align: left;
+            box-shadow: 0 3px 10px rgba(76, 175, 80, 0.2);
         }
-        .chip-toggle.active {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
+        
+        .chip-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .chip-toggle i {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .chip-toggle span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .chip-toggle small {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-left: auto;
+        }
+        
+        .included-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-left: 0.5rem;
+        }
+        
+        /* PRICE BREAKDOWN */
+        .price-breakdown {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .price-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .price-line:not(:last-child) {
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .price-line.base-price {
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .price-line.addons-value {
+            color: #666;
+        }
+        
+        .price-line.savings {
+            color: #4caf50;
+            font-weight: 600;
+        }
+        
+        .price-line.final-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding-top: 0.75rem;
+            border-top: 2px solid var(--primary);
+            border-bottom: none;
         }
         
         /* FOOTER & STICKY CTA */
@@ -268,13 +443,6 @@
             padding-top: 1rem;
             border-top: 1px solid #eee;
         }
-        .price-preview {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        #price-total { font-size: 1.25rem; }
         
         .booking-footer.sticky {
             position: fixed;
@@ -323,6 +491,21 @@
             #cta-btn {
                 padding: 0.7rem 1rem;
             }
+            
+            .promo-badge {
+                padding: 0.6rem 0.8rem;
+            }
+            
+            .chip-toggle {
+                padding: 0.8rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .chip-toggle small {
+                margin-left: 0;
+            }
         }
         
         /* DESKTOP STYLES */
@@ -345,12 +528,19 @@
             }
             
             .chip-group {
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
             }
             
             .chip-toggle {
-                flex: 1 0 auto;
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .promo-badge {
+                margin-top: 1.5rem;
+                padding: 1rem 1.5rem;
             }
         }
 
@@ -398,6 +588,11 @@
         const backBtn = document.getElementById('form-back-btn');
         const ctaBtn = document.getElementById('cta-btn');
             const priceTotal = document.getElementById('price-total');
+            const basePriceDisplay = document.getElementById('base-price-display');
+            const addonsValueDisplay = document.getElementById('addons-value-display');
+            const savingsDisplay = document.getElementById('savings-display');
+            const addonsValueLine = document.getElementById('addons-value-line');
+            const savingsLine = document.getElementById('savings-line');
             const chipToggles = document.querySelectorAll('.chip-toggle');
             const bookingFooter = document.getElementById('booking-footer');
 
@@ -419,13 +614,18 @@
                 updateCTA('Check Availability');
         });
 
-            // Toggle chip selection
+            // Toggle chip selection (all chips are included by default)
             chipToggles.forEach(chip => {
-            chip.addEventListener('click', () => {
-                chip.classList.toggle('active');
-                calculatePrice();
+                chip.classList.add('active'); // All add-ons are included
+                chip.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent toggling off
+                    // Show message that it's included
+                    chip.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        chip.style.transform = 'scale(1)';
+                    }, 150);
+                });
             });
-        });
 
             // Form field change event for price calculation
             const formFields = form.querySelectorAll('select, input');
@@ -441,14 +641,14 @@
                 if (ctaBtn) ctaBtn.textContent = text;
             }
             
-            // Price calculation logic
+            // Promotional pricing calculation logic
             function calculatePrice() {
                 // Get values
                 const boatType = document.getElementById('boat-type')?.value;
                 const duration = document.getElementById('duration')?.value;
                 
-                // Base prices
-                const prices = {
+                // Base prices per hour
+                const hourlyPrices = {
                     single: {
                         2: 70,
                         4: 60,
@@ -461,30 +661,48 @@
                     }
                 };
                 
-                // Add-ons
-                const addOns = {
+                // Add-ons values
+                const addOnValues = {
                     cooler: 30,
                     speaker: 20,
                     drybags: 10
                 };
                 
-                // Calculate base price
-                let total = 0;
+                // Calculate base price (hourly rate * duration)
+                let basePrice = 0;
                 if (boatType && duration) {
-                    total = prices[boatType][duration] * duration;
+                    const hourlyRate = hourlyPrices[boatType][duration];
+                    basePrice = hourlyRate * duration;
                 }
                 
-                // Add selected add-ons
-                document.querySelectorAll('.chip-toggle.active').forEach(chip => {
+                // Calculate total add-ons value (all are included)
+                let addonsValue = 0;
+                chipToggles.forEach(chip => {
                     const addOnType = chip.dataset.value;
-                    if (addOnType && addOns[addOnType]) {
-                        total += addOns[addOnType];
+                    if (addOnType && addOnValues[addOnType]) {
+                        addonsValue += addOnValues[addOnType];
                     }
                 });
                 
-                // Update UI
-                if (priceTotal) priceTotal.textContent = '$' + total.toFixed(2);
-        }
+                // Final price is always the base price (promotional pricing)
+                const finalPrice = basePrice;
+                const savings = addonsValue;
+                
+                // Update displays
+                if (basePriceDisplay) basePriceDisplay.textContent = '$' + basePrice.toFixed(2);
+                if (priceTotal) priceTotal.textContent = '$' + finalPrice.toFixed(2);
+                
+                // Show detailed breakdown if add-ons are selected
+                if (addonsValue > 0) {
+                    if (addonsValueDisplay) addonsValueDisplay.textContent = '$' + addonsValue.toFixed(2);
+                    if (savingsDisplay) savingsDisplay.textContent = '-$' + savings.toFixed(2);
+                    if (addonsValueLine) addonsValueLine.classList.remove('hidden');
+                    if (savingsLine) savingsLine.classList.remove('hidden');
+                } else {
+                    if (addonsValueLine) addonsValueLine.classList.add('hidden');
+                    if (savingsLine) savingsLine.classList.add('hidden');
+                }
+            }
 
         function toggleRequired(activeStep){
             document.querySelectorAll('.form-step').forEach(step=>{
@@ -516,8 +734,8 @@
             document.getElementById('lake').value=pkg.lake;
             document.getElementById('boat-type').value=pkg.boat;
             document.getElementById('duration').value=pkg.duration;
-            // set add-on chips
-            chipToggles.forEach(ch=>{ch.classList.toggle('active',!!pkg.addons[ch.dataset.value]);});
+            // All add-ons are included by default
+            chipToggles.forEach(ch=>{ch.classList.add('active');});
             calculatePrice();
         });});
 
@@ -535,6 +753,11 @@
             bookingFooter.classList.toggle('hidden', true);    // hide internal CTA
           });
         });
+        
+        // Initialize price calculation
+        setTimeout(() => {
+            calculatePrice();
+        }, 100);
         });
     </script>
     `;

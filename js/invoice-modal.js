@@ -12,7 +12,7 @@
  */
 async function showInvoiceModal(bookingData, bookingId) {
     return new Promise((resolve) => {
-        // Format addon items for display
+                // Format addon items for display
         const addonsArray = [];
         let addonsTotal = 0;
 
@@ -42,7 +42,11 @@ async function showInvoiceModal(bookingData, bookingId) {
 
         // Parse the estimated total from string (e.g. "$140.00")
         const estimatedTotal = parseFloat(bookingData.estimatedTotal.replace(/[^0-9.]/g, ''));
-        const basePrice = estimatedTotal - addonsTotal;
+
+        // In promotional pricing, final price is always the base price
+        const basePrice = estimatedTotal;
+        const finalPrice = basePrice;
+        const savings = addonsTotal;
 
         // Generate invoice number from booking id and date
         const invoiceNum = `SBR-${new Date().getFullYear()}-${bookingId.substring(0, 6).toUpperCase()}`;
@@ -56,7 +60,7 @@ async function showInvoiceModal(bookingData, bookingId) {
             day: 'numeric'
         });
 
-        // Build the invoice HTML
+        // Build the invoice HTML with promotional pricing
         const invoiceHTML = `
             <div class="invoice-container">
                 <div class="invoice-header">
@@ -80,6 +84,11 @@ async function showInvoiceModal(bookingData, bookingId) {
                     <p><strong>Boat Type:</strong> ${bookingData.boatType}</p>
                 </div>
                 
+                <div class="promotional-notice">
+                    <i class="fas fa-gift"></i>
+                    <span>Special Offer: All add-ons included FREE!</span>
+                </div>
+                
                 <table class="invoice-items">
                     <thead>
                         <tr>
@@ -93,16 +102,30 @@ async function showInvoiceModal(bookingData, bookingId) {
                             <td class="text-right">$${basePrice.toFixed(2)}</td>
                         </tr>
                         ${addonsArray.map(addon => `
-                            <tr>
-                                <td>${addon.name}</td>
-                                <td class="text-right">$${addon.price.toFixed(2)}</td>
+                            <tr class="addon-row">
+                                <td>
+                                    ${addon.name}
+                                    <span class="addon-badge">FREE</span>
+                                    <small class="addon-value">($${addon.price.toFixed(2)} value)</small>
+                                </td>
+                                <td class="text-right addon-price">$0.00</td>
                             </tr>
                         `).join('')}
+                        ${addonsTotal > 0 ? `
+                            <tr class="savings-row">
+                                <td><strong>Add-ons Total Value:</strong></td>
+                                <td class="text-right">$${addonsTotal.toFixed(2)}</td>
+                            </tr>
+                            <tr class="savings-row">
+                                <td><strong>Your Savings:</strong></td>
+                                <td class="text-right savings-amount">-$${savings.toFixed(2)}</td>
+                            </tr>
+                        ` : ''}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Total</th>
-                            <th class="text-right">$${estimatedTotal.toFixed(2)}</th>
+                            <th>Total Amount Due</th>
+                            <th class="text-right">$${finalPrice.toFixed(2)}</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -112,6 +135,58 @@ async function showInvoiceModal(bookingData, bookingId) {
                     <p>Please complete your booking by proceeding to the secure payment checkout.</p>
                 </div>
             </div>
+            
+            <style>
+                .promotional-notice {
+                    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+                    color: white;
+                    padding: 0.75rem 1rem;
+                    border-radius: 8px;
+                    text-align: center;
+                    margin: 1rem 0;
+                    font-weight: 600;
+                }
+                
+                .promotional-notice i {
+                    margin-right: 0.5rem;
+                    color: #ffeb3b;
+                }
+                
+                .addon-row {
+                    background: #f8f9fa;
+                }
+                
+                .addon-badge {
+                    background: #4caf50;
+                    color: white;
+                    padding: 0.2rem 0.5rem;
+                    border-radius: 12px;
+                    font-size: 0.7rem;
+                    font-weight: 700;
+                    margin-left: 0.5rem;
+                }
+                
+                .addon-value {
+                    display: block;
+                    color: #666;
+                    font-size: 0.8rem;
+                    margin-top: 0.25rem;
+                }
+                
+                .addon-price {
+                    color: #4caf50;
+                    font-weight: 600;
+                }
+                
+                .savings-row {
+                    background: #e8f5e8;
+                }
+                
+                .savings-amount {
+                    color: #4caf50;
+                    font-weight: 700;
+                }
+            </style>
         `;
 
         // Set up the modal
