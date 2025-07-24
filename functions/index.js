@@ -6,6 +6,43 @@ exports.helloWorld = functions.https.onCall((data, context) => {
   return { message: "Hello from Firebase!" };
 });
 
+// Payment verification function
+exports.verifyPayment = functions.https.onCall(async (data, context) => {
+  const { sessionId } = data;
+  
+  if (!sessionId) {
+    throw new functions.https.HttpsError('invalid-argument', 'Missing sessionId');
+  }
+
+  try {
+    const admin = require('firebase-admin');
+    if (!admin.apps.length) {
+      admin.initializeApp();
+    }
+
+    // Get the booking document that matches this session ID
+    const bookingsRef = admin.firestore().collection('bookings');
+    const querySnapshot = await bookingsRef.where('paymentSessionId', '==', sessionId).get();
+
+    if (querySnapshot.empty) {
+      throw new functions.https.HttpsError('not-found', 'No booking found with this session ID');
+    }
+
+    // Update the first matching booking
+    const bookingDoc = querySnapshot.docs[0];
+    await bookingDoc.ref.update({
+      isPaid: true,
+      paymentStatus: 'paid',
+      paymentVerifiedAt: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    return { success: true, message: 'Payment verified and booking updated' };
+  } catch (error) {
+    console.error('Error verifying payment:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to verify payment');
+  }
+});
+
 /*
 // Your original Stripe function code is commented out below for testing.
 // We will restore it once deployment is successful.
