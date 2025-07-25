@@ -133,7 +133,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .bento-card-new:hover {
             transform: translateY(-8px) scale(1.03);
             background: rgba(255, 255, 255, 0.12);

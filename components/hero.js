@@ -14,16 +14,28 @@
         <div class="video-overlay"></div>
         
         <div class="hero-content container">
-            <div class="hero-text fade-in hero-card">
-                <span class="line top"></span>
-                <span class="line right"></span>
-                <span class="line bottom"></span>
-                <span class="line left"></span>
-                <span class="hero-tagline">A Variety of Charters for Everyone</span>
-                <h1>Inspirational Routes</h1>
-                <p class="hero-subtitle">Discover the pristine waters surrounding Kamloops with our eco-friendly inflatable boats. Each lake offers a unique experience!</p>
-                <div class="hero-cta">
-                    <a href="#booking-preview-container" class="btn slide-up delay-1">Book Your Adventure</a>
+            <div class="hero-text-rotator">
+                <div class="hero-text-slide inspirational-routes active">
+                    <span class="line top"></span>
+                    <span class="line right"></span>
+                    <span class="line bottom"></span>
+                    <span class="line left"></span>
+                    <span class="hero-tagline">A Variety of Charters for Everyone</span>
+                    <h1>Inspirational Routes</h1>
+                    <p class="hero-subtitle">Discover the pristine waters surrounding Kamloops with our eco-friendly inflatable boats. Each lake offers a unique experience!</p>
+                    <div class="hero-cta">
+                        <a href="#booking-preview-container" class="btn">Book Your Adventure</a>
+                    </div>
+                </div>
+
+                <div class="hero-text-slide partnering-with">
+                    <h2>In partnership with</h2>
+                </div>
+
+                <div class="hero-text-slide turo-logo-slide">
+                    <div class="turo-logo-background">
+                        <img src="images/turo-logo.png" alt="Turo Logo">
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,9 +85,36 @@
             min-height: calc(100vh - 160px);
         }
         
-        .hero-text {
-            text-align: center;
+        .hero-text-rotator {
+            position: relative;
+            width: 100%;
             max-width: 650px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-text-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .hero-text-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-text-slide.inspirational-routes {
             background-color: transparent;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -83,6 +122,66 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.18);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .line {
+            position: absolute;
+            background: rgba(255,255,255,0.8);
+            transition: all 0.5s ease;
+        }
+        .line.top,
+        .line.bottom { height:2px; width:0; }
+        .line.left,
+        .line.right { width:2px; height:0; }
+        .line.top{ top:0; left:0; }
+        .line.right{ top:0; right:0; }
+        .line.bottom{ bottom:0; right:0; }
+        .line.left{ bottom:0; left:0; }
+
+        .hero-text-slide.inspirational-routes.active .line.top,
+        .hero-text-slide.inspirational-routes.active .line.bottom{
+             width:100%;
+             transition-delay: 0.8s;
+        }
+        .hero-text-slide.inspirational-routes.active .line.left,
+        .hero-text-slide.inspirational-routes.active .line.right{
+             height:100%;
+             transition-delay: 0.3s;
+        }
+        
+        .partnering-with h2 {
+            font-size: 2.5rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .turo-logo-slide .turo-logo-background {
+            width: 220px;
+            height: 220px;
+            background-color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.8s ease;
+        }
+
+        .turo-logo-slide.active .turo-logo-background {
+            transform: scale(1);
+        }
+
+        .turo-logo-slide img {
+            width: 150px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+        }
+
+        .turo-logo-slide.active img {
+            opacity: 1;
+            transform: scale(1);
         }
         
         .hero-tagline {
@@ -427,19 +526,23 @@
                 slideUpElements.forEach(el => el.classList.add('animated'));
             }, 300);
             
-            // Slider functionality (for future multi-slide hero)
-            const prevArrow = document.querySelector('.nav-arrow.prev');
-            const nextArrow = document.querySelector('.nav-arrow.next');
-            
-            // Example slide handling (can be expanded for multiple slides)
-            if (prevArrow && nextArrow) {
-                prevArrow.addEventListener('click', () => {
-                    console.log('Previous slide');
-                });
+            // Hero Rotator Animation
+            const rotator = document.querySelector('.hero-text-rotator');
+            if (rotator) {
+                const slides = rotator.querySelectorAll('.hero-text-slide');
+                let currentSlide = 0;
                 
-                nextArrow.addEventListener('click', () => {
-                    console.log('Next slide');
-                });
+                const slideTimings = [3000, 2000, 3000];
+                
+                function showNextSlide() {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                    
+                    setTimeout(showNextSlide, slideTimings[currentSlide]);
+                }
+                
+                setTimeout(showNextSlide, slideTimings[0]);
             }
             // Add draw class to hero-card after delay
             const heroCard=document.querySelector('.hero-card');
