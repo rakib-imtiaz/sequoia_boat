@@ -118,10 +118,15 @@
         
         .bento-card-new {
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             padding: 1rem; /* Base padding for tap target */
             color: var(--white);
             transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -129,16 +134,6 @@
             overflow: hidden;
         }
         
-        .bento-card-new::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity var(--transition-medium);
-        }
-
         .bento-card-new:hover {
             transform: translateY(-8px) scale(1.03);
             background: rgba(255, 255, 255, 0.12);
@@ -215,9 +210,6 @@
                 grid-row: auto !important;
                 box-shadow: 0 2px 15px rgba(0,0,0,.15); /* Add shadow on mobile */
                 padding: 16px; /* Ensure 44px tap target */
-            }
-            .bento-card-new::after {
-                opacity: 1; /* Activate legibility gradient */
             }
         }
     </style>

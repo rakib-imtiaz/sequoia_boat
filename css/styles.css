@@ -462,6 +462,7 @@ p {
     font-size: 1.8rem;
 }
 
+/* Removed blue line under section headings
 .section-heading:after {
     content: '';
     position: absolute;
@@ -472,11 +473,7 @@ p {
     background-color: var(--secondary);
     border-radius: var(--radius-full);
 }
-
-.section-heading.text-center:after {
-    left: 50%;
-    transform: translateX(-50%);
-}
+*/
 
 .section-subtitle {
     font-size: 1rem;

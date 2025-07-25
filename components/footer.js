@@ -225,20 +225,10 @@
         
         .footer-links-column h4 {
             color: var(--white);
+            font-size: 1.2rem;
             margin-bottom: var(--space-md);
             position: relative;
             padding-bottom: var(--space-xs);
-        }
-        
-        .footer-links-column h4::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: var(--secondary);
-            border-radius: var(--radius-full);
         }
         
         .footer-links-column ul {
@@ -386,10 +376,6 @@
             }
             .footer-links {
                 text-align: center;
-            }
-            .footer-links-column h4::after {
-                left: 50%;
-                transform: translateX(-50%);
             }
             .footer-links-column ul li a:hover {
                 transform: none;

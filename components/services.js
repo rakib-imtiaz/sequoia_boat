@@ -8,7 +8,7 @@
     <div class="services section-padding" style="background-color: #f8f9fa;">
         <div class="container">
             <h2 class="section-heading text-center">Our Services</h2>
-            <p class="section-subtitle text-center">From boat rentals to concierge services, we provide everything you need for your lake adventure.</p>
+            <p class="section-subtitle text-center" style="color: #4ECDC4;">From boat rentals to concierge services, we provide everything you need for your lake adventure.</p>
 
             <div class="services-slider-tabs">
                 <button class="service-tab-button active" data-tab="boat-rentals-slider">

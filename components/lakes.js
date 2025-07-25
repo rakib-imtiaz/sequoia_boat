@@ -8,7 +8,7 @@
     <div class="lakes section-padding">
         <div class="container">
             <h2 class="section-heading text-center">Explore Our Lakes</h2>
-            <p class="section-subtitle text-center">Discover the pristine waters surrounding Kamloops with our eco-friendly inflatable boats. Each lake offers a unique experience!</p>
+            <p class="section-subtitle text-center" style="color: #4ECDC4;">Discover the pristine waters surrounding Kamloops with our eco-friendly inflatable boats. Each lake offers a unique experience!</p>
             
             <!-- Interactive Leaflet Map -->
             <div class="lakes-map-container mb-5">

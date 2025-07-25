@@ -8,7 +8,7 @@
     <div class="features section-padding bg-light">
         <div class="container">
             <h2 class="section-heading text-center">Why Choose Us</h2>
-            <p class="section-subtitle text-center">We offer a premium experience that makes your lake adventure hassle-free and unforgettable</p>
+            <p class="section-subtitle text-center" style="color: #4ECDC4;">We offer a premium experience that makes your lake adventure hassle-free and unforgettable</p>
             
             <div class="features-grid grid grid-3">
                 <div class="feature-card card fade-in">

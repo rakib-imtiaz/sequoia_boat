@@ -14,7 +14,11 @@
         <div class="video-overlay"></div>
         
         <div class="hero-content container">
-            <div class="hero-text fade-in">
+            <div class="hero-text fade-in hero-card">
+                <span class="line top"></span>
+                <span class="line right"></span>
+                <span class="line bottom"></span>
+                <span class="line left"></span>
                 <span class="hero-tagline">A Variety of Charters for Everyone</span>
                 <h1>Inspirational Routes</h1>
                 <p class="hero-subtitle">Discover the pristine waters surrounding Kamloops with our eco-friendly inflatable boats. Each lake offers a unique experience!</p>
@@ -64,7 +68,9 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            align-items: center;
             padding-bottom: 10%;
+            min-height: calc(100vh - 160px);
         }
         
         .hero-text {
@@ -74,7 +80,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 2rem;
-            border-radius: var(--radius-md);
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.18);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
@@ -329,6 +335,69 @@
                 height: 80px;
             }
         }
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-card .line {
+            position: absolute;
+            background: rgba(255,255,255,0.8);
+            transition: all 1s ease;
+            border-radius: 2px;
+        }
+        
+        .hero-card .line.top,
+        .hero-card .line.bottom { 
+            height: 2px; 
+            width: 0; 
+        }
+        
+        .hero-card .line.left,
+        .hero-card .line.right { 
+            width: 2px; 
+            height: 0; 
+        }
+        
+        .hero-card .line.top { 
+            top: 0; 
+            left: 20px; 
+            border-radius: 2px 0 0 2px;
+        }
+        
+        .hero-card .line.right { 
+            top: 20px; 
+            right: 0; 
+            border-radius: 0 2px 2px 0;
+        }
+        
+        .hero-card .line.bottom { 
+            bottom: 0; 
+            right: 20px; 
+            border-radius: 0 0 2px 2px;
+        }
+        
+        .hero-card .line.left { 
+            bottom: 20px; 
+            left: 0; 
+            border-radius: 2px 0 0 2px;
+        }
+        
+        .hero-card.draw .line.top { 
+            width: calc(100% - 40px); 
+        }
+        
+        .hero-card.draw .line.bottom { 
+            width: calc(100% - 40px); 
+        }
+        
+        .hero-card.draw .line.left { 
+            height: calc(100% - 40px); 
+        }
+        
+        .hero-card.draw .line.right { 
+            height: calc(100% - 40px); 
+        }
     </style>
     
     <script>
@@ -372,6 +441,9 @@
                     console.log('Next slide');
                 });
             }
+            // Add draw class to hero-card after delay
+            const heroCard=document.querySelector('.hero-card');
+            setTimeout(()=>{ if(heroCard) heroCard.classList.add('draw'); },600);
         });
     </script>
     `;
